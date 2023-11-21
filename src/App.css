@@ -1,38 +1,46 @@
-.App {
-  text-align: center;
+/* Estilos para el contenedor principal */
+.container {
+  padding-top: 20px; /* Espaciado superior para separar del borde superior */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Estilos para la fila que contiene las columnas */
+.row {
+  display: flex; /* Utiliza Flexbox para alinear las columnas */
+  justify-content: flex-start; /* Alinea las columnas a la izquierda */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Estilos para la columna del menú vertical */
+.col-md-3 {
+  /* Establece cualquier estilo necesario para el menú vertical aquí */
+  background-color: #f2f2f2; /* Ejemplo de fondo gris claro */
+  padding: 20px; /* Espaciado interior para el menú */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Estilos para la columna del contenido principal */
+.col-md-9 {
+  /* Establece cualquier estilo necesario para el contenido principal aquí */
+  padding: 20px; /* Espaciado interior para el contenido */
+}
+
+/* Estilos adicionales según sea necesario */
+/* styles.css */
+
+/* Estilos para el contenedor principal */
+.container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-direction: row; /* Alinea los elementos en una fila horizontal */
 }
 
-.App-link {
-  color: #61dafb;
+/* Estilos para el menú vertical */
+.vertical-menu {
+  width: 200px; /* Ancho fijo del menú vertical */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Estilos para el contenido principal */
+.content {
+  margin-left: 20px; /* Espacio a la izquierda del contenido principal */
+  flex: 1; /* Permite que el contenido principal ocupe el espacio restante */
+}
+.form-column {
+  margin-left: 40px;
 }

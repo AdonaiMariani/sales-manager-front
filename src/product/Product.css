@@ -1,0 +1,23 @@
+.product-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .product-row td {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .btn {
+    margin: 0 5px;
+  }
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  .name-column {
+    width: 400px;
+  }
