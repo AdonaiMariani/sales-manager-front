@@ -120,7 +120,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-
+import './CreateInvoiceForm.css';
 const CreateInvoiceForm = ({ customers, products, onCreate }) => {
     const currentDate = new Date();
     const formattedDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
@@ -177,52 +177,92 @@ const CreateInvoiceForm = ({ customers, products, onCreate }) => {
     };
     const total = cart.reduce((sum, product) => sum + product.price * product.quantity, 0);
 
-    
-    return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                 Date:
-                 <input type="date" value={date} onChange={e => setDate(e.target.value)} />
-             </label>
-             <label>
-                 Customer:
-                 <select value={customer} onChange={e => setCustomer(e.target.value)}>
-                     {customers && customers.map(customer => (
-                        <option key={customer.id} value={customer.id}>{customer.name}</option>
-                    ))}
-                </select>
-            </label>
+//CÓDIGO QUE NO IMPLEMENTA CSS    
+//     return (
+//         <form onSubmit={handleSubmit}>
+//             <label>
+//                  Date:
+//                  <input type="date" value={date} onChange={e => setDate(e.target.value)} />
+//              </label>
+//              <label>
+//                  Customer:
+//                  <select value={customer} onChange={e => setCustomer(e.target.value)}>
+//                      {customers && customers.map(customer => (
+//                         <option key={customer.id} value={customer.id}>{customer.name}</option>
+//                     ))}
+//                 </select>
+//             </label>
             
-            {/* <label>
-                Product:
-                <input type="text" value={productSearch} onChange={e => setProductSearch(e.target.value)} />
-                <input type="number" min="1" value={quantity} onChange={e => setQuantity(e.target.value)} />
-                <button type="button" onClick={handleAddProduct}>Add Product</button>
-            </label> */}
-            <label>
-                Product:
-                <input type="text" value={productSearch} onChange={handleProductSearch} />
-                {searchResults.map(product => (
-                    <div key={product.id} onClick={() => handleProductSelect(product)}>
-                        {product.name}
-                    </div>
+//             {/* <label>
+//                 Product:
+//                 <input type="text" value={productSearch} onChange={e => setProductSearch(e.target.value)} />
+//                 <input type="number" min="1" value={quantity} onChange={e => setQuantity(e.target.value)} />
+//                 <button type="button" onClick={handleAddProduct}>Add Product</button>
+//             </label> */}
+//             <label>
+//                 Product:
+//                 <input type="text" value={productSearch} onChange={handleProductSearch} />
+//                 {searchResults.map(product => (
+//                     <div key={product.id} onClick={() => handleProductSelect(product)}>
+//                         {product.name}
+//                     </div>
+//                 ))}
+//                 <input type="number" min="1" value={quantity} onChange={e => setQuantity(e.target.value)} />
+//                 <button type="button" onClick={handleAddProduct}>Add Product</button>
+//             </label>
+//             {cart.map((product, index) => (
+//                 <div key={index}>
+//                     <span>{product.name}</span>
+//                     <span>{product.quantity}</span>
+//                     <span>{product.price}</span>
+//                     <span>{product.price * product.quantity}</span>
+//                     <button onClick={() => handleRemoveProduct(index)}>Remove</button>
+//                 </div>
+//             ))}
+//             <div>Total: {total}</div>
+//             <input type="submit" value="Create Invoice" />
+//         </form>
+//     );
+// };
+
+//CÓDIGO IMPLEMENTANDO CSS
+return (
+    <form onSubmit={handleSubmit}>
+        <label>
+            Date:
+            <input type="date" value={date} onChange={e => setDate(e.target.value)} />
+        </label>
+        <label>
+            Customer:
+            <select value={customer} onChange={e => setCustomer(e.target.value)}>
+                {customers && customers.map(customer => (
+                    <option key={customer.id} value={customer.id}>{customer.name}</option>
                 ))}
-                <input type="number" min="1" value={quantity} onChange={e => setQuantity(e.target.value)} />
-                <button type="button" onClick={handleAddProduct}>Add Product</button>
-            </label>
-            {cart.map((product, index) => (
-                <div key={index}>
-                    <span>{product.name}</span>
-                    <span>{product.quantity}</span>
-                    <span>{product.price}</span>
-                    <span>{product.price * product.quantity}</span>
-                    <button onClick={() => handleRemoveProduct(index)}>Remove</button>
+            </select>
+        </label>
+        <label>
+            Product:
+            <input type="text" value={productSearch} onChange={handleProductSearch} />
+            {searchResults.map(product => (
+                <div key={product.id} onClick={() => handleProductSelect(product)}>
+                    {product.name}
                 </div>
             ))}
-            <div>Total: {total}</div>
-            <input type="submit" value="Create Invoice" />
-        </form>
-    );
-};
+            <input type="number" min="1" value={quantity} onChange={e => setQuantity(e.target.value)} />
+            <button type="button" onClick={handleAddProduct}>Add Product</button>
+        </label>
+        {cart.map((product, index) => (
+            <div key={index}>
+                <span>{product.name}</span>
+                <span>{product.quantity}</span>
+                <span>{product.price}</span>
+                <span>{product.price * product.quantity}</span>
+                <button onClick={() => handleRemoveProduct(index)}>Remove</button>
+            </div>
+        ))}
+        <div>Total: {total}</div>
+        <input type="submit" value="Create Invoice" />
+    </form>
+);}
 
 export default CreateInvoiceForm;
