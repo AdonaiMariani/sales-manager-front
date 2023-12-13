@@ -52,48 +52,109 @@ import EditProduct from "./components/editProduct/EditProduct";
 import VerticalMenu from "./components/verticalMenu/VerticalMenu";
 import NewCustomer from "./components/newCustomer/NewCustomer";
 import EditCustomer from "./components/editCustomer/EditCustomer";
-import CreateInvoiceForm from "./components/createInvoiceForm/CreateInvoiceForm";
+import NewInvoice from "./components/NewInvoice/NewInvoice";
+import InvoiceList from "./components/invoiceList/InvoiceList";
+import Home from "./components/home/Home";
 function App() {
   const [customers, setCustomers] = useState([]);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     // Función para obtener los datos de los clientes
+    // const fetchCustomers = async () => {
+    //   const response = await fetch("http://localhost:8080/customers");
+    //   const data = await response.json();
+    //   setCustomers(data);
+    // };
+    //agrego manejo de errores
     const fetchCustomers = async () => {
-      const response = await fetch("http://localhost:8080/customers");
-      const data = await response.json();
-      setCustomers(data);
+      try {
+        const response = await fetch("http://localhost:8080/customers");
+    
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+    
+        const data = await response.json();
+        setCustomers(data);
+      } catch (error) {
+        console.error('Error fetching customers:', error);
+      }
     };
-
     // Función para obtener los datos de los productos
+    // const fetchProducts = async () => {
+    //   const response = await fetch("http://localhost:8080/products");
+    //   const data = await response.json();
+    //   setProducts(data);
+    // };
+    //agrego manejo de errores
     const fetchProducts = async () => {
-      const response = await fetch("http://localhost:8080/products");
-      const data = await response.json();
-      setProducts(data);
+      try {
+        const response = await fetch("http://localhost:8080/products");
+    
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+    
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
     };
-
     // Llama a las funciones para obtener los datos
     fetchCustomers();
     fetchProducts();
   }, []);
 
+  // const handleCreate = async (invoice) => {
+  //   console.log(invoice);
+  //   const response = await fetch("http://localhost:8080/invoices", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(invoice),
+  //   });
+
+  //   if (!response.ok) {
+  //     console.error("Error creating invoice:", response.statusText);
+  //     return;
+  //   }
+
+  //   const createdInvoice = await response.json();
+  //   console.log("Created invoice:", createdInvoice);
+  // };
   const handleCreate = async (invoice) => {
-    const response = await fetch("/api/invoices", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(invoice),
-    });
+    for (const product of invoice.products) {
+        const invoiceToSend = {
+            customer: { id: invoice.customer },
+            product: { id: product.id },
+            quantity: product.quantity,
+            price: product.price,
+            total_price: product.price * product.quantity,
+            date: invoice.date
+        };
 
-    if (!response.ok) {
-      console.error("Error creating invoice:", response.statusText);
-      return;
+        console.log(invoiceToSend);
+
+        const response = await fetch("http://localhost:8080/invoices", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(invoiceToSend),
+        });
+
+        if (!response.ok) {
+            console.error("Error creating invoice:", response.statusText);
+            return;
+        }
+
+        const createdInvoice = await response.json();
+        console.log("Created invoice:", createdInvoice);
     }
-
-    const createdInvoice = await response.json();
-    console.log("Created invoice:", createdInvoice);
-  };
+};
 
   return (
     <Router>
@@ -117,17 +178,19 @@ function App() {
             SALES MANAGEMENT
             <div className="col-md-9 form-column">
               <Routes>
-                <Route path="/" element={<ProductList />} />
+                <Route path="/" element={<Home/>} />
+                <Route path="/products" element={<ProductList />} />
                 <Route path="/newProduct" element={<NewProduct />} />
                 <Route path="/products/:id" element={<EditProduct />} />
                 <Route path="/customers" element={<CustomerList />} />
                 <Route path="/newCustomer" element={<NewCustomer />} />
                 <Route path="/customers/:id" element={<EditCustomer />} />
+                <Route path="/invoices" element={<InvoiceList />} />
                 {/* <Route path="/createInvoice" element={<CreateInvoiceForm onCreate={handleCreate} />} /> Nueva ruta para el formulario de creación de facturas */}
                 <Route
-                  path="/createInvoice"
+                  path="/newInvoice"
                   element={
-                    <CreateInvoiceForm
+                    <NewInvoice
                       customers={customers}
                       products={products}
                       onCreate={handleCreate}

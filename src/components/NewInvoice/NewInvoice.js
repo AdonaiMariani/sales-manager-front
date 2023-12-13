@@ -120,8 +120,8 @@
 
 
 import React, { useState, useEffect } from 'react';
-import './CreateInvoiceForm.css';
-const CreateInvoiceForm = ({ customers, products, onCreate }) => {
+import './NewInvoice.css';
+const NewInvoice = ({ customers, products, onCreate }) => {
     const currentDate = new Date();
     const formattedDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
 
@@ -265,4 +265,4 @@ return (
     </form>
 );}
 
-export default CreateInvoiceForm;
+export default NewInvoice;

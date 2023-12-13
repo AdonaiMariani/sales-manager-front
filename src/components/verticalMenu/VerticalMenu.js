@@ -56,7 +56,7 @@ const VerticalMenu = () => {
       <div className="dropdown">
         <button className="dropbtn">Products</button>
         <div className="dropdown-content">
-          <Link to="/">See Products</Link>
+          <Link to="/products">See Products</Link>
           <Link to="/newProduct">Add Product</Link>
         </div>
       </div>
@@ -70,7 +70,8 @@ const VerticalMenu = () => {
       <div className="dropdown">
         <button className="dropbtn">Invoices</button>
         <div className="dropdown-content">
-          <Link to="/createInvoice">Create Invoice</Link>
+          <Link to="/invoices">See Invoices</Link>
+          <Link to="/newInvoice">New Invoice</Link>
         </div>
       </div>
     </div>
