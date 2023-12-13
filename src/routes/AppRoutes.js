@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import CreateInvoiceForm from "../components/createInvoiceForm/CreateInvoiceForm";
+
 import EditCustomer from "../components/editCustomer/EditCustomer";
 import NewCustomer from "../components/newCustomer/NewCustomer";
 import CustomersList from "../components/customerList/CustomerList";
@@ -7,7 +7,8 @@ import EditProduct from "../components/editProduct/EditProduct";
 import NewProduct from "../components/newProduct/NewProduct";
 import ProductsList from "../components/productList/ProductsList";
 import Home from "../components/home/Home";
-import LoginPage from "../components/auth/pages/LoginPage";
+
+import NewInvoice from "../components/NewInvoice/NewInvoice";
 
 const AppRoutes = ({ customers, products, handleCreate }) => {
   return (
@@ -23,7 +24,7 @@ const AppRoutes = ({ customers, products, handleCreate }) => {
       <Route
         path="/createInvoice"
         element={
-          <CreateInvoiceForm
+          <NewInvoice
             customers={customers}
             products={products}
             onCreate={handleCreate}

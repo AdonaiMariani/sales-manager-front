@@ -1,21 +1,21 @@
-import "./App.css";
-import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
-import React from "react";
+// import "./App.css";
+// import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+// import React from "react";
 
-import Home from "./components/home/Home";
-import LoginPage from "./components/auth/pages/LoginPage";
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/login" element={<LoginPage />} />
-      </Routes>
-    </Router>
-  );
-}
+// import Home from "./components/home/Home";
+// import LoginPage from "./components/auth/pages/LoginPage";
+// function App() {
+//   return (
+//     <Router>
+//       <Routes>
+//         <Route path="/home" element={<Home />} />
+//         <Route path="/login" element={<LoginPage />} />
+//       </Routes>
+//     </Router>
+//   );
+// }
 
-export default App;
+// export default App;
 
 // import './App.css';
 // import ProductList from "./components/ProductsList";
@@ -203,11 +203,13 @@ function App() {
                 <Route path="/customers" element={<CustomerList />} />
                 <Route path="/newCustomer" element={<NewCustomer />} />
                 <Route path="/customers/:id" element={<EditCustomer />} />
+                <Route path="/invoices" element={<InvoiceList />} />
+                <Route path="/home" element={<Home />} />
                 {/* <Route path="/createInvoice" element={<CreateInvoiceForm onCreate={handleCreate} />} /> Nueva ruta para el formulario de creación de facturas */}
                 <Route
                   path="/createInvoice"
                   element={
-                    <CreateInvoiceForm
+                    <NewInvoice
                       customers={customers}
                       products={products}
                       onCreate={handleCreate}
