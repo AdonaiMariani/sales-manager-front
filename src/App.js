@@ -1,3 +1,22 @@
+import "./App.css";
+import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+import React from "react";
+
+import Home from "./components/home/Home";
+import LoginPage from "./components/auth/pages/LoginPage";
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<LoginPage />} />
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
+
 // import './App.css';
 // import ProductList from "./components/ProductsList";
 // import { Route, BrowserRouter as Router } from "react-router-dom";
@@ -178,19 +197,17 @@ function App() {
             SALES MANAGEMENT
             <div className="col-md-9 form-column">
               <Routes>
-                <Route path="/" element={<Home/>} />
-                <Route path="/products" element={<ProductList />} />
+                <Route path="/" element={<ProductList />} />
                 <Route path="/newProduct" element={<NewProduct />} />
                 <Route path="/products/:id" element={<EditProduct />} />
                 <Route path="/customers" element={<CustomerList />} />
                 <Route path="/newCustomer" element={<NewCustomer />} />
                 <Route path="/customers/:id" element={<EditCustomer />} />
-                <Route path="/invoices" element={<InvoiceList />} />
                 {/* <Route path="/createInvoice" element={<CreateInvoiceForm onCreate={handleCreate} />} /> Nueva ruta para el formulario de creación de facturas */}
                 <Route
-                  path="/newInvoice"
+                  path="/createInvoice"
                   element={
-                    <NewInvoice
+                    <CreateInvoiceForm
                       customers={customers}
                       products={products}
                       onCreate={handleCreate}
