@@ -22,7 +22,7 @@ const AppRoutes = ({ customers, products, handleCreate }) => {
       <Route path="/customers/:id" element={<EditCustomer />} />
       {/* <Route path="/createInvoice" element={<CreateInvoiceForm onCreate={handleCreate} />} /> Nueva ruta para el formulario de creación de facturas */}
       <Route
-        path="/createInvoice"
+        path="/newInvoice"
         element={
           <NewInvoice
             customers={customers}

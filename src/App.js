@@ -197,17 +197,18 @@ function App() {
             SALES MANAGEMENT
             <div className="col-md-9 form-column">
               <Routes>
-                <Route path="/" element={<ProductList />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/products" element={<ProductList />} />
                 <Route path="/newProduct" element={<NewProduct />} />
                 <Route path="/products/:id" element={<EditProduct />} />
                 <Route path="/customers" element={<CustomerList />} />
                 <Route path="/newCustomer" element={<NewCustomer />} />
                 <Route path="/customers/:id" element={<EditCustomer />} />
                 <Route path="/invoices" element={<InvoiceList />} />
-                <Route path="/home" element={<Home />} />
+                
                 {/* <Route path="/createInvoice" element={<CreateInvoiceForm onCreate={handleCreate} />} /> Nueva ruta para el formulario de creación de facturas */}
                 <Route
-                  path="/createInvoice"
+                  path="/newInvoice"
                   element={
                     <NewInvoice
                       customers={customers}
