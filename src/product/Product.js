@@ -6,7 +6,6 @@ const Product = ({ product, handleDeleteProduct }) => {
   return (
     <tr>
       <td>{product.id}</td>
-      {/* <td>{product.name}</td> */}
       <td className="name-column">{product.name}</td>
       <td>{product.brand}</td>
       <td>{product.category}</td>

@@ -1,0 +1,57 @@
+.invoice-print-container {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: white;
+    color: black;
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  .invoice-header, .invoice-customer, .invoice-details, .invoice-total {
+    margin-bottom: 20px;
+  }
+  
+  .invoice-header img {
+    max-width: 100px;
+    margin-bottom: 20px;
+  }
+  
+  .invoice-header div, .invoice-customer h2, .invoice-customer p {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .invoice-details {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .invoice-details th, .invoice-details td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .invoice-details th {
+    background-color: #f2f2f2;
+  }
+  
+  .invoice-total {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: right;
+  }
+  
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }

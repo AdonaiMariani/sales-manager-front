@@ -31,6 +31,7 @@ const AppRoutes = ({ customers, products, handleCreate }) => {
           />
         }
       />
+      <Route path="/c/:id" element={<EditCustomer />} />
     </Routes>
   );
 };
