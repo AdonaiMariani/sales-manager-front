@@ -4,26 +4,26 @@ import './VerticalMenu.css';
 const VerticalMenu = () => {
   return (
     <div className="vertical-menu">
-      <Link to="/">Home</Link>
+      <Link to="/" className="menu-link">Home</Link>
       <div className="dropdown">
         <button className="dropbtn">Products</button>
         <div className="dropdown-content">
-          <Link to="/products">See Products</Link>
-          <Link to="/newProduct">Add Product</Link>
+          <Link to="/products" className="dropdown-link">See Products</Link>
+          <Link to="/newProduct" className="dropdown-link">Add Product</Link>
         </div>
       </div>
       <div className="dropdown">
         <button className="dropbtn">Customers</button>
         <div className="dropdown-content">
-          <Link to="/customers">See Customers</Link>
-          <Link to="/newCustomer">Add Customer</Link>
+          <Link to="/customers" className="dropdown-link">See Customers</Link>
+          <Link to="/newCustomer" className="dropdown-link">Add Customer</Link>
         </div>
       </div>
       <div className="dropdown">
         <button className="dropbtn">Invoices</button>
         <div className="dropdown-content">
-          <Link to="/invoices">See Invoices</Link>
-          <Link to="/newInvoice">New Invoice</Link>
+          <Link to="/invoices" className="dropdown-link">See Invoices</Link>
+          <Link to="/newInvoice" className="dropdown-link">New Invoice</Link>
         </div>
       </div>
     </div>
