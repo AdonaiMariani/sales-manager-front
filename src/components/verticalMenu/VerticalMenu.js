@@ -26,6 +26,13 @@ const VerticalMenu = () => {
           <Link to="/newInvoice" className="dropdown-link">New Invoice</Link>
         </div>
       </div>
+      <div className="dropdown">
+        <button className="dropbtn">Account</button>
+        <div className="dropdown-content">
+          <Link to="/login" className="dropdown-link">Login</Link>
+          <Link to="/register" className="dropdown-link">Register</Link>
+        </div>
+      </div>
     </div>
   );
 }

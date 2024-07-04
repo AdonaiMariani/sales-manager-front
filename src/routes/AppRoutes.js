@@ -11,7 +11,8 @@ import Home from "../components/home/Home";
 import InvoiceList from "../components/invoiceList/InvoiceList";
 
 import NewInvoice from "../components/NewInvoice/NewInvoice";
-
+import RegisterPage from "../components/auth/pages/RegisterPage";
+import LoginPage from "../components/auth/pages/LoginPage";
 const AppRoutes = ({ customers, products, handleCreate }) => {
   return (
     <Routes>
@@ -23,7 +24,8 @@ const AppRoutes = ({ customers, products, handleCreate }) => {
     <Route path="/newCustomer" element={<NewCustomer />} />
     <Route path="/customers/:id" element={<EditCustomer />} />
     <Route path="/invoices" element={<InvoiceList/>} />
-    
+    <Route path="/register" element={<RegisterPage />} />
+    <Route path="/login" element={<LoginPage />} />
     {/* <Route path="/createInvoice" element={<CreateInvoiceForm onCreate={handleCreate} />} /> Nueva ruta para el formulario de creación de facturas */}
     <Route
       path="/newInvoice"
