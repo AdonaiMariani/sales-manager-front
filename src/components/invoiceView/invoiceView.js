@@ -3,9 +3,6 @@ import { useParams } from 'react-router-dom';
 import { InvoiceService } from '../../services/InvoiceService';
 import InvoicePrint from '../invoicePrint/InvoicePrint';
 
-// const InvoiceView = () => {
-//   const { id } = useParams();
-//   const [invoice, setInvoice] = useState(null);
 const InvoiceView = ({ id }) => {
   const [invoice, setInvoice] = useState(null);
   const [printMode, setPrintMode] = useState(false); // Initialize printMode with false 

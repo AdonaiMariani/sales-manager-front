@@ -1,38 +1,17 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { CustomerService } from '../../services/CustomerService' // Importa el servicio
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import './NewCustomer.css';
-const customerService = new CustomerService(); // Crea una instancia del servicio
+import CustomerContext from '../../context/CustomerContext';
+
 
 const NewCustomer = () => {
-  const [formData, setFormData] = useState({ Id: '', Name: '', Email: '', Phone: '' });
-  const navigate = useNavigate();
-
-  const handleInputChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    customerService.createCustomer({ // Utiliza el método createCustomer del servicio
-      id: formData.Id,
-      name: formData.Name,
-      address: formData.Address,
-      email: formData.Email,
-      phone: formData.Phone,
-    })
-    .then(() => {
-      alert('Customer created successfully'); // Muestra un mensaje de éxito
-      navigate('/customers');
-    })
-    .catch(error => console.error(error));
-  };
+  const {formData, handleInputChangeForm, handleSubmitForm} = useContext(CustomerContext)
 
   return (
     <div className="card">
       <div className="card-header">New Customer</div>
       <div className="card-body">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmitForm}>
           <div className="form-group">
             <label htmlFor="Name">Name</label>
             <input
@@ -43,7 +22,7 @@ const NewCustomer = () => {
               placeholder=""
               aria-describedby="helpId"
               value={formData.Name}
-              onChange={handleInputChange}
+              onChange={handleInputChangeForm}
             />
             <small id="helpId" className="text-muted">
               Insert name
@@ -59,7 +38,7 @@ const NewCustomer = () => {
               placeholder=""
               aria-describedby="helpId"
               value={formData.Address}
-              onChange={handleInputChange}
+              onChange={handleInputChangeForm}
             />
             <small id="helpId" className="text-muted">
               Insert Address
@@ -75,7 +54,7 @@ const NewCustomer = () => {
               placeholder=""
               aria-describedby="helpId"
               value={formData.Email}
-              onChange={handleInputChange}
+              onChange={handleInputChangeForm}
             />
             <small id="helpId" className="text-muted">
               Insert Email
@@ -91,7 +70,7 @@ const NewCustomer = () => {
               placeholder=""
               aria-describedby="helpId"
               value={formData.Phone}
-              onChange={handleInputChange}
+              onChange={handleInputChangeForm}
             />
             <small id="helpId" className="text-muted">
               Insert Phone

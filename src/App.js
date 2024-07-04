@@ -2,6 +2,7 @@ import "./App.css";
 import React, { useState, useEffect } from "react";
 import VerticalMenu from "./components/verticalMenu/VerticalMenu";
 import AppRoutes from "./routes/AppRoutes"
+import CustomerProvider from "./context/CustomerProvider";
 
 
 function App() {
@@ -92,7 +93,9 @@ function App() {
       <div className="content-column">
        <h1 className="main-title">Sales Management</h1>
        <div style={{ marginLeft: "200px", padding: "20px", width: "50%" }}>
+       <CustomerProvider>
           <AppRoutes customers={customers} products={products} handleCreate={handleCreate} />
+       </CustomerProvider>
         </div>
      </div>
   </div>

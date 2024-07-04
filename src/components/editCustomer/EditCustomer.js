@@ -1,47 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { CustomerService } from '../../services/CustomerService';
+import { useContext } from 'react';
 import './EditCustomer.css';
-const customerService = new CustomerService();
+import CustomerContext from '../../context/CustomerContext';
+
 
 const EditCustomer = () => {
-  const [customer, setCustomer] = useState({
-    name: '',
-    address: '',
-    phone: '',
-    email: '',
-    
-  });
-  const [originalCustomer, setOriginalCustomer] = useState(null);
-  const { id } = useParams();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    customerService.getCustomerById(id)
-      .then(data => {
-        setCustomer(data);
-        setOriginalCustomer(data);
-      })
-      .catch(error => console.error(error));
-  }, [id]);
-
-  const handleInputChange = (event) => {
-    setCustomer({ ...customer, [event.target.name]: event.target.value });
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const changes = Object.keys(customer).filter(key => customer[key] !== originalCustomer[key]);
-    const confirmMessage = changes.map(key => `${key}: ${originalCustomer[key]} => ${customer[key]}`).join('\n');
-    if (window.confirm(`Are you sure you want to make these changes?\n\n${confirmMessage}`)) {
-      customerService.updateCustomer(id, customer)
-        .then(() => {
-          alert('Customer updated successfully');
-          navigate('/customers');
-        })
-        .catch(error => console.error(error));
-    }
-  };  
+   const {customer, handleInputChange, handleSubmit} = useContext(CustomerContext)
+ 
   return (
     <div className="card">
       <div className="card-header">Edit Customer</div>

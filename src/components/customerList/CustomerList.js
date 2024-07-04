@@ -1,31 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { CustomerService } from '../../services/CustomerService';
 import Customer from '../customer/Customer';
 import './CustomerList.css';
-const customerService = new CustomerService();
+import CustomerContext from '../../context/CustomerContext';
+
 
 const CustomersList = () => {
-  const [customers, setCustomers] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-
-  useEffect(() => {
-    customerService.getAllCustomers()
-      .then(data => setCustomers(data))
-      .catch(error => console.error(error));
-  }, []);
-
-  const handleDeleteCustomer = (customerId) => {
-    if (window.confirm('Are you sure you want to delete this customer?')) {
-      customerService.deleteCustomer(customerId)
-        .then(() => {
-          const updatedCustomers = customers.filter((customer) => customer.id !== customerId);
-          setCustomers(updatedCustomers);
-        })
-        .catch(error => console.error(error));
-    }
-  };
-
+  const {customers, searchTerm, setSearchTerm, handleDeleteCustomer} = useContext(CustomerContext)
   return (
     <div className="card">
       <div className="card-header d-flex justify-content-between">
