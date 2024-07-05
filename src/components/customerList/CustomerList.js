@@ -1,20 +1,40 @@
-import { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import Customer from '../customer/Customer';
-import './CustomerList.css';
-import CustomerContext from '../../context/CustomerContext';
+import { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
+import Customer from "../customer/Customer";
+import "./CustomerList.css";
+import CustomerContext from "../../context/CustomerContext";
+import { CustomerService } from "../../services/CustomerService";
 
-
+const customerService = new CustomerService();
 const CustomersList = () => {
-  const {customers, searchTerm, setSearchTerm, handleDeleteCustomer} = useContext(CustomerContext)
+  const {
+    customers,
+    setCustomers,
+    searchTerm,
+    setSearchTerm,
+    handleDeleteCustomer,
+  } = useContext(CustomerContext);
+  useEffect(() => {
+    customerService
+      .getAllCustomers()
+      .then((data) => setCustomers(data))
+      .catch((error) => console.error(error));
+  }, []);
   return (
     <div className="card">
       <div className="card-header d-flex justify-content-between">
         <h3>Customers</h3>
-        <Link className="btn btn-success" to="/newCustomer">New Customer</Link>
+        <Link className="btn btn-success" to="/newCustomer">
+          New Customer
+        </Link>
       </div>
       <div className="card-body">
-        <input type="text" value={searchTerm} onChange={event => setSearchTerm(event.target.value)} placeholder="Search..." />
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(event) => setSearchTerm(event.target.value)}
+          placeholder="Search..."
+        />
         <table className="table">
           <thead>
             <tr>
@@ -29,13 +49,22 @@ const CustomersList = () => {
             </tr>
           </thead>
           <tbody>
-            {customers.filter(customer => 
-              Object.values(customer).some(value => 
-                value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+            {customers
+              .filter((customer) =>
+                Object.values(customer).some((value) =>
+                  value
+                    .toString()
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase())
+                )
               )
-            ).map((customer) => (
-              <Customer key={customer.id} customer={customer} handleDeleteCustomer={handleDeleteCustomer} />
-            ))}
+              .map((customer) => (
+                <Customer
+                  key={customer.id}
+                  customer={customer}
+                  handleDeleteCustomer={handleDeleteCustomer}
+                />
+              ))}
           </tbody>
         </table>
       </div>

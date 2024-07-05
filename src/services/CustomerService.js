@@ -1,37 +1,3 @@
-// import axios from "axios";
-
-// const BASE_URL = "http://localhost:8080/customers";
-
-// export class CustomerService {
-//   constructor() {
-//     this.baseUrl = "http://localhost:8080/customers";
-//   }
-
-//   async getAllCustomers() {
-//     const response = await axios.get(BASE_URL);
-//     return response.data;
-//   }
-
-//   async getCustomerById(id) {
-//     const response = await axios.get(`${BASE_URL}/${id}`);
-//     return response.data;
-//   }
-
-//   async createCustomer(customerData) {
-//     const response = await axios.post(BASE_URL, customerData);
-//     return response.data;
-//   }
-
-//   async updateCustomer(id, customerData) {
-//     const response = await axios.put(`${BASE_URL}/${id}`, customerData);
-//     return response.data;
-//   }
-
-//   async deleteCustomer(id) {
-//     const response = await axios.delete(`${BASE_URL}/${id}`);
-//     return response.data;
-//   }
-// }
 import axios from "axios";
 
 const BASE_URL = "http://localhost:8080/customers";
