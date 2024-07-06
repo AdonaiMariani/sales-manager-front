@@ -38,8 +38,6 @@ const CustomerProvider = ({ children }) => {
     }
   };
 
-  //CustomerEdit
-
   //NewCustomer
   const handleSubmitForm = (event) => {
     event.preventDefault();

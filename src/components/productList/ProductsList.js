@@ -1,29 +1,65 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { ProductService } from '../../services/ProductService';
-import Product from '../../product/Product';
-import './ProductList.css';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { ProductService } from "../../services/ProductService";
+import Product from "../../product/Product";
+import "./ProductList.css";
+
 const productService = new ProductService();
 
 const ProductsList = () => {
   const [products, setProducts] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filter, setFilter] = useState({
+    category: "all",
+    minPrice: 0,
+  });
 
   useEffect(() => {
-    productService.getAllProducts()
-      .then(data => setProducts(data))
-      .catch(error => console.error(error));
+    productService
+      .getAllProducts()
+      .then((data) => setProducts(data))
+      .catch((error) => console.error(error));
   }, []);
 
-  //con mensaje de confirmación
+  // Filtrar productos
+  const filterProducts = (products) => {
+    return products.filter((product) => {
+      return (
+        product.price >= filter.minPrice &&
+        (filter.category.toLowerCase() === "all" ||
+          product.category.toLowerCase() === filter.category)
+      );
+    });
+  };
+
+  const handleCategoryChange = (event) => {
+    setFilter({ ...filter, category: event.target.value });
+  };
+
+  const handleMinPriceChange = (event) => {
+    setFilter({ ...filter, minPrice: parseFloat(event.target.value) || 0 });
+  };
+
+  const filteredProducts = filterProducts(
+    products.filter((product) =>
+      Object.values(product).some((value) =>
+        value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    )
+  );
+
+  // con mensaje de confirmación
   const handleDeleteProduct = (productId) => {
-    if (window.confirm('Are you sure you want to delete this product?')) {
-      productService.deleteProduct(productId)
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      productService
+        .deleteProduct(productId)
         .then(() => {
-          const updatedProducts = products.filter((product) => product.id !== productId);
+          const updatedProducts = products.filter(
+            (product) => product.id !== productId
+          );
           setProducts(updatedProducts);
         })
-        .catch(error => console.error(error));
+        .catch((error) => console.error(error));
     }
   };
 
@@ -31,10 +67,39 @@ const ProductsList = () => {
     <div className="card">
       <div className="card-header d-flex justify-content-between">
         <h3>Products</h3>
-        <Link className="btn btn-success" to="/newProduct">New Product</Link>
+        <Link className="btn btn-success" to="/newProduct">
+          New Product
+        </Link>
       </div>
       <div className="card-body">
-        <input type="text" value={searchTerm} onChange={event => setSearchTerm(event.target.value)} placeholder="Search..." />
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(event) => setSearchTerm(event.target.value)}
+          placeholder="Search..."
+        />
+        <div>
+          <label>
+            Category:
+            <select
+              id="category"
+              value={filter.category}
+              onChange={handleCategoryChange}
+            >
+              <option value="all">All</option>
+              <option value="gaseosa">Gaseosa</option>
+              <option value="alimento">Alimento</option>
+            </select>
+          </label>
+          <label>
+            Min Price:
+            <input
+              type="number"
+              value={filter.minPrice}
+              onChange={handleMinPriceChange}
+            />
+          </label>
+        </div>
         <table className="table">
           <thead>
             <tr>
@@ -47,12 +112,12 @@ const ProductsList = () => {
             </tr>
           </thead>
           <tbody>
-            {products.filter(product => 
-              Object.values(product).some(value => 
-                value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-              )
-            ).map((product) => (
-              <Product key={product.id} product={product} handleDeleteProduct={handleDeleteProduct} />
+            {filteredProducts.map((product) => (
+              <Product
+                key={product.id}
+                product={product}
+                handleDeleteProduct={handleDeleteProduct}
+              />
             ))}
           </tbody>
         </table>
