@@ -66,49 +66,32 @@ const NewInvoice = ({ customers, products, onCreate }) => {
   );
 
   return (
+  <div className="form-container"> 
     <form onSubmit={handleSubmit}>
       <label>
         Date:
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-        />
+        <input type="date" value={date} onChange={e => setDate(e.target.value)} />
       </label>
       <label>
         Customer:
-        <select value={customer} onChange={(e) => setCustomer(e.target.value)}>
-          {customers &&
-            customers.map((customer) => (
-              <option key={customer.id} value={customer.id}>
-                {customer.name}
-              </option>
-            ))}
+        <select value={customer} onChange={e => setCustomer(e.target.value)}>
+          {customers.map(customer => (
+            <option key={customer.id} value={customer.id}>{customer.name}</option>
+          ))}
         </select>
       </label>
       <label>
         Product:
-        <input
-          type="text"
-          value={productSearch}
-          onChange={handleProductSearch}
-        />
-        {searchResults.map((product) => (
+        <input type="text" value={productSearch} onChange={handleProductSearch} />
+        {searchResults.map(product => (
           <div key={product.id} onClick={() => handleProductSelect(product)}>
             {product.name}
           </div>
         ))}
-        <input
-          type="number"
-          min="1"
-          value={quantity}
-          onChange={(e) => setQuantity(e.target.value)}
-        />
-        <button type="button" onClick={handleAddProduct}>
-          Add Product
-        </button>
+        <input type="number" min="1" value={quantity} onChange={e => setQuantity(e.target.value)} />
+        <button type="button" onClick={handleAddProduct}>Add Product</button>
       </label>
-      {cart.map((product, index) => (
+      {/* {cart.map((product, index) => (
         <div key={index}>
           <span>{product.name}</span>
           <span>{product.quantity}</span>
@@ -116,10 +99,38 @@ const NewInvoice = ({ customers, products, onCreate }) => {
           <span>{product.price * product.quantity}</span>
           <button onClick={() => handleRemoveProduct(index)}>Remove</button>
         </div>
+      ))} */}
+      {cart.length > 0 && (
+  <table>
+    <thead>
+      <tr>
+        <th className="columna-producto">Producto</th>
+        <th>Cantidad</th>
+        <th>Precio Unitario</th>
+        <th>Total por Producto</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      {cart.map((product, index) => (
+        <tr key={index}>
+          <td>{product.name}</td>
+          <td>{product.quantity}</td>
+          <td>${product.price.toFixed(2)}</td>
+          <td>${(product.price * product.quantity).toFixed(2)}</td>
+          <td>
+            <button onClick={() => handleRemoveProduct(index)}>Remove</button>
+          </td>
+        </tr>
       ))}
-      <div>Total: {total}</div>
+    </tbody>
+  </table>
+)}
+      
+      <div className="total-price">TOTAL: {total_price}</div>
       <input type="submit" value="Create Invoice" />
     </form>
+ </div> 
   );
 };
 

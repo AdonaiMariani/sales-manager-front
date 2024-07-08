@@ -121,8 +121,15 @@ const LoginPage = () => {
         },
         body: JSON.stringify({ username, password }),
       });
+
+       // Verifica si el tipo de contenido de la respuesta es JSON
+  const contentType = response.headers.get('content-type');
+  if (!contentType || !contentType.includes('application/json')) {
+    throw new Error('El servidor no respondió con JSON');
+  }
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || 'Failed to login');
+      
       // Simulación de una respuesta exitosa
       console.log("Login successful with", { username, password });
       

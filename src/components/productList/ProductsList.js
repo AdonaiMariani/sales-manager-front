@@ -70,7 +70,7 @@ const ProductsList = () => {
         <table className="table">
           <thead>
             <tr>
-              <th>ID</th>
+              <th className="id-column">ID</th>
               <th>Name</th>
               <th>Brand</th>
               <th>Category</th>
