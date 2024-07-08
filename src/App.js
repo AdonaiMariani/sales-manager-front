@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import VerticalMenu from "./components/verticalMenu/VerticalMenu";
 import AppRoutes from "./routes/AppRoutes";
 import CustomerProvider from "./context/CustomerProvider";
+import { ProductsProvider } from "./context/ProductContext";
 
 function App() {
   const [customers, setCustomers] = useState([]);
@@ -89,13 +90,15 @@ function App() {
       <div className="content-column">
         <h1 className="main-title">Sales Management</h1>
         <div style={{ marginLeft: "100px", padding: "20px", width: "60%" }}>
-          <CustomerProvider>
-            <AppRoutes
-              customers={customers}
-              products={products}
-              handleCreate={handleCreate}
-            />
-          </CustomerProvider>
+          <ProductsProvider>
+            <CustomerProvider>
+              <AppRoutes
+                customers={customers}
+                products={products}
+                handleCreate={handleCreate}
+              />
+            </CustomerProvider>
+          </ProductsProvider>
         </div>
       </div>
     </div>

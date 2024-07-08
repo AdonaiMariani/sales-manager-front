@@ -1,67 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { ProductService } from "../../services/ProductService";
 import Product from "../../product/Product";
 import "./ProductList.css";
+import { ProductsContext } from "../../context/ProductContext";
+import { useFilters } from "../../hooks/useFilters";
 
 const productService = new ProductService();
 
 const ProductsList = () => {
-  const [products, setProducts] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filter, setFilter] = useState({
-    category: "all",
-    minPrice: 0,
-  });
+  const {
+    filter,
+    filteredProducts,
+    handleCategoryChange,
+    handleMinPriceChange,
+  } = useFilters();
+  const { setProducts, searchTerm, setSearchTerm, handleDeleteProduct } =
+    useContext(ProductsContext);
 
   useEffect(() => {
     productService
       .getAllProducts()
       .then((data) => setProducts(data))
       .catch((error) => console.error(error));
-  }, []);
-
-  // Filtrar productos
-  const filterProducts = (products) => {
-    return products.filter((product) => {
-      return (
-        product.price >= filter.minPrice &&
-        (filter.category.toLowerCase() === "all" ||
-          product.category.toLowerCase() === filter.category)
-      );
-    });
-  };
-
-  const handleCategoryChange = (event) => {
-    setFilter({ ...filter, category: event.target.value });
-  };
-
-  const handleMinPriceChange = (event) => {
-    setFilter({ ...filter, minPrice: parseFloat(event.target.value) || 0 });
-  };
-
-  const filteredProducts = filterProducts(
-    products.filter((product) =>
-      Object.values(product).some((value) =>
-        value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    )
-  );
-
-  // con mensaje de confirmación
-  const handleDeleteProduct = (productId) => {
-    if (window.confirm("Are you sure you want to delete this product?")) {
-      productService
-        .deleteProduct(productId)
-        .then(() => {
-          const updatedProducts = products.filter(
-            (product) => product.id !== productId
-          );
-          setProducts(updatedProducts);
-        })
-        .catch((error) => console.error(error));
-    }
-  };
+  }, [setProducts]);
 
   return (
     <div className="card">
@@ -77,27 +39,32 @@ const ProductsList = () => {
           value={searchTerm}
           onChange={(event) => setSearchTerm(event.target.value)}
           placeholder="Search..."
+          className="mb-3"
         />
-        <div>
+        <div className="filter-container mb-3">
           <label>
-            Category:
             <select
               id="category"
               value={filter.category}
               onChange={handleCategoryChange}
+              className=""
             >
               <option value="all">All</option>
               <option value="gaseosa">Gaseosa</option>
               <option value="alimento">Alimento</option>
             </select>
           </label>
-          <label>
+          <label className="filter-item">
             Min Price:
             <input
-              type="number"
+              type="range"
               value={filter.minPrice}
+              min="0"
+              max="2000"
               onChange={handleMinPriceChange}
+              className="ml-2"
             />
+            <span className="filter-item">{filter.minPrice}</span>
           </label>
         </div>
         <table className="table">
@@ -112,13 +79,23 @@ const ProductsList = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredProducts.map((product) => (
-              <Product
-                key={product.id}
-                product={product}
-                handleDeleteProduct={handleDeleteProduct}
-              />
-            ))}
+            {filteredProducts.length > 0 ? (
+              filteredProducts.map((product) => (
+                <Product
+                  key={product.id}
+                  product={product}
+                  handleDeleteProduct={handleDeleteProduct}
+                />
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6">
+                  <div className="no-products">
+                    <h3>No hay más productos disponibles.</h3>
+                  </div>
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
