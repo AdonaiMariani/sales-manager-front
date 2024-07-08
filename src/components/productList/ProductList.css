@@ -67,3 +67,7 @@ body {
   .readonly-input {
     background-color: #f3f3f3;
   }
+
+  .id-column {
+    width: 40px;
+  }

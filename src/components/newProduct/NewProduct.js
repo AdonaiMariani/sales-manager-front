@@ -24,7 +24,7 @@ const NewProduct = () => {
     })
     .then(() => {
       alert('Product created successfully'); // Muestra un mensaje de éxito
-      navigate('/');
+      navigate('/products');
     })
     .catch(error => console.error(error));
   };

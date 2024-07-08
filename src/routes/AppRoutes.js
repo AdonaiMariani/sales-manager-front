@@ -16,7 +16,7 @@ import LoginPage from "../components/auth/pages/LoginPage";
 const AppRoutes = ({ customers, products, handleCreate }) => {
   return (
     <Routes>
-    <Route path="/" element={<Home />} />
+    <Route path="/home" element={<Home />} />
     <Route path="/products" element={<ProductList />} />
     <Route path="/newProduct" element={<NewProduct />} />
     <Route path="/products/:id" element={<EditProduct />} />
@@ -25,7 +25,7 @@ const AppRoutes = ({ customers, products, handleCreate }) => {
     <Route path="/customers/:id" element={<EditCustomer />} />
     <Route path="/invoices" element={<InvoiceList/>} />
     <Route path="/register" element={<RegisterPage />} />
-    <Route path="/login" element={<LoginPage />} />
+    <Route path="/" element={<LoginPage />} />
     {/* <Route path="/createInvoice" element={<CreateInvoiceForm onCreate={handleCreate} />} /> Nueva ruta para el formulario de creación de facturas */}
     <Route
       path="/newInvoice"

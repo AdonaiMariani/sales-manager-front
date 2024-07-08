@@ -119,7 +119,7 @@ const RegisterPage = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:8080/users', { // Asegúrate de reemplazar con tu URL correcta
+      const response = await fetch('http://localhost:8080/users', { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -128,7 +128,7 @@ const RegisterPage = () => {
       });
       if (!response.ok) throw new Error('Error en el registro');
       
-      navigate('/login'); // Ejemplo de redirección al login
+      navigate('/'); 
     } catch (error) {
       setError(error.message); // Manejo de errores
     }
