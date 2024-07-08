@@ -53,7 +53,20 @@ const NewInvoice = ({ customers, products, onCreate }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onCreate({ date, customer, products: cart });
+    
+    // Crear objeto invoiceData con la estructura correcta
+    const invoiceData = {
+      date,
+      customerId: customer, // Usar customerId en lugar de customer
+      invoiceProducts: cart.map((product) => ({
+        productId: product.id,
+        quantity: product.quantity,
+        price: product.price,
+      })),
+    };
+
+    // Enviar invoiceData a la función onCreate
+    onCreate(invoiceData);
   };
 
   const handleRemoveProduct = (index) => {
