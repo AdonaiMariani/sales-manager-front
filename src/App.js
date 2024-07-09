@@ -105,6 +105,132 @@ function App() {
 
 export default App;
 
+
+
+
+
+
+
+
+
+
+
+
+
+// import "./App.css";
+// import React, { useState, useEffect } from "react";
+// import VerticalMenu from "./components/verticalMenu/VerticalMenu";
+// import AppRoutes from "./routes/AppRoutes";
+// import CustomerProvider from "./context/CustomerProvider";
+// import { ProductsProvider } from "./context/ProductContext";
+
+// function App() {
+//   const [customers, setCustomers] = useState([]);
+//   const [products, setProducts] = useState([]);
+
+//   useEffect(() => {
+//     //agrego manejo de errores
+//     const fetchCustomers = async () => {
+//       try {
+//         const response = await fetch("http://localhost:8080/customers");
+
+//         if (!response.ok) {
+//           throw new Error(`HTTP error! status: ${response.status}`);
+//         }
+
+//         const data = await response.json();
+//         setCustomers(data);
+//       } catch (error) {
+//         console.error("Error fetching customers:", error);
+//       }
+//     };
+
+//     //agrego manejo de errores
+//     const fetchProducts = async () => {
+//       try {
+//         const response = await fetch("http://localhost:8080/products");
+
+//         if (!response.ok) {
+//           throw new Error(`HTTP error! status: ${response.status}`);
+//         }
+
+//         const data = await response.json();
+//         setProducts(data);
+//       } catch (error) {
+//         console.error("Error fetching products:", error);
+//       }
+//     };
+//     // Llama a las funciones para obtener los datos
+//     fetchCustomers();
+//     fetchProducts();
+//   }, []);
+
+//   //función handelCreate para crear facturas con múltiple productos
+//   // const handleCreate = async (invoice) => {
+//   //   const productsToSend = invoice.invoiceProducts.map((product) => ({
+//   //     productId: product.productId, // Cambio aquí: usé productId en lugar de id
+//   //     quantity: Number(product.quantity), // Asegurarse de que quantity sea un número
+//   //     price: product.price,
+//   //   }));
+//     const handleCreate = async (invoice) => {
+//       // Verifica que invoice.invoiceProducts exista y sea un arreglo; si no, usa un arreglo vacío
+//       const productsToSend = (invoice.invoiceProducts || []).map((product) => ({
+//         productId: product.productId,
+//         quantity: Number(product.quantity),
+//         price: product.price,
+//       })); 
+
+//     const invoiceToSend = {
+//       customerId: invoice.customerId, // Cambio aquí: usé customerId en lugar de customer
+//       date: invoice.date,
+//       invoiceProducts: productsToSend,
+//     };
+
+//     console.log("invoiceToSend:", invoiceToSend);
+
+//     const response = await fetch("http://localhost:8080/invoices", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(invoiceToSend),
+//     });
+//     console.log("Response:", response);
+
+//     if (!response.ok) {
+//       console.error("Error creating invoice:", response.statusText);
+//       return;
+//     }
+
+//     const createdInvoice = await response.json();
+//     console.log("Created invoice:", createdInvoice);
+//   };
+
+//   return (
+//     <div className="main-container">
+//       <div className="menu-column">
+//         <VerticalMenu />
+//       </div>
+//       <div className="content-column">
+//         <h1 className="main-title">Sales Management</h1>
+//         <div style={{ marginLeft: "100px", padding: "20px", width: "60%" }}>
+//           <ProductsProvider>
+//             <CustomerProvider>
+//               <AppRoutes
+//                 customers={customers}
+//                 products={products}
+//                 handleCreate={handleCreate}
+//               />
+//             </CustomerProvider>
+//           </ProductsProvider>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default App;
+
 // //CÓDIGO ANTES MODIFICACION FRANCO
 // import "./App.css";
 // import React, { useState, useEffect } from "react";
