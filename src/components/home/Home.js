@@ -1,5 +1,5 @@
-import React from 'react';
-import InvoiceList from '../invoiceList/InvoiceList';
+import React from "react";
+import InvoiceList from "../invoiceList/InvoiceList";
 const Home = () => {
   return (
     <div>

@@ -33,7 +33,7 @@
   display: none;
   position: static;
   min-width: 160px;
-  background-color: #343a40;
+  background-color: #57606a;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -55,7 +55,7 @@
 
 .dropbtn {
   width: 100%;
-  background-color: #343a40;
+  background-color: #57606a;
   color: #ffffff;
   padding: 16px;
   font-size: 18px;
@@ -67,4 +67,33 @@
 
 .dropbtn:hover {
   background-color: #495057;
+}
+
+.vertical-menu.dark-mode {
+  background-color: #162230;
+  color: #fff;
+}
+.dropdown-content.dark-mode {
+  display: none;
+  position: static;
+  min-width: 160px;
+  background-color: #343a40;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.dropbtn.dark-mode {
+  width: 100%;
+  background-color: #343a40;
+  color: #ffffff;
+  padding: 16px;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.theme-toggle-button {
+  margin-top: 20px;
+  padding: 10px;
+  cursor: pointer;
 }

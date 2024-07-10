@@ -1,36 +1,31 @@
-/* styles.css */
-
-/* Estilos para el contenedor principal */
 .main-container {
   display: flex;
-  height: 100vh; /* Ajusta la altura al 100% del viewport */
+  height: 100vh;
   background-color: #f8f9fa;
-  font-family: 'Arial', sans-serif; /* Fuente más agradable */
-  margin: 0; /* Elimina márgenes externos */
-  padding: 0; /* Elimina padding externo */
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-/* Estilos para la columna del menú */
 .menu-column {
-  width: 250px; /* Ancho fijo para el menú */
-  background-color: #343a40; /* Fondo oscuro para el menú */
-  color: #fff; /* Texto blanco para el menú */
+  width: 200px;
+  background-color: #343a40;
+  color: #fff;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilos para la columna del contenido */
 .content-column {
-  flex-grow: 1; /* El contenido ocupa el resto del espacio */
-  padding: 20px; /* Espaciado alrededor del contenido */
-  background-color: #fff; /* Fondo blanco para el contenido */
-  overflow-y: auto; /* Desplazamiento vertical si el contenido es largo */
-  display: flex; /* Utiliza Flexbox */
-  flex-direction: column; /* Alinea el contenido en una columna */
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #fff;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
-.card{
+.card {
   width: 800px;
 }
-/* Estilos para el título principal */
+
 .main-title {
   font-size: 28px;
   font-weight: bold;
@@ -38,51 +33,18 @@
   margin-bottom: 20px;
 }
 
-/* Estilos para la columna del formulario */
-
-
-/* Estilos para enlaces en el menú vertical */
-.vertical-menu a {
-  display: block;
-  color: white;
-  padding: 12px 20px;
-  text-decoration: none;
-  margin: 10px 0;
+.content-column.dark-mode {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #0e062f;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
-.vertical-menu .dropdown {
-  position: relative;
-}
-
-.vertical-menu .dropdown-content {
-  display: none;
-  position: relative; /* Asegura que el contenido desplegable se muestre en el flujo del documento */
-  background-color: #495057; /* Color más oscuro para resaltar el contenido desplegable */
-  margin-top: 10px; /* Espacio entre el botón y el contenido desplegable */
-}
-
-.vertical-menu .dropdown-content a {
-  color: white;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.vertical-menu .dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.dropbtn {
-  width: 100%;
-  background-color: #343a40;
-  color: white;
-  padding: 12px;
-  text-align: left;
-  border: none;
-  cursor: pointer;
-  outline: none;
-}
-
-.dropbtn:hover {
-  background-color: #495057;
+.main-title.dark-mode {
+  font-size: 28px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 20px;
 }

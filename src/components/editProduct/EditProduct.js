@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ProductService } from "../../services/ProductService";
 import "./EditProduct.css";
+import { useTheme } from "../../context/ThemeContext";
 
 const productService = new ProductService();
 
 const EditProduct = () => {
+  const { state: themeState } = useTheme();
   const [product, setProduct] = useState({
     id: "",
     name: "",
@@ -29,7 +31,6 @@ const EditProduct = () => {
 
   const handleInputChange = (event) => {
     setProduct({ ...product, [event.target.name]: event.target.value });
-    console.log(originalProduct, product);
   };
 
   const handleSubmit = (event) => {
@@ -63,8 +64,12 @@ const EditProduct = () => {
   };
 
   return (
-    <div className="card">
-      <div className="card-header d-flex justify-content-between">
+    <div className={`card ${themeState.darkMode ? "dark-mode" : ""}`}>
+      <div
+        className={`card-header ${
+          themeState.darkMode ? "dark-mode" : ""
+        } d-flex justify-content-between`}
+      >
         <h3>Edit Product</h3>
         <button
           className="btn btn-secondary"
@@ -73,53 +78,71 @@ const EditProduct = () => {
           Cancel
         </button>
       </div>
-      <div className="card-body">
+      <div className={`card-body ${themeState.darkMode ? "dark-mode" : ""}`}>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>Id</label>
+            <label className={themeState.darkMode ? "dark-mode" : ""}>Id</label>
             <input
               type="text"
-              className="form-control"
+              className={`form-control ${
+                themeState.darkMode ? "dark-mode" : ""
+              }`}
               name="id"
               value={product.id}
               readOnly
             />
           </div>
           <div className="form-group">
-            <label>Name</label>
+            <label className={themeState.darkMode ? "dark-mode" : ""}>
+              Name
+            </label>
             <input
               type="text"
-              className="form-control"
+              className={`form-control ${
+                themeState.darkMode ? "dark-mode" : ""
+              }`}
               name="name"
               value={product.name}
               onChange={handleInputChange}
             />
           </div>
           <div className="form-group">
-            <label>Brand</label>
+            <label className={themeState.darkMode ? "dark-mode" : ""}>
+              Brand
+            </label>
             <input
               type="text"
-              className="form-control"
+              className={`form-control ${
+                themeState.darkMode ? "dark-mode" : ""
+              }`}
               name="brand"
               value={product.brand}
               onChange={handleInputChange}
             />
           </div>
           <div className="form-group">
-            <label>Category</label>
+            <label className={themeState.darkMode ? "dark-mode" : ""}>
+              Category
+            </label>
             <input
               type="text"
-              className="form-control"
+              className={`form-control ${
+                themeState.darkMode ? "dark-mode" : ""
+              }`}
               name="category"
               value={product.category}
               onChange={handleInputChange}
             />
           </div>
           <div className="form-group">
-            <label>Price</label>
+            <label className={themeState.darkMode ? "dark-mode" : ""}>
+              Price
+            </label>
             <input
               type="number"
-              className="form-control"
+              className={`form-control ${
+                themeState.darkMode ? "dark-mode" : ""
+              }`}
               name="price"
               value={product.price}
               onChange={handleInputChange}

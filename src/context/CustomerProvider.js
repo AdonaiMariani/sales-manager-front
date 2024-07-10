@@ -39,32 +39,50 @@ const CustomerProvider = ({ children }) => {
   };
 
   //NewCustomer
-  const handleSubmitForm = (event) => {
-    event.preventDefault();
-    customerService
-      .createCustomer({
-        // Utiliza el método createCustomer del servicio
-        id: formData.Id,
-        name: formData.Name,
-        address: formData.Address,
-        email: formData.Email,
-        phone: formData.Phone,
-      })
-      .then(() => {
-        alert("Customer created successfully"); // Muestra un mensaje de éxito
-        navigate("/customers");
-      })
-      .catch((error) => console.error(error));
-  };
 
   const handleInputChangeForm = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+  const [errors, setErrors] = useState({});
+  const validateAndSubmit = (event) => {
+    event.preventDefault();
+
+    let tempErrors = {};
+    tempErrors.Name = formData.Name ? "" : "Name is required.";
+    tempErrors.Address = formData.Address ? "" : "Brand is required.";
+    tempErrors.Email = formData.Email ? "" : "Category is required.";
+    tempErrors.Phone = formData.Phone ? "" : "Price is required.";
+    setErrors(tempErrors);
+
+    if (Object.values(tempErrors).every((x) => x === "")) {
+      customerService
+        .createCustomer({
+          id: formData.Id,
+          name: formData.Name,
+          address: formData.Address,
+          email: formData.Email,
+          phone: formData.Phone,
+        })
+        .then(() => {
+          alert("Customer created successfully");
+          navigate("/customers");
+          setFormData({
+            Id: "",
+            Name: "",
+            Address: "",
+            Email: "",
+            Phone: "",
+          });
+        })
+        .catch((error) => console.error(error));
+    }
   };
 
   return (
     <CustomerContext.Provider
       value={{
         customer,
+        errors,
         customers,
         originalCustomer,
         formData,
@@ -75,7 +93,7 @@ const CustomerProvider = ({ children }) => {
         setSearchTerm,
         handleDeleteCustomer,
         handleInputChangeForm,
-        handleSubmitForm,
+        validateAndSubmit,
       }}
     >
       {children}

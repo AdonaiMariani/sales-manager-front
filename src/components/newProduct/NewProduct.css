@@ -1,42 +1,141 @@
-.new-product-card {
-    width: 80%;
-    margin: 0 auto;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .new-product-card-header {
-    background-color: #f5f5f5;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .new-product-card-body {
-    padding: 10px;
-  }
-  
-  .new-product-form-group {
-    margin-bottom: 15px;
-  }
-  
-  .new-product-form-group label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .new-product-form-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-  
-  .new-product-form-group button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.card {
+  margin: 20px 0;
+  border: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--card-background-color);
+  color: var(--card-text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.card-header {
+  background-color: var(--card-header-background-color);
+  color: var(--card-header-text-color);
+  font-size: 20px;
+  padding: 10px 15px;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 10px;
+  border: 1px solid var(--table-border-color);
+}
+
+.table th {
+  background-color: var(--table-header-background-color);
+  color: var(--table-header-text-color);
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-success {
+  background-color: var(--btn-success-background-color);
+  color: var(--btn-success-text-color);
+}
+
+.btn-primary {
+  background-color: var(--btn-primary-background-color);
+  color: var(--btn-primary-text-color);
+}
+
+.btn-danger {
+  background-color: var(--btn-danger-background-color);
+  color: var(--btn-danger-text-color);
+}
+
+.readonly-input {
+  background-color: var(--readonly-input-background-color);
+}
+
+.filter-container {
+  display: flex;
+  align-items: center;
+}
+
+.filter-container label {
+  display: flex;
+  align-items: center;
+}
+
+.filter-item {
+  margin-left: 20px;
+}
+
+.no-products {
+  text-align: center;
+  padding: 20px;
+  font-weight: bold;
+}
+
+/* Variables para el tema claro */
+:root {
+  --background-color: #f4f4f4;
+  --text-color: #000;
+  --card-background-color: #fff;
+  --card-text-color: #000;
+  --card-header-background-color: #007bff;
+  --card-header-text-color: #fff;
+  --table-border-color: #ddd;
+  --table-header-background-color: #f5f5f5;
+  --table-header-text-color: #000;
+  --btn-success-background-color: #28a745;
+  --btn-success-text-color: #fff;
+  --btn-primary-background-color: #007bff;
+  --btn-primary-text-color: #fff;
+  --btn-danger-background-color: #dc3545;
+  --btn-danger-text-color: #fff;
+  --readonly-input-background-color: #f3f3f3;
+}
+
+/* Variables para el tema oscuro */
+.dark-mode {
+  --background-color: #162230;
+  --text-color: #000000;
+  --card-background-color: #162230;
+  --card-text-color: #e0e0e0;
+  --card-header-background-color: #333;
+  --card-header-text-color: #fff;
+  --table-border-color: #555;
+  --table-header-background-color: #444;
+  --table-header-text-color: #fff;
+  --btn-success-background-color: #28a745;
+  --btn-success-text-color: #fff;
+  --btn-primary-background-color: #007bff;
+  --btn-primary-text-color: #fff;
+  --btn-danger-background-color: #dc3545;
+  --btn-danger-text-color: #fff;
+  --readonly-input-background-color: #555;
+}
+
+/* Estilos específicos para los labels en modo oscuro */
+.dark-mode-label {
+  color: #000000;
+}

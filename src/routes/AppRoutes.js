@@ -11,6 +11,8 @@ import Home from "../components/home/Home";
 import InvoiceList from "../components/invoiceList/InvoiceList";
 
 import NewInvoice from "../components/NewInvoice/NewInvoice";
+import RegisterPage from "../components/auth/pages/RegisterPage";
+import LoginPage from "../components/auth/pages/LoginPage";
 
 const AppRoutes = ({ customers, products, handleCreate }) => {
   return (
@@ -24,17 +26,8 @@ const AppRoutes = ({ customers, products, handleCreate }) => {
       <Route path="/customers/:id" element={<EditCustomer />} />
       <Route path="/invoices" element={<InvoiceList />} />
       <Route path="/register" element={<RegisterPage />} />
-      <Route path="/" element={<LoginPage />} />
-      <Route
-        path="/newInvoice"
-        element={
-          <NewInvoice
-            customers={customers}
-            products={products}
-            onCreate={handleCreate}
-          />
-        }
-      />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/newInvoice" element={<NewInvoice />} />
       <Route path="/invoices/:id" element={<EditInvoice />} />
       <Route path="/invoices/print/:id" element={<InvoicePrint />} />
     </Routes>

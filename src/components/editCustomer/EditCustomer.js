@@ -1,37 +1,37 @@
-import { useContext, useEffect } from "react";
-import "./EditCustomer.css";
-import CustomerContext from "../../context/CustomerContext";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { CustomerService } from "../../services/CustomerService";
-import { useNavigate, useParams } from "react-router-dom";
+import "./EditCustomer.css";
+import { useTheme } from "../../context/ThemeContext";
 
 const customerService = new CustomerService();
-const EditCustomer = () => {
-  const { customer, originalCustomer, setCustomer, setOriginalCustomer } =
-    useContext(CustomerContext);
 
+const EditCustomer = () => {
+  const { state: themeState } = useTheme();
+  const [customer, setCustomer] = useState({
+    id: "",
+    name: "",
+    address: "",
+    phone: "",
+    email: "",
+  });
+  const [originalCustomer, setOriginalCustomer] = useState(null);
+  const { id } = useParams();
   const navigate = useNavigate();
 
-  const { id } = useParams();
-  console.log(id);
-
   useEffect(() => {
-    if (id) {
-      // Asegúrate de que el id no sea undefined
-      customerService
-        .getCustomerById(id)
-        .then((data) => {
-          setCustomer(data);
-          setOriginalCustomer(data);
-        })
-        .catch((error) => console.error(error));
-    } else {
-      console.error("Customer ID is undefined");
-    }
-  }, []);
+    customerService
+      .getCustomerById(id)
+      .then((data) => {
+        setCustomer(data);
+        setOriginalCustomer(data);
+      })
+      .catch((error) => console.error(error));
+  }, [id]);
 
   const handleInputChange = (event) => {
     setCustomer({ ...customer, [event.target.name]: event.target.value });
-    console.log(customer.id);
+    console.log(originalCustomer, customer);
   };
 
   const handleSubmit = (event) => {
@@ -57,13 +57,46 @@ const EditCustomer = () => {
     }
   };
 
+  const hasChanges = () => {
+    return (
+      originalCustomer &&
+      Object.keys(customer).some(
+        (key) => customer[key] !== originalCustomer[key]
+      )
+    );
+  };
+
   return (
-    <div className="card">
-      <div className="card-header">Edit Customer</div>
-      <div className="card-body">
+    <div className={`card ${themeState.darkMode ? "dark-mode" : ""}`}>
+      <div
+        className={`card-header ${
+          themeState.darkMode ? "dark-mode" : ""
+        } d-flex justify-content-between`}
+      >
+        <h3>Edit Customer</h3>
+        <button
+          className="btn btn-secondary"
+          onClick={() => navigate("/customers")}
+        >
+          Cancel
+        </button>
+      </div>
+      <div className={`card-body ${themeState.darkMode ? "dark-mode" : ""}`}>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>Name</label>
+            <label className={themeState.darkMode ? "dark-mode" : ""}>Id</label>
+            <input
+              type="text"
+              className="form-control"
+              name="id"
+              value={customer.id}
+              readOnly
+            />
+          </div>
+          <div className="form-group">
+            <label className={themeState.darkMode ? "dark-mode" : ""}>
+              Name
+            </label>
             <input
               type="text"
               className="form-control"
@@ -73,7 +106,9 @@ const EditCustomer = () => {
             />
           </div>
           <div className="form-group">
-            <label>Address</label>
+            <label className={themeState.darkMode ? "dark-mode" : ""}>
+              Address
+            </label>
             <input
               type="text"
               className="form-control"
@@ -83,7 +118,9 @@ const EditCustomer = () => {
             />
           </div>
           <div className="form-group">
-            <label>Phone</label>
+            <label className={themeState.darkMode ? "dark-mode" : ""}>
+              Phone
+            </label>
             <input
               type="text"
               className="form-control"
@@ -93,7 +130,9 @@ const EditCustomer = () => {
             />
           </div>
           <div className="form-group">
-            <label>Email</label>
+            <label className={themeState.darkMode ? "dark-mode" : ""}>
+              Email
+            </label>
             <input
               type="text"
               className="form-control"
@@ -102,7 +141,11 @@ const EditCustomer = () => {
               onChange={handleInputChange}
             />
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={!hasChanges()}
+          >
             Save
           </button>
         </form>

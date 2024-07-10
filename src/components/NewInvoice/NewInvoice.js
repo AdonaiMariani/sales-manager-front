@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./NewInvoice.css";
-const NewInvoice = ({ customers, products, onCreate }) => {
+import { DataContext } from "../../context/DataContext";
+
+const NewInvoice = () => {
+  const { customers, products, handleCreate } = useContext(DataContext);
+
   const currentDate = new Date();
   const formattedDate = `${currentDate.getFullYear()}-${String(
     currentDate.getMonth() + 1
@@ -53,7 +57,7 @@ const NewInvoice = ({ customers, products, onCreate }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onCreate({ date, customer, products: cart });
+    handleCreate({ date, customer, products: cart });
   };
 
   const handleRemoveProduct = (index) => {
