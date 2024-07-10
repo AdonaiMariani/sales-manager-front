@@ -15,30 +15,29 @@ import NewInvoice from "../components/NewInvoice/NewInvoice";
 const AppRoutes = ({ customers, products, handleCreate }) => {
   return (
     <Routes>
-    <Route path="/" element={<Home />} />
-    <Route path="/products" element={<ProductList />} />
-    <Route path="/newProduct" element={<NewProduct />} />
-    <Route path="/products/:id" element={<EditProduct />} />
-    <Route path="/customers" element={<CustomerList />} />
-    <Route path="/newCustomer" element={<NewCustomer />} />
-    <Route path="/customers/:id" element={<EditCustomer />} />
-    <Route path="/invoices" element={<InvoiceList/>} />
-    
-    {/* <Route path="/createInvoice" element={<CreateInvoiceForm onCreate={handleCreate} />} /> Nueva ruta para el formulario de creación de facturas */}
-    <Route
-      path="/newInvoice"
-      element={
-        <NewInvoice
-          customers={customers}
-          products={products}
-          onCreate={handleCreate}
-        />
-      }
-    />
-    <Route path="/invoices/:id" element={<EditInvoice />} />
-    <Route path="/invoices/print/:id" element={<InvoicePrint />} />
-    
-  </Routes>
+      <Route path="/home" element={<Home />} />
+      <Route path="/products" element={<ProductList />} />
+      <Route path="/newProduct" element={<NewProduct />} />
+      <Route path="/products/:id" element={<EditProduct />} />
+      <Route path="/customers" element={<CustomerList />} />
+      <Route path="/newCustomer" element={<NewCustomer />} />
+      <Route path="/customers/:id" element={<EditCustomer />} />
+      <Route path="/invoices" element={<InvoiceList />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/" element={<LoginPage />} />
+      <Route
+        path="/newInvoice"
+        element={
+          <NewInvoice
+            customers={customers}
+            products={products}
+            onCreate={handleCreate}
+          />
+        }
+      />
+      <Route path="/invoices/:id" element={<EditInvoice />} />
+      <Route path="/invoices/print/:id" element={<InvoicePrint />} />
+    </Routes>
   );
 };
 
