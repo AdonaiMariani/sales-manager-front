@@ -9,7 +9,6 @@ import NewProduct from "../components/newProduct/NewProduct";
 import ProductList from "../components/productList/ProductsList";
 import Home from "../components/home/Home";
 import InvoiceList from "../components/invoiceList/InvoiceList";
-
 import NewInvoice from "../components/NewInvoice/NewInvoice";
 import RegisterPage from "../components/auth/pages/RegisterPage";
 import LoginPage from "../components/auth/pages/LoginPage";

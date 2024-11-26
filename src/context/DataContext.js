@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
-  const [products, setProducts] = useState();
+  const [products, setProducts] = useState([]);
   const [customers, setCustomers] = useState();
 
   const fetchCustomers = async () => {

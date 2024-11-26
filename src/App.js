@@ -1,12 +1,14 @@
 import "./App.css";
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import VerticalMenu from "./components/verticalMenu/VerticalMenu";
 import AppRoutes from "./routes/AppRoutes";
 import { DataContext } from "./context/DataContext";
 import { useTheme } from "./context/ThemeContext";
+import LoginPage from "./components/auth/pages/LoginPage";
 
 function App() {
   const { fetchCustomers, fetchProducts } = useContext(DataContext);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const { state: themeState } = useTheme();
 
   useEffect(() => {
@@ -14,28 +16,47 @@ function App() {
     fetchProducts();
   }, []);
 
+  const handleLogin = (username, password) => {
+    // Simulación de autenticación
+    if (username === "admin" && password === "password123") {
+      setIsAuthenticated(true);
+    } else {
+      alert("Credenciales incorrectas");
+    }
+  };
+
   return (
-    <div className="main-container">
-      <div className="menu-column">
-        <VerticalMenu />
-      </div>
-      <div
-        className={`content-column ${themeState.darkMode ? "dark-mode" : ""}`}
-      >
-        <h1 className={`main-title ${themeState.darkMode ? "dark-mode" : ""}`}>
-          Sales Management
-        </h1>
-        <div
-          style={{
-            marginLeft: "100px",
-            padding: "20px",
-            width: "80%",
-            height: "100%",
-          }}
-        >
-          <AppRoutes />
+    <div className="App">
+      {!isAuthenticated ? (
+        <LoginPage onLogin={handleLogin} />
+      ) : (
+        <div className="main-container">
+          <div className="menu-column">
+            <VerticalMenu />
+          </div>
+          <div
+            className={`content-column ${
+              themeState.darkMode ? "dark-mode" : ""
+            }`}
+          >
+            <h1
+              className={`main-title ${themeState.darkMode ? "dark-mode" : ""}`}
+            >
+              Sales Management
+            </h1>
+            <div
+              style={{
+                marginLeft: "100px",
+                padding: "20px",
+                width: "80%",
+                height: "100%",
+              }}
+            >
+              <AppRoutes />
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

@@ -1,38 +1,39 @@
 import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+
 import { ProductService } from "../../services/ProductService";
-import Product from "../product/Product";
 import "./ProductList.css";
-import { ProductsContext } from "../../context/ProductContext";
-import { useFilters } from "../../hooks/useFilters";
 import { useTheme } from "../../context/ThemeContext";
+import { ProductsContext } from "../../context/ProductContext";
+
 const productService = new ProductService();
 
-const ProductsList = () => {
+const ProductList = () => {
   const { state: themeState } = useTheme();
   const {
-    filter,
-    filteredProducts,
-    handleCategoryChange,
-    handleMinPriceChange,
-  } = useFilters();
-  const { setProducts, searchTerm, setSearchTerm, handleDeleteProduct } =
-    useContext(ProductsContext);
+    products,
+    setProducts,
+    searchTerm,
+    setSearchTerm,
+    handleDeleteProduct,
+  } = useContext(ProductsContext);
 
   useEffect(() => {
     productService
       .getAllProducts()
       .then((data) => setProducts(data))
       .catch((error) => console.error(error));
-  }, [setProducts]);
+  }, []);
 
   return (
     <div className={`card ${themeState.darkMode ? "dark-mode" : ""}`}>
-      <div className="card-header d-flex justify-content-between">
+      <div className={`card-header ${themeState.darkMode ? "dark-mode" : ""}`}>
         <h3>Products</h3>
-        <Link className="btn btn-success" to="/newProduct">
-          New Product
-        </Link>
+        <div>
+          <Link className="btn btn-success" to="/newProduct">
+            New Product
+          </Link>
+        </div>
       </div>
       <div className={`card-body ${themeState.darkMode ? "dark-mode" : ""}`}>
         <input
@@ -40,42 +41,12 @@ const ProductsList = () => {
           value={searchTerm}
           onChange={(event) => setSearchTerm(event.target.value)}
           placeholder="Search..."
-          className="mb-3"
+          className={`form-control ${themeState.darkMode ? "dark-mode" : ""}`}
         />
-        <div
-          className={`filter-container ${
-            themeState.darkMode ? "dark-mode" : ""
-          }`}
-        >
-          <label>
-            <select
-              id="category"
-              value={filter.category}
-              onChange={handleCategoryChange}
-              className=""
-            >
-              <option value="all">All</option>
-              <option value="gaseosa">Gaseosa</option>
-              <option value="alimento">Alimento</option>
-            </select>
-          </label>
-          <label className="filter-item">
-            Min Price:
-            <input
-              type="range"
-              value={filter.minPrice}
-              min="0"
-              max="2000"
-              onChange={handleMinPriceChange}
-              className="ml-2"
-            />
-            <span className="filter-item">{filter.minPrice}</span>
-          </label>
-        </div>
         <table className="table">
           <thead>
             <tr>
-              <th>ID</th>
+              <th className="id-column">ID</th>
               <th>Name</th>
               <th>Brand</th>
               <th>Category</th>
@@ -84,28 +55,44 @@ const ProductsList = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredProducts.length > 0 ? (
-              filteredProducts.map((product) => (
-                <Product
-                  key={product.id}
-                  product={product}
-                  handleDeleteProduct={handleDeleteProduct}
-                />
-              ))
-            ) : (
-              <tr>
-                <td colSpan="6">
-                  <div className="no-products">
-                    <h3>There are no more products available.</h3>
-                  </div>
-                </td>
-              </tr>
-            )}
+            {products
+              .filter((product) =>
+                Object.values(product).some((value) =>
+                  value
+                    .toString()
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase())
+                )
+              )
+              .map((product) => (
+                <tr key={product.id}>
+                  <td className="id-column">{product.id}</td>
+                  <td className="name-column">{product.name}</td>
+                  <td>{product.brand}</td>
+                  <td>{product.category}</td>
+                  <td>{product.price}</td>
+                  <td className="button-container">
+                    <Link
+                      className="btn btn-primary"
+                      to={`/products/${product.id}`}
+                    >
+                      Edit
+                    </Link>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleDeleteProduct(product.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
+      <div className="card-footer text-muted">Footer</div>
     </div>
   );
 };
 
-export default ProductsList;
+export default ProductList;
