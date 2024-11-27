@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import "./Login.css";
 
-function Login({ onLogin, onRegister }) {
+function LoginPage({ onLogin, onRegister }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -53,6 +54,7 @@ function Login({ onLogin, onRegister }) {
               Ingresar
             </button>
             <button
+              type="button"
               onClick={onRegister}
               className="w-full bg-gray-200 text-gray-800 py-2 rounded-md hover:bg-gray-300 transition duration-300"
             >
@@ -65,4 +67,4 @@ function Login({ onLogin, onRegister }) {
   );
 }
 
-export default Login;
+export default LoginPage;

@@ -1,74 +1,55 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from "react";
 
-const RegisterPage = () => {
-  const navigate = useNavigate();
-  const [error, setError] = useState(""); // Estado para manejar errores
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const userData = {
-      name: formData.get("username"), // Cambiado de 'username' a 'name' para coincidir con el modelo de backend
-      email: formData.get("email"),
-      password: formData.get("password"),
-      role: formData.get("role") || "USER", // Asumiendo un rol por defecto, ajusta según sea necesario
-    };
-
-    try {
-      const response = await fetch("http://localhost:8080/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
-      if (!response.ok) throw new Error("Error en el registro");
-
-      navigate("/login");
-    } catch (error) {
-      setError(error.message); // Manejo de errores
-    }
-  };
-
+function RegisterPage({ onBackToLogin }) {
   return (
-    <div className="container">
-      <h2>Register</h2>
-      {error && (
-        <div className="alert alert-danger" role="alert">
-          {error}
-        </div>
-      )}
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Username</label>
-          <input
-            type="text"
-            className="form-control"
-            name="username"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Email</label>
-          <input type="email" className="form-control" name="email" required />
-        </div>
-        <div className="form-group">
-          <label>Password</label>
-          <input
-            type="password"
-            className="form-control"
-            name="password"
-            required
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Register
-        </button>
-        <Link to="/login">Log in</Link>
-      </form>
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
+      <div className="bg-white shadow-md rounded-lg w-full max-w-md p-8 space-y-6">
+        <h1 className="text-3xl font-bold text-center text-gray-800">
+          Registrarse
+        </h1>
+        <form className="space-y-4">
+          <div>
+            <label
+              htmlFor="username"
+              className="block text-gray-700 font-medium mb-2"
+            >
+              Usuario
+            </label>
+            <input
+              id="username"
+              type="text"
+              required
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="password"
+              className="block text-gray-700 font-medium mb-2"
+            >
+              Contraseña
+            </label>
+            <input
+              id="password"
+              type="password"
+              required
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+            />
+          </div>
+          <button className="w-full bg-gray-700 text-white py-2 rounded-md hover:bg-gray-600 transition duration-300">
+            Registrarse
+          </button>
+          <button
+            type="button"
+            onClick={onBackToLogin}
+            className="w-full bg-gray-200 text-gray-800 py-2 rounded-md hover:bg-gray-300 transition duration-300"
+          >
+            Volver al Login
+          </button>
+        </form>
+      </div>
     </div>
   );
-};
+}
 
 export default RegisterPage;
