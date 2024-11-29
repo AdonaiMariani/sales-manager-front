@@ -26,22 +26,22 @@ const CustomerList = () => {
   }, []);
 
   return (
-    <div className={`card ${themeState.darkMode ? "dark-mode" : ""}`}>
-      <div className={`card-header ${themeState.darkMode ? "dark-mode" : ""}`}>
-        <h3>Customers</h3>
+    <div className={`card ${themeState.darkMode ? "" : ""}`}>
+      <div className={`card-header ${themeState.darkMode ? "" : ""}`}>
+        <h3 className="text-black">Customers</h3>
         <div>
           <Link className="btn btn-success" to="/newCustomer">
             New Customer
           </Link>
         </div>
       </div>
-      <div className={`card-body ${themeState.darkMode ? "dark-mode" : ""}`}>
+      <div className={`card-body ${themeState.darkMode ? "" : ""}`}>
         <input
           type="text"
           value={searchTerm}
           onChange={(event) => setSearchTerm(event.target.value)}
           placeholder="Search..."
-          className={`form-control ${themeState.darkMode ? "dark-mode" : ""}`}
+          className={`form-control ${themeState.darkMode ? "" : ""}`}
         />
         <table className="table">
           <thead>

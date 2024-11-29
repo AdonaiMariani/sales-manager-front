@@ -10,15 +10,12 @@ const NewProduct = () => {
   const { state: themeState } = useTheme();
 
   return (
-    <div className={`card ${themeState.darkMode ? "dark-mode" : ""}`}>
-      <div className="card-header">New Product</div>
-      <div className={`card-body ${themeState.darkMode ? "dark-mode" : ""}`}>
+    <div className={`card ${themeState.darkMode ? "" : ""}`}>
+      <div className="card-header text-black">New Product</div>
+      <div className={`card-body ${themeState.darkMode ? "" : ""}`}>
         <form onSubmit={validateAndSubmit}>
           <div className="form-group">
-            <label
-              htmlFor="Name"
-              className={themeState.darkMode ? "dark-mode-label" : ""}
-            >
+            <label htmlFor="Name" className={themeState.darkMode ? "" : ""}>
               Name
             </label>
             <input

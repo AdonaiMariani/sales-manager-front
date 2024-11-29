@@ -29,7 +29,7 @@ const InvoiceList = () => {
   return (
     <div className="card">
       <div className="card-header d-flex justify-content-between">
-        <h3>Invoices</h3>
+        <h3 className="text-black">Invoices</h3>
         <Link className="btn btn-success" to="/newInvoice">
           New Invoice
         </Link>

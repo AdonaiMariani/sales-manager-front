@@ -61,6 +61,21 @@ const VerticalMenu = () => {
           </Link>
         </div>
       </div>
+      <div className="dropdown">
+        <button className={`dropbtn ${state.darkMode ? "dark-mode" : ""}`}>
+          Users
+        </button>
+        <div
+          className={`dropdown-content ${state.darkMode ? "dark-mode" : ""}`}
+        >
+          <Link to="/users" className="dropdown-link">
+            See Users
+          </Link>
+          <Link to="/newUser" className="dropdown-link">
+            Add User
+          </Link>
+        </div>
+      </div>
       <button onClick={toggleDarkMode} className="theme-toggle-button">
         {state.darkMode ? "Light Mode" : "Dark Mode"}
       </button>

@@ -10,24 +10,21 @@ const NewCustomer = () => {
   const { state: themeState } = useTheme();
 
   return (
-    <div className={`card ${themeState.darkMode ? "dark-mode" : ""}`}>
-      <div className="card-header">New Customer</div>
-      <div className={`card-body ${themeState.darkMode ? "dark-mode" : ""}`}>
-        <form onSubmit={validateAndSubmit}>
+    <div className={`card ${themeState.darkMode ? "" : ""}`}>
+      <div className="card-header text-black">New Customer</div>
+      <div className={`card-body ${themeState.darkMode ? "" : ""}`}>
+        <form onSubmit={validateAndSubmit} className="border">
           <div className="form-group">
-            <label
-              className={themeState.darkMode ? "dark-mode-label" : ""}
-              htmlFor="Name"
-            >
+            <label className={themeState.darkMode ? "" : ""} htmlFor="Name">
               Name
             </label>
             <input
               type="text"
               name="Name"
               id="Name"
-              className={`form-control ${
-                themeState.darkMode ? "form-control-dark-mode" : ""
-              } ${errors.Name ? "is-invalid" : ""}`}
+              className={`form-control ${themeState.darkMode ? "" : ""} ${
+                errors.Name ? "is-invalid" : ""
+              }`}
               placeholder="Insert Name"
               aria-describedby="helpId"
               value={formData.Name}
