@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8080/users/";
+const BASE_URL = "http://localhost:8080/users";
 
-export class CustomerService {
+export class UserService {
   // Define methods for interacting with customers here
   async getAllUsers() {
     const response = await axios.get(BASE_URL);

@@ -4,17 +4,20 @@ import { ProductsProvider } from "./context/ProductContext";
 import CustomerProvider from "./context/CustomerProvider";
 import { ThemeProvider } from "./context/ThemeContext";
 import { DataProvider } from "./context/DataContext";
+import { UsersProvider } from "./context/UserContext";
 
 const Main = () => {
   return (
     <ThemeProvider>
-      <DataProvider>
-        <ProductsProvider>
-          <CustomerProvider>
-            <App />
-          </CustomerProvider>
-        </ProductsProvider>
-      </DataProvider>
+      <UsersProvider>
+        <CustomerProvider>
+          <DataProvider>
+            <ProductsProvider>
+              <App />
+            </ProductsProvider>
+          </DataProvider>
+        </CustomerProvider>
+      </UsersProvider>
     </ThemeProvider>
   );
 };

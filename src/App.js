@@ -68,7 +68,10 @@ function App() {
           onRegister={() => setCurrentPage("register")}
         />
       ) : (
-        <RegisterPage onBackToLogin={() => setCurrentPage("login")} />
+        <RegisterPage
+          onBackToLogin={() => setCurrentPage("login")}
+          onSuccesfullyRegister={() => setCurrentPage("login")}
+        />
       )}
     </div>
   );
