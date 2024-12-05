@@ -12,6 +12,7 @@ import InvoiceList from "../components/invoiceList/InvoiceList";
 import NewInvoice from "../components/NewInvoice/NewInvoice";
 import RegisterPage from "../components/auth/pages/RegisterPage";
 import LoginPage from "../components/auth/pages/LoginPage";
+import UserList from "../components/userList/UserList";
 
 const AppRoutes = ({ customers, products, handleCreate }) => {
   return (
@@ -29,6 +30,7 @@ const AppRoutes = ({ customers, products, handleCreate }) => {
       <Route path="/newInvoice" element={<NewInvoice />} />
       <Route path="/invoices/:id" element={<EditInvoice />} />
       <Route path="/invoices/print/:id" element={<InvoicePrint />} />
+      <Route path="/users" element={<UserList />} />
     </Routes>
   );
 };

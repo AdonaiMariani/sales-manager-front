@@ -7,12 +7,7 @@ const customerService = new CustomerService();
 const CustomerProvider = ({ children }) => {
   const [customers, setCustomers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [customer, setCustomer] = useState({
-    name: "",
-    address: "",
-    phone: "",
-    email: "",
-  });
+
   const [originalCustomer, setOriginalCustomer] = useState(null);
   const [formData, setFormData] = useState({
     Id: "",
@@ -81,13 +76,11 @@ const CustomerProvider = ({ children }) => {
   return (
     <CustomerContext.Provider
       value={{
-        customer,
         errors,
         customers,
         originalCustomer,
         formData,
         searchTerm,
-        setCustomer,
         setCustomers,
         setOriginalCustomer,
         setSearchTerm,
