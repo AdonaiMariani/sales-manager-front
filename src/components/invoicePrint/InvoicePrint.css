@@ -55,3 +55,69 @@
   button:hover {
     background-color: #45a049;
   }
+
+  .invoice-print-container {
+    width: 800px; /* Ancho deseado para la factura */
+    margin: auto; /* Centrar en la página */
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: #fff;
+}
+
+.invoice-print-container header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.invoice-print-container header img {
+    max-width: 100px; /* Ajustar el tamaño del logo si es necesario */
+}
+
+.invoice-print-container .invoice-details {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+
+.invoice-print-container .invoice-details th,
+.invoice-print-container .invoice-details td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+.invoice-print-container .invoice-total {
+    margin-top: 20px;
+    text-align: right;
+    font-weight: bold;
+}
+
+.invoice-print-container button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    .invoice-print-container,
+    .invoice-print-container * {
+        visibility: visible;
+    }
+
+    .invoice-print-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}

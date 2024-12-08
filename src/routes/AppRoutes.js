@@ -37,7 +37,13 @@ const AppRoutes = ({ customers, products, handleCreate }) => {
         />
       }
     />
-    <Route path="/invoices/:id" element={<EditInvoice />} />
+    <Route path="/invoices/:id" element={
+      <EditInvoice
+      customers={customers}
+      products={products}
+    />
+    }
+     />
     <Route path="/invoices/print/:id" element={<InvoicePrint />} />
     
   </Routes>
