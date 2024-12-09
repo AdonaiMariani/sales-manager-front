@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { createContext, useState } from "react";
-import { UserService } from "../services/UserService";
+import { AuthService, UserService } from "../services/UserService";
 
 const userService = new UserService();
+const authService = new AuthService();
 
 export const UserContext = createContext();
 
@@ -52,8 +53,8 @@ export function UsersProvider({ children }) {
     setErrors(tempErrors);
 
     if (Object.values(tempErrors).every((x) => x === "")) {
-      userService
-        .createUser({
+      authService
+        .authUser({
           name: formDataRegister.Name,
           email: formDataRegister.Email,
           password: formDataRegister.Password,
@@ -61,13 +62,13 @@ export function UsersProvider({ children }) {
         })
         .then(() => {
           alert("User created successfully");
-          navigate("/login");
           setFormDataRegister({
             Name: "",
             Email: "",
             Password: "",
             Role: "",
           });
+          navigate("/login");
         })
         .catch((error) => {
           console.error(error);

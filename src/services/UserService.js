@@ -1,5 +1,4 @@
 import axios from "axios";
-
 const BASE_URL = "http://localhost:8080/users";
 
 export class UserService {
@@ -27,6 +26,17 @@ export class UserService {
 
   async deleteUser(id) {
     const response = await axios.delete(`${BASE_URL}/${id}`);
+    return response.data;
+  }
+}
+
+export class AuthService {
+  async registerUser(userData) {
+    console.log("Register user with data:", userData);
+    const response = await axios.post(
+      "http://localhost:8080/register",
+      userData
+    );
     return response.data;
   }
 }

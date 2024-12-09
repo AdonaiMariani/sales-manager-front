@@ -4,7 +4,7 @@ const BASE_URL = "http://localhost:8080/invoices";
 
 export class InvoiceService {
   constructor() {
-    this.baseUrl = BASE_URL;
+    this.baseUrl = "http://localhost:8080/invoices";
   }
 
   async getAllInvoices() {
