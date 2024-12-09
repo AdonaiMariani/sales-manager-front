@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { InvoiceService } from "../../services/InvoiceService";
 import Invoice from "../invoice/Invoice";
 import "./InvoiceList.css";
+
 const invoiceService = new InvoiceService();
 
 const InvoiceList = () => {
@@ -19,17 +20,25 @@ const InvoiceList = () => {
   const handleDeleteInvoice = (id) => {
     invoiceService
       .deleteInvoice(id)
-      .then(() => {
-        return invoiceService.getAllInvoices();
-      })
+      .then(() => invoiceService.getAllInvoices())
       .then((data) => setInvoices(data))
       .catch((error) => console.error(error));
   };
 
+  const filteredInvoices = invoices.filter((invoice) => {
+    // Asegurarse de que los valores no sean null o undefined antes de usar toString()
+    return Object.values(invoice).some((value) => {
+      if (value === null || value === undefined) {
+        return false;
+      }
+      return value.toString().toLowerCase().includes(searchTerm.toLowerCase());
+    });
+  });
+
   return (
     <div className="card">
       <div className="card-header d-flex justify-content-between">
-        <h3 className="text-black">Invoices</h3>
+        <h3>Invoices</h3>
         <Link className="btn btn-success" to="/newInvoice">
           New Invoice
         </Link>
@@ -52,22 +61,13 @@ const InvoiceList = () => {
             </tr>
           </thead>
           <tbody>
-            {invoices
-              .filter((invoice) =>
-                Object.values(invoice).some((value) =>
-                  value
-                    .toString()
-                    .toLowerCase()
-                    .includes(searchTerm.toLowerCase())
-                )
-              )
-              .map((invoice) => (
-                <Invoice
-                  key={invoice.id}
-                  invoice={invoice}
-                  handleDeleteInvoice={handleDeleteInvoice}
-                />
-              ))}
+            {filteredInvoices.map((invoice) => (
+              <Invoice
+                key={invoice.id}
+                invoice={invoice}
+                handleDeleteInvoice={handleDeleteInvoice}
+              />
+            ))}
           </tbody>
         </table>
       </div>

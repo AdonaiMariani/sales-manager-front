@@ -16,6 +16,7 @@ const VerticalMenu = () => {
       <Link to="/home" className="menu-link">
         Home
       </Link>
+
       <div className="dropdown">
         <button className={`dropbtn ${state.darkMode ? "dark-mode" : ""}`}>
           Products

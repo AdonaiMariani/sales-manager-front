@@ -1,7 +1,46 @@
-form {
+/* form {
     display: flex;
     flex-direction: column;
     max-width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+}
+
+label {
+    margin-bottom: 10px;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #4CAF50; /* Green */
+    /* border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+} */ 
+
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 2000px; /* Aumentado para dar más espacio */
     margin: 0 auto;
     padding: 20px;
     background-color: #f8f8f8;
@@ -35,4 +74,55 @@ button {
 
 button:hover {
     background-color: #45a049;
+}
+
+/* Nuevos estilos para la tabla y su contenedor */
+.table-container {
+    overflow-x: auto; /* Hace que la tabla sea desplazable horizontalmente */
+    margin-top: 20px; /* Espacio adicional arriba de la tabla */
+    width: 100%; /* Asegúrate de que el contenedor pueda expandirse completamente */
+    max-width: none; /* Elimina cualquier restricción de ancho máximo si existe */
+}
+
+
+table {
+    width: 100%; /* Ajusta el ancho de la tabla al de su contenedor */
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+    border: 1px solid #ccc; /* Agrega bordes a las celdas para mejor definición */
+}
+
+@media (max-width: 1500px) {
+    form {
+        max-width: 100%; /* Hace que el formulario sea más responsivo */
+    }
+
+    th, td {
+        padding: 5px; /* Ajusta el padding en pantallas pequeñas */
+    }
+}
+
+.columna-producto {
+    width: 200px;
+}
+
+.form-container {
+    width: 700px; /* Asegura que el contenedor use todo el ancho disponible */
+    max-width: none; /* Elimina cualquier restricción de ancho máximo */
+    padding: 20px; /* Ajusta el padding según sea necesario */
+}
+
+.total-price {
+    font-size: 20px; /* Hace el texto más grande */
+    font-weight: bold; /* Hace el texto en negrita */
+    color: #090909; /* Cambia el color del texto a dorado */
+    padding: 10px; /* Añade un poco de espacio alrededor del texto */
+    background-color: #bcadad; /* Añade un color de fondo para resaltar aún más */
+    border-radius: 5px; /* Bordes redondeados para el fondo */
+    margin-top: 20px; /* Añade espacio arriba del total para separarlo de otros elementos */
 }
