@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ProductService } from "../../services/ProductService";
 import "./EditProduct.css";
@@ -49,8 +49,8 @@ const EditProduct = () => {
       productService
         .updateProduct(id, product)
         .then(() => {
-          alert('Product updated successfully');
-          navigate('/products');
+          alert("Product updated successfully");
+          navigate("/products");
         })
         .catch((error) => console.error(error));
     }

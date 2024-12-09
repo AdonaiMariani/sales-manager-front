@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./NewInvoice.css";
 
-const NewInvoice = ({ handleCreate }) => {
+const NewInvoice = () => {
   const currentDate = new Date();
   const formattedDate = `${currentDate.getFullYear()}-${String(
     currentDate.getMonth() + 1
@@ -17,6 +17,36 @@ const NewInvoice = ({ handleCreate }) => {
   const [cart, setCart] = useState([]);
 
   // Fetch customers and products on component load
+  //función handelCreate para crear facturas con múltiple productos
+  const handleCreate = async (invoice) => {
+    const productsToSend = invoice.invoiceProducts.map((product) => ({
+      productId: product.productId, // Cambio aquí: usé productId en lugar de id
+      quantity: Number(product.quantity), // Asegurarse de que quantity sea un número
+      price: product.price,
+    }));
+
+    const invoiceToSend = {
+      customerId: invoice.customerId, // Cambio aquí: usé customerId en lugar de customer
+      date: invoice.date,
+      invoiceProducts: productsToSend,
+    };
+
+    console.log("invoiceToSend:", invoiceToSend);
+
+    const response = await fetch("http://localhost:8080/invoices", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(invoiceToSend),
+    });
+    console.log("Response:", response);
+
+    if (!response.ok) {
+      console.error("Error creating invoice:", response.statusText);
+      return;
+    }
+  };
   useEffect(() => {
     const fetchCustomers = async () => {
       const response = await fetch("http://localhost:8080/customers"); // Cambia por la URL real

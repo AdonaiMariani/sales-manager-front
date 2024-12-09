@@ -9,70 +9,45 @@ import RegisterPage from "./components/auth/pages/RegisterPage";
 import { useNavigate } from "react-router-dom";
 
 function App() {
-  const { fetchCustomers, fetchProducts } = useContext(DataContext);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentPage, setCurrentPage] = useState("login"); // Nueva variable de estado
   const { state: themeState } = useTheme();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchCustomers();
-    fetchProducts();
-  }, []);
-
-  //función handelCreate para crear facturas con múltiple productos
-  const handleCreate = async (invoice) => {
-    const productsToSend = invoice.products.map((product) => ({
-      id: product.id,
-      // quantity: product.quantity,
-      quantity: Number(product.quantity), // Asegurarse de que quantity sea un número
-      price: product.price,
-      total_price: product.price * product.quantity,
-    }));
-
-    const invoiceToSend = {
-      customer: { id: invoice.customer },
-      products: productsToSend,
-      date: invoice.date,
-    };
-
-    console.log("invoiceToSend:", invoiceToSend);
-
-    const response = await fetch("http://localhost:8080/invoices", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(invoiceToSend),
-    });
-    console.log("Response:", response);
-
-    if (!response.ok) {
-      console.error("Error creating invoice:", response.statusText);
-      return;
+  const handleLogin = (username, password) => {
+    if (username === "admin" && password === "password123") {
+      setIsAuthenticated(true);
+      navigate("/home");
+    } else {
+      alert("Credenciales incorrectas");
     }
-
-    const createdInvoice = await response.json();
-    console.log("Created invoice:", createdInvoice);
   };
 
-  return (
-    <div className="main-container">
-      <div className="menu-column">
-        <VerticalMenu />
-      </div>
-      <div className="content-column">
-        <h1 className="main-title">Sales Management</h1>
-        <div style={{ marginLeft: "100px", padding: "20px", width: "60%" }}>
-          <ProductsProvider>
-            <CustomerProvider>
-              <AppRoutes
-                customers={customers}
-                products={products}
-                handleCreate={handleCreate}
-              />
-            </CustomerProvider>
-          </ProductsProvider>
+  if (isAuthenticated) {
+    // Prioriza el dashboard si el usuario está autenticado
+    return (
+      <div className="main-container">
+        <div className="menu-column">
+          <VerticalMenu />
+        </div>
+        <div
+          className={`content-column ${themeState.darkMode ? "dark-mode" : ""}`}
+        >
+          <h1
+            className={`main-title ${themeState.darkMode ? "dark-mode" : ""}`}
+          >
+            Sales Management
+          </h1>
+          <div
+            style={{
+              marginLeft: "100px",
+              padding: "20px",
+              width: "80%",
+              height: "100%",
+            }}
+          >
+            <AppRoutes />
+          </div>
         </div>
       </div>
     );
@@ -97,18 +72,6 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import "./App.css";
 // import React, { useState, useEffect } from "react";
@@ -171,7 +134,7 @@ export default App;
 //         productId: product.productId,
 //         quantity: Number(product.quantity),
 //         price: product.price,
-//       })); 
+//       }));
 
 //     const invoiceToSend = {
 //       customerId: invoice.customerId, // Cambio aquí: usé customerId en lugar de customer
@@ -331,13 +294,11 @@ export default App;
 
 // export default App;
 
-
 // //CODIGO ANTES DE IMPLEMENTAR INVOICEPRODUCTS
 // import "./App.css";
 // import React, { useState, useEffect } from "react";
 // import VerticalMenu from "./components/verticalMenu/VerticalMenu";
 // import AppRoutes from "./routes/AppRoutes"
-
 
 // function App() {
 //   const [customers, setCustomers] = useState([]);
@@ -348,11 +309,11 @@ export default App;
 //     const fetchCustomers = async () => {
 //       try {
 //         const response = await fetch("http://localhost:8080/customers");
-    
+
 //         if (!response.ok) {
 //           throw new Error(`HTTP error! status: ${response.status}`);
 //         }
-    
+
 //         const data = await response.json();
 //         setCustomers(data);
 //       } catch (error) {
@@ -364,11 +325,11 @@ export default App;
 //     const fetchProducts = async () => {
 //       try {
 //         const response = await fetch("http://localhost:8080/products");
-    
+
 //         if (!response.ok) {
 //           throw new Error(`HTTP error! status: ${response.status}`);
 //         }
-    
+
 //         const data = await response.json();
 //         setProducts(data);
 //       } catch (error) {
@@ -380,8 +341,6 @@ export default App;
 //     fetchProducts();
 //   }, []);
 
-
-
 //   //función handelCreate para crear facturas con múltiple productos
 //   const handleCreate = async (invoice) => {
 //     const productsToSend = invoice.products.map(product => ({
@@ -391,15 +350,15 @@ export default App;
 //       price: product.price,
 //       total_price: product.price * product.quantity,
 //     }));
-  
+
 //     const invoiceToSend = {
 //       customer: { id: invoice.customer },
 //       products: productsToSend,
 //       date: invoice.date
 //     };
-  
+
 //     console.log('invoiceToSend:', invoiceToSend);
-  
+
 //     const response = await fetch("http://localhost:8080/invoices", {
 //       method: "POST",
 //       headers: {
@@ -408,16 +367,15 @@ export default App;
 //       body: JSON.stringify(invoiceToSend),
 //     });
 //     console.log('Response:', response);
-    
+
 //     if (!response.ok) {
 //       console.error("Error creating invoice:", response.statusText);
 //       return;
 //     }
-  
+
 //     const createdInvoice = await response.json();
 //     console.log("Created invoice:", createdInvoice);
 //   };
-
 
 //   return (
 //     <div className="main-container">
@@ -436,9 +394,7 @@ export default App;
 
 // export default App;
 
-
 // //CODIGO DESPUES DE IMPLEMENTAR INVOICEPRODUCTS
-
 
 // // import "./App.css";
 // // import React, { useState, useEffect } from "react";

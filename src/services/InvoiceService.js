@@ -1,7 +1,5 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8080/invoices";
-
 export class InvoiceService {
   constructor() {
     this.baseUrl = "http://localhost:8080/invoices";

@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "../../../context/UserContext";
-import { useTheme } from "../../../context/ThemeContext";
 
 function RegisterPage({ onBackToLogin, onSuccesfullyRegister }) {
   const [showPassword, setShowPassword] = useState(false);
@@ -10,7 +9,6 @@ function RegisterPage({ onBackToLogin, onSuccesfullyRegister }) {
   };
   const { formDataRegister, errors, validateAndSubmit, handleInputChange } =
     useContext(UserContext);
-  const { state: themeState } = useTheme();
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
