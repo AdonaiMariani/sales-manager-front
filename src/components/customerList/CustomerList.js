@@ -24,7 +24,6 @@ const CustomerList = () => {
       .then((data) => setCustomers(data))
       .catch((error) => console.error(error));
   }, []);
-
   return (
     <div className={`card ${themeState.darkMode ? "" : ""}`}>
       <div className={`card-header ${themeState.darkMode ? "" : ""}`}>

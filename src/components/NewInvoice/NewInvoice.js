@@ -1,15 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./NewInvoice.css";
+import { CustomerService } from "../../services/CustomerService";
+import CustomerContext from "../../context/CustomerContext";
+import { ProductsContext } from "../../context/ProductContext";
+import { ProductService } from "../../services/ProductService";
 
+const customerService = new CustomerService();
+const productService = new ProductService();
 const NewInvoice = () => {
   const currentDate = new Date();
   const formattedDate = `${currentDate.getFullYear()}-${String(
     currentDate.getMonth() + 1
   ).padStart(2, "0")}-${String(currentDate.getDate()).padStart(2, "0")}`;
+  const { customers, setCustomers } = useContext(CustomerContext);
+  const { products, setProducts } = useContext(ProductsContext);
 
   const [date, setDate] = useState(formattedDate);
-  const [customers, setCustomers] = useState([]);
-  const [products, setProducts] = useState([]);
+
   const [customer, setCustomer] = useState("");
   const [productSearch, setProductSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -20,49 +27,47 @@ const NewInvoice = () => {
   //función handelCreate para crear facturas con múltiple productos
   const handleCreate = async (invoice) => {
     const productsToSend = invoice.invoiceProducts.map((product) => ({
-      productId: product.productId, // Cambio aquí: usé productId en lugar de id
-      quantity: Number(product.quantity), // Asegurarse de que quantity sea un número
+      productId: product.productId,
+      quantity: Number(product.quantity),
       price: product.price,
     }));
 
     const invoiceToSend = {
-      customerId: invoice.customerId, // Cambio aquí: usé customerId en lugar de customer
+      customerId: invoice.customerId,
       date: invoice.date,
       invoiceProducts: productsToSend,
     };
 
     console.log("invoiceToSend:", invoiceToSend);
 
+    const token = localStorage.getItem("token");
     const response = await fetch("http://localhost:8080/invoices", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(invoiceToSend),
     });
     console.log("Response:", response);
+    console.log("Token: ", token);
 
     if (!response.ok) {
-      console.error("Error creating invoice:", response.statusText);
+      const errorData = response;
+      console.log("Error creating invoice:", errorData || response.statusText);
+      alert(`Error: ${errorData.message || "Unauthorized access"}`);
       return;
     }
   };
   useEffect(() => {
-    const fetchCustomers = async () => {
-      const response = await fetch("http://localhost:8080/customers"); // Cambia por la URL real
-      const data = await response.json();
-      setCustomers(data);
-      if (data.length > 0) setCustomer(data[0].id);
-    };
-
-    const fetchProducts = async () => {
-      const response = await fetch("http://localhost:8080/products"); // Cambia por la URL real
-      const data = await response.json();
-      setProducts(data);
-    };
-
-    fetchCustomers();
-    fetchProducts();
+    customerService
+      .getAllCustomers()
+      .then((data) => setCustomers(data))
+      .catch((error) => console.error(error));
+    productService
+      .getAllProducts()
+      .then((data) => setProducts(data))
+      .catch((error) => console.error(error));
   }, []);
 
   useEffect(() => {

@@ -1,8 +1,16 @@
 import axios from "axios";
 
+const BASE_URL = "http://localhost:8080/invoices";
+
+const updateAuthorizationHeader = (token) => {
+  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+};
+
 export class InvoiceService {
   constructor() {
-    this.baseUrl = "http://localhost:8080/invoices";
+    this.baseUrl = BASE_URL;
+    const token = localStorage.getItem("token");
+    updateAuthorizationHeader(token);
   }
 
   async getAllInvoices() {
