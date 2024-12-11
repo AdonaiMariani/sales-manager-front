@@ -49,8 +49,8 @@ const EditProduct = () => {
       productService
         .updateProduct(id, product)
         .then(() => {
-          alert("Product updated successfully");
-          navigate("/products");
+          alert('Product updated successfully');
+          navigate('/products');
         })
         .catch((error) => console.error(error));
     }
