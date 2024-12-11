@@ -17,6 +17,7 @@ export class ProductService {
   // Define methods for interacting with products here
   async getAllProducts() {
     const response = await axios.get(BASE_URL);
+    console.log(response);
     return response.data;
   }
 

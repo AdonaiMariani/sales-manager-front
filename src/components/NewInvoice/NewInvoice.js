@@ -80,6 +80,11 @@ const NewInvoice = () => {
     const searchTerm = e.target.value;
     setProductSearch(searchTerm);
 
+    if (searchTerm.trim() === "") {
+      setSearchResults([]); // Limpiar resultados si no hay texto en el campo
+      return;
+    }
+
     const results = products.filter((product) =>
       product.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -97,7 +102,15 @@ const NewInvoice = () => {
       (product) => product.name.toLowerCase() === productSearch.toLowerCase()
     );
     if (productToAdd) {
-      setCart((prevCart) => [...prevCart, { ...productToAdd, quantity }]);
+      setCart((prevCart) => {
+        const existingProduct = prevCart.find((p) => p.id === productToAdd.id);
+        if (existingProduct) {
+          existingProduct.quantity += quantity / 2;
+          return [...prevCart];
+        } else {
+          return [...prevCart, { ...productToAdd, quantity }]; // Inicializa la cantidad con el valor ingresado
+        }
+      });
       setProductSearch("");
       setQuantity(1);
     }
@@ -131,20 +144,23 @@ const NewInvoice = () => {
 
   return (
     <div className="form-container">
-      <form onSubmit={handleSubmit}>
-        <label>
-          Date:
+      <h2>Crear Factura</h2>
+      <form onSubmit={handleSubmit} className="invoice-form">
+        <div className="form-group">
+          <label>Fecha:</label>
           <input
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
+            className="form-control"
           />
-        </label>
-        <label>
-          Customer:
+        </div>
+        <div className="form-group">
+          <label>Cliente:</label>
           <select
             value={customer}
             onChange={(e) => setCustomer(e.target.value)}
+            className="form-control"
           >
             {customers.map((customer) => (
               <option key={customer.id} value={customer.id}>
@@ -152,38 +168,53 @@ const NewInvoice = () => {
               </option>
             ))}
           </select>
-        </label>
-        <label>
-          Product:
+        </div>
+        <div className="form-group">
+          <label>Producto:</label>
           <input
             type="text"
             value={productSearch}
             onChange={handleProductSearch}
+            className="form-control"
+            placeholder="Buscar producto..."
           />
-          {searchResults.map((product) => (
-            <div key={product.id} onClick={() => handleProductSelect(product)}>
-              {product.name}
-            </div>
-          ))}
+          {searchResults.length > 0 && (
+            <ul className="search-results">
+              {searchResults.map((product) => (
+                <li
+                  key={product.id}
+                  onClick={() => handleProductSelect(product)}
+                >
+                  {product.name}
+                </li>
+              ))}
+            </ul>
+          )}
           <input
             type="number"
             min="1"
             value={quantity}
             onChange={(e) => setQuantity(Number(e.target.value))}
+            className="form-control"
           />
-          <button type="button" onClick={handleAddProduct}>
-            Add Product
+          <button
+            type="button"
+            onClick={handleAddProduct}
+            className="btn btn-primary"
+          >
+            Agregar Producto
           </button>
-        </label>
+        </div>
+
         {cart.length > 0 && (
-          <table>
+          <table className="table table-striped">
             <thead>
               <tr>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Unit Price</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
                 <th>Total</th>
-                <th>Action</th>
+                <th>Acción</th>
               </tr>
             </thead>
             <tbody>
@@ -194,8 +225,11 @@ const NewInvoice = () => {
                   <td>${product.price.toFixed(2)}</td>
                   <td>${(product.price * product.quantity).toFixed(2)}</td>
                   <td>
-                    <button onClick={() => handleRemoveProduct(index)}>
-                      Remove
+                    <button
+                      onClick={() => handleRemoveProduct(index)}
+                      className="btn btn-danger"
+                    >
+                      Eliminar
                     </button>
                   </td>
                 </tr>
@@ -204,7 +238,9 @@ const NewInvoice = () => {
           </table>
         )}
         <div>Total: ${total.toFixed(2)}</div>
-        <button type="submit">Create Invoice</button>
+        <button type="submit" className="btn btn-success">
+          Crear Factura
+        </button>
       </form>
     </div>
   );
