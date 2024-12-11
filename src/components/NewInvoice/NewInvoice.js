@@ -16,9 +16,7 @@ const NewInvoice = () => {
   const { customers, setCustomers } = useContext(CustomerContext);
   const { products, setProducts } = useContext(ProductsContext);
   const navigate = useNavigate();
-
   const [date, setDate] = useState(formattedDate);
-
   const [customer, setCustomer] = useState("");
   const [productSearch, setProductSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);

@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import InvoiceList from "../invoiceList/InvoiceList";
 import { useTheme } from "../../context/ThemeContext";
-import "./Home.css"; // Asegúrate de importar el archivo CSS
+import "./Home.css";
 
 const Home = () => {
   const { state: themeState } = useTheme();
+  const [showInvoiceList, setShowInvoiceList] = useState(false);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowInvoiceList(true);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className={themeState.darkMode ? "dark-mode-title" : ""}>
@@ -14,7 +22,8 @@ const Home = () => {
       <h2 className={themeState.darkMode ? "dark-subtitle" : ""}>
         Invoice List:
       </h2>
-      <InvoiceList />
+
+      {showInvoiceList ? <InvoiceList /> : null}
     </div>
   );
 };

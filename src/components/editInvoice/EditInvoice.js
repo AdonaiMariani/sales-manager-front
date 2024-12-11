@@ -1,16 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { InvoiceService } from "../../services/InvoiceService";
 import { CustomerService } from "../../services/CustomerService";
 import "./EditInvoice.css";
+import CustomerContext from "../../context/CustomerContext";
+import { ProductsContext } from "../../context/ProductContext";
+import { ProductService } from "../../services/ProductService";
 
 const invoiceService = new InvoiceService();
 const customerService = new CustomerService();
+const productService = new ProductService();
 
-const EditInvoice = ({ customers: customersProp, products }) => {
+const EditInvoice = () => {
   const { id } = useParams();
   const [invoice, setInvoice] = useState(null);
-  const [customers, setCustomers] = useState([]);
+  const { customers, setCustomers } = useContext(CustomerContext);
+  const { products, setProducts } = useContext(ProductsContext);
   const [productSearch, setProductSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [quantity, setQuantity] = useState(1);
@@ -30,15 +35,20 @@ const EditInvoice = ({ customers: customersProp, products }) => {
       .getAllCustomers()
       .then((data) => setCustomers(data))
       .catch((error) => console.error(error));
+    productService
+      .getAllProducts()
+      .then((data) => setProducts(data))
+      .catch((error) => console.error(error));
   }, [id]);
 
   const handleProductSearch = (e) => {
     const searchTerm = e.target.value;
     setProductSearch(searchTerm);
-
+    console.log(searchTerm);
     const results = products.filter((product) =>
       product.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
+    console.log(results);
     setSearchResults(results);
   };
 

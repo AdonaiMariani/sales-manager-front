@@ -10,9 +10,7 @@ import ProductList from "../components/productList/ProductsList";
 import Home from "../components/home/Home";
 import InvoiceList from "../components/invoiceList/InvoiceList";
 import NewInvoice from "../components/NewInvoice/NewInvoice";
-import RegisterPage from "../components/auth/pages/RegisterPage";
 import LoginPage from "../components/auth/pages/LoginPage";
-
 import UserList from "../components/userList/UserList";
 import NewUser from "../newUser/NewUser";
 import EditProfile from "../components/editProfile/EditProfile";
@@ -28,7 +26,6 @@ const AppRoutes = ({ customers, products, handleCreate }) => {
       <Route path="/newCustomer" element={<NewCustomer />} />
       <Route path="/customers/:id" element={<EditCustomer />} />
       <Route path="/invoices" element={<InvoiceList />} />
-      <Route path="/register" element={<RegisterPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/newInvoice" element={<NewInvoice />} />
       <Route path="/invoices/:id" element={<EditInvoice />} />

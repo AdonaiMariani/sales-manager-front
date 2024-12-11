@@ -22,7 +22,6 @@ const Login = ({ setToken, onRegister }) => {
         // Maneja la respuesta exitosa
         const data = await response.json();
         setToken(data.jwt);
-        console.log("Respuesta del servidor", data);
       } else {
         // Maneja errores de autenticación
         if (response.status === 401) {
@@ -40,13 +39,13 @@ const Login = ({ setToken, onRegister }) => {
     setShowPassword(!showPassword);
   };
   return (
-    <div class="login_container">
-      <div class="login_card">
-        <h1 class="login_title">Iniciar Sesión</h1>
-        {error && <p class="login_error">{error}</p>}
-        <form onSubmit={handleSubmit} class="login_form">
-          <div class="login_form_group">
-            <label for="email" class="login_label">
+    <div className="login_container">
+      <div className="login_card">
+        <h1 className="login_title">Iniciar Sesión</h1>
+        {error && <p className="login_error">{error}</p>}
+        <form onSubmit={handleSubmit} className="login_form">
+          <div className="login_form_group">
+            <label htmlFor="email" className="login_label">
               Email
             </label>
             <input
@@ -55,26 +54,26 @@ const Login = ({ setToken, onRegister }) => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              class="login_input"
+              className="login_input"
             />
           </div>
-          <div class="login_form_group">
-            <label for="password" class="login_label">
+          <div className="login_form_group">
+            <label htmlFor="password" className="login_label">
               Contraseña
             </label>
-            <div class="login_input_wrapper">
+            <div className="login_input_wrapper">
               <input
                 id="password"
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                class="login_input"
+                className="login_input"
               />
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
-                class="login_toggle_password"
+                className="login_toggle_password"
               >
                 {showPassword ? (
                   <span role="img" aria-label="Ocultar contraseña">
@@ -88,8 +87,8 @@ const Login = ({ setToken, onRegister }) => {
               </button>
             </div>
           </div>
-          <div class="login_button_group">
-            <button class="login_primary_button">Ingresar</button>
+          <div className="login_button_group">
+            <button className="login_primary_button">Ingresar</button>
           </div>
         </form>
       </div>
