@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 import "./Invoice.css";
 
 const Invoice = ({ invoice, handleDeleteInvoice }) => {
-  // Verifica si el objeto invoice y sus propiedades son nulos o indefinidos
   if (!invoice) {
-    return null; // O muestra un mensaje de carga
+    return null;
   }
 
   return (
@@ -14,24 +13,23 @@ const Invoice = ({ invoice, handleDeleteInvoice }) => {
         <Link to={`/invoices/${invoice.id}`}>{invoice.id}</Link>
       </td>
       <td>{invoice.date}</td>
-      <td>{invoice.customerId}</td>{" "}
-      {/* Aquí usaremos customerId directamente */}
-      <td>${invoice.totalPrice}</td> {/* Corrige a totalPrice */}
+      <td>{invoice.customerId}</td>
+      <td>${invoice.totalPrice}</td>
       <td className="button-container">
-        <Link className="btn btn-primary" to={`/invoices/${invoice.id}`}>
-          Edit
+        <Link className="btn btn-sm btn-primary" to={`/invoices/${invoice.id}`}>
+          Edit Invoice
         </Link>
         <Link
-          className="btn btn-secondary"
+          className="btn btn-sm btn-secondary"
           to={`/invoices/print/${invoice.id}`}
         >
           Print View
         </Link>
         <button
-          className="btn btn-danger"
+          className="btn btn-sm btn-danger"
           onClick={() => handleDeleteInvoice(invoice.id)}
         >
-          Delete
+          Delete Invoice
         </button>
       </td>
     </tr>

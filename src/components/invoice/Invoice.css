@@ -1,25 +1,28 @@
-.invoice-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
-}
-
-.invoice-row td {
-    flex: 1;
-    text-align: center;
-}
-
-.btn {
-    margin: 0 5px;
-}
-
 .button-container {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.name-column {
-    width: 400px;
+.button-container .btn {
+  margin: 5px;
+}
+
+.button-container .btn-sm {
+  padding: 5px 5px;
+  font-size: 12px;
+}
+
+td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+td a {
+  text-decoration: none;
+  color: #337ab7;
+}
+
+td a:hover {
+  color: #23527c;
 }
