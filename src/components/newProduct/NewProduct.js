@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import "./NewProduct.css";
 import { ProductsContext } from "../../context/ProductContext";
 import { useTheme } from "../../context/ThemeContext";
 

@@ -1,149 +1,112 @@
-/* General */
-.min-h-screen {
+.login_container {
   min-height: 100vh;
-}
-
-.bg-gray-100 {
-  background-color: #f7fafc;
-}
-
-.flex {
+  background-color: #f7fafc; /* bg-gray-100 */
   display: flex;
-}
-
-.items-center {
   align-items: center;
-}
-
-.justify-center {
   justify-content: center;
+  padding: 1rem;
 }
 
-.px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-/* Card */
-.bg-white {
-  background-color: #ffffff;
-}
-
-.shadow-md {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.rounded-lg {
-  border-radius: 0.5rem;
-}
-
-.w-full {
+.login_card {
+  background-color: #ffffff; /* bg-white */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
+  border-radius: 0.5rem; /* rounded-lg */
   width: 100%;
+  max-width: 28rem; /* max-w-md */
+  padding: 2rem; /* p-8 */
+  margin: 1.5rem;
 }
 
-.max-w-md {
-  max-width: 28rem;
+.login_title {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: bold; /* font-bold */
+  text-align: center; /* text-center */
+  color: #2d3748; /* text-gray-800 */
+  margin-bottom: 1.5rem;
 }
 
-.p-8 {
-  padding: 2rem;
+.login_error {
+  color: red;
 }
 
-.space-y-6 > :not([hidden]) ~ :not([hidden]) {
-  margin-top: 1.5rem;
+.login_form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* space-y-4 */
 }
 
-/* Text */
-.text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
+.login_form_group {
+  display: flex;
+  flex-direction: column;
 }
 
-.font-bold {
-  font-weight: 700;
+.login_label {
+  color: #4a5568; /* text-gray-700 */
+  font-weight: 500; /* font-medium */
+  margin-bottom: 0.5rem;
 }
 
-.text-center {
-  text-align: center;
-}
-
-.text-gray-800 {
-  color: #2d3748;
-}
-
-.text-gray-700 {
-  color: #4a5568;
-}
-
-.font-medium {
-  font-weight: 500;
-}
-
-/* Inputs */
-.w-full {
+.login_input {
   width: 100%;
-}
-
-.px-3 {
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-}
-
-.py-2 {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-
-.border {
-  border: 1px solid #e2e8f0;
-}
-
-.rounded-md {
-  border-radius: 0.375rem;
-}
-
-.focus\:outline-none:focus {
+  padding: 0.5rem 0.75rem; /* px-3 py-2 */
+  border: 1px solid #d2d6dc; /* border-gray-300 */
+  border-radius: 0.375rem; /* rounded-md */
   outline: none;
+  transition: all 0.2s;
 }
 
-.focus\:ring-2:focus {
-  box-shadow: 0 0 0 2px #718096;
+.login_input:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 3px #a0aec0; /* focus:ring-gray-500 */
 }
 
-.focus\:ring-gray-500:focus {
-  border-color: #718096;
+.login_toggle_password {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0.25rem 0.5rem;
+  color: #718096; /* text-gray-600 */
+  background-color: #ffffff; /* bg-white */
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
-/* Buttons */
-.bg-gray-700 {
-  background-color: #4a5568;
+.login_toggle_password:hover {
+  background-color: #e2e8f0; /* hover:bg-gray-300 */
 }
 
-.text-white {
-  color: #ffffff;
+.login_button_group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* space-y-4 */
 }
 
-.hover\:bg-gray-600:hover {
-  background-color: #2d3748;
+.login_primary_button {
+  width: 100%;
+  background-color: #2d3748; /* bg-gray-700 */
+  color: #ffffff; /* text-white */
+  padding: 0.5rem;
+  border-radius: 0.375rem; /* rounded-md */
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.transition {
-  transition: all 0.3s ease-in-out;
+.login_primary_button:hover {
+  background-color: #4a5568; /* hover:bg-gray-600 */
 }
 
-.duration-300 {
-  transition-duration: 300ms;
+.login_secondary_button {
+  width: 100%;
+  background-color: #edf2f7; /* bg-gray-200 */
+  color: #2d3748; /* text-gray-800 */
+  padding: 0.5rem;
+  border-radius: 0.375rem; /* rounded-md */
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-/* Secondary Button */
-.bg-gray-200 {
-  background-color: #edf2f7;
-}
-
-.text-gray-800 {
-  color: #2d3748;
-}
-
-.hover\:bg-gray-300:hover {
-  background-color: #e2e8f0;
+.login_secondary_button:hover {
+  background-color: #e2e8f0; /* hover:bg-gray-300 */
 }

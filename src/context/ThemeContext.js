@@ -1,8 +1,11 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer, useEffect } from "react";
 
 const TOGGLE_DARK_MODE = "TOGGLE_DARK_MODE";
 
-const iniitialState = { darkMode: false };
+// Cargar el estado inicial desde localStorage o usar el predeterminado
+const initialState = JSON.parse(localStorage.getItem("themeState")) || {
+  darkMode: false,
+};
 
 const themeReducer = (state, action) => {
   switch (action.type) {
@@ -20,7 +23,12 @@ const themeReducer = (state, action) => {
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(themeReducer, iniitialState);
+  const [state, dispatch] = useReducer(themeReducer, initialState);
+
+  // Guardar el estado actualizado en localStorage
+  useEffect(() => {
+    localStorage.setItem("themeState", JSON.stringify(state));
+  }, [state]);
 
   return (
     <ThemeContext.Provider value={{ state, dispatch }}>

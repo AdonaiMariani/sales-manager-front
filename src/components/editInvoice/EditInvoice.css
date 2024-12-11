@@ -1,0 +1,75 @@
+.invoice-form {
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-label {
+  display: block;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 5px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.add-product-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.remove-product-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.submit-button {
+  background-color: #28a745;
+  color: white;
+  width: 100%;
+}
+
+.form-total {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.search-results {
+  background-color: #f8f9fa;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 5px;
+  padding: 5px;
+}
+
+.search-result-item {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.search-result-item:hover {
+  background-color: #e9ecef;
+}

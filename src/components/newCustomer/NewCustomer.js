@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import "./NewCustomer.css";
 import CustomerContext from "../../context/CustomerContext";
 import { useTheme } from "../../context/ThemeContext";
 
@@ -15,7 +14,10 @@ const NewCustomer = () => {
       <div className={`card-body ${themeState.darkMode ? "" : ""}`}>
         <form onSubmit={validateAndSubmit} className="border">
           <div className="form-group">
-            <label className={themeState.darkMode ? "" : ""} htmlFor="Name">
+            <label
+              className={themeState.darkMode ? "dark-mode-label" : ""}
+              htmlFor="Name"
+            >
               Name
             </label>
             <input
@@ -45,9 +47,9 @@ const NewCustomer = () => {
               type="text"
               name="Address"
               id="Address"
-              className={`form-control ${
-                themeState.darkMode ? "form-control-dark-mode" : ""
-              } ${errors.Address ? "is-invalid" : ""}`}
+              className={`form-control ${themeState.darkMode ? "" : ""} ${
+                errors.Name ? "is-invalid" : ""
+              }`}
               placeholder="Insert Address"
               aria-describedby="helpId"
               value={formData.Address}
@@ -68,9 +70,9 @@ const NewCustomer = () => {
               type="text"
               name="Email"
               id="Email"
-              className={`form-control ${
-                themeState.darkMode ? "form-control-dark-mode" : ""
-              } ${errors.Email ? "is-invalid" : ""}`}
+              className={`form-control ${themeState.darkMode ? "" : ""} ${
+                errors.Name ? "is-invalid" : ""
+              }`}
               placeholder="Insert Email"
               aria-describedby="helpId"
               value={formData.Email}
@@ -91,9 +93,9 @@ const NewCustomer = () => {
               type="text"
               name="Phone"
               id="Phone"
-              className={`form-control ${
-                themeState.darkMode ? "form-control-dark-mode" : ""
-              } ${errors.Phone ? "is-invalid" : ""}`}
+              cclassName={`form-control ${themeState.darkMode ? "" : ""} ${
+                errors.Name ? "is-invalid" : ""
+              }`}
               placeholder="Insert Phone"
               aria-describedby="helpId"
               value={formData.Phone}

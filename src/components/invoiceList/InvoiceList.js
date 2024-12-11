@@ -18,11 +18,17 @@ const InvoiceList = () => {
   }, []);
 
   const handleDeleteInvoice = (id) => {
-    invoiceService
-      .deleteInvoice(id)
-      .then(() => invoiceService.getAllInvoices())
-      .then((data) => setInvoices(data))
-      .catch((error) => console.error(error));
+    const userConfirmed = window.confirm(
+      "¿Estás seguro de que deseas eliminar esta factura?"
+    );
+
+    if (userConfirmed) {
+      invoiceService
+        .deleteInvoice(id)
+        .then(() => invoiceService.getAllInvoices())
+        .then((data) => setInvoices(data))
+        .catch((error) => console.error(error));
+    }
   };
 
   const filteredInvoices = invoices.filter((invoice) => {
