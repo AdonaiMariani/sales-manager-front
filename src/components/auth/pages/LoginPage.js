@@ -59,33 +59,35 @@ const Login = ({ setToken, onRegister }) => {
               class="login_input"
             />
           </div>
-          <div class="login_form_group login_relative">
+          <div class="login_form_group">
             <label for="password" class="login_label">
               Contraseña
             </label>
-            <input
-              id="password"
-              type={showPassword ? "text" : "password"}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              class="login_input"
-            />
-            <button
-              type="button"
-              onClick={togglePasswordVisibility}
-              class="login_toggle_password"
-            >
-              {showPassword ? (
-                <span role="img" aria-label="Ocultar contraseña">
-                  👁️‍🗨️
-                </span>
-              ) : (
-                <span role="img" aria-label="Mostrar contraseña">
-                  👁️
-                </span>
-              )}
-            </button>
+            <div class="login_input_wrapper">
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                class="login_input"
+              />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                class="login_toggle_password"
+              >
+                {showPassword ? (
+                  <span role="img" aria-label="Ocultar contraseña">
+                    👁️‍🗨️
+                  </span>
+                ) : (
+                  <span role="img" aria-label="Mostrar contraseña">
+                    👁️
+                  </span>
+                )}
+              </button>
+            </div>
           </div>
           <div class="login_button_group">
             <button class="login_primary_button">Ingresar</button>
