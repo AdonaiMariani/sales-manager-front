@@ -5,19 +5,22 @@ import CustomerProvider from "./context/CustomerProvider";
 import { ThemeProvider } from "./context/ThemeContext";
 import { DataProvider } from "./context/DataContext";
 import { UsersProvider } from "./context/UserContext";
+import { AuthProvider } from "./context/AuthContext";
 
 const Main = () => {
   return (
     <ThemeProvider>
-      <UsersProvider>
-        <CustomerProvider>
-          <DataProvider>
-            <ProductsProvider>
-              <App />
-            </ProductsProvider>
-          </DataProvider>
-        </CustomerProvider>
-      </UsersProvider>
+      <AuthProvider>
+        <UsersProvider>
+          <CustomerProvider>
+            <DataProvider>
+              <ProductsProvider>
+                <App />
+              </ProductsProvider>
+            </DataProvider>
+          </CustomerProvider>
+        </UsersProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 };

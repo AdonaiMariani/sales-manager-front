@@ -2,18 +2,18 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:8080/invoices";
 
-const updateAuthorizationHeader = (token) => {
-  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-};
-
 export class InvoiceService {
   constructor() {
     this.baseUrl = BASE_URL;
+  }
+
+  setAuthorizationHeader() {
     const token = localStorage.getItem("token");
-    updateAuthorizationHeader(token);
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   }
 
   async getAllInvoices() {
+    this.setAuthorizationHeader();
     try {
       const response = await axios.get(this.baseUrl);
       return response.data;
@@ -24,6 +24,7 @@ export class InvoiceService {
   }
 
   async getInvoiceById(id) {
+    this.setAuthorizationHeader();
     try {
       const response = await axios.get(`${this.baseUrl}/${id}`);
       return response.data;
@@ -34,6 +35,7 @@ export class InvoiceService {
   }
 
   async createInvoice(invoiceData) {
+    this.setAuthorizationHeader();
     try {
       const response = await axios.post(this.baseUrl, invoiceData);
       return response.data;
@@ -44,6 +46,7 @@ export class InvoiceService {
   }
 
   async updateInvoice(id, invoiceData) {
+    this.setAuthorizationHeader();
     try {
       const response = await axios.put(`${this.baseUrl}/${id}`, invoiceData);
       return response.data;
@@ -54,6 +57,7 @@ export class InvoiceService {
   }
 
   async deleteInvoice(id) {
+    this.setAuthorizationHeader();
     try {
       const response = await axios.delete(`${this.baseUrl}/${id}`);
       return response.data;

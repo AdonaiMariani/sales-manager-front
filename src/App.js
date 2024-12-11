@@ -1,26 +1,22 @@
+import React, { useContext, useEffect, useState } from "react";
 import "./App.css";
-import React, { useEffect, useContext, useState } from "react";
 import VerticalMenu from "./components/verticalMenu/VerticalMenu";
 import AppRoutes from "./routes/AppRoutes";
-import { DataContext } from "./context/DataContext";
 import { useTheme } from "./context/ThemeContext";
 import LoginPage from "./components/auth/pages/LoginPage";
-import RegisterPage from "./components/auth/pages/RegisterPage";
+import { AuthContext } from "./context/AuthContext";
 
 function App() {
-  const [token, setToken] = useState(localStorage.getItem("token") || "");
-  const [currentPage, setCurrentPage] = useState("login"); // Nueva variable de estado
+  const { token, setToken } = useContext(AuthContext);
   const { state: themeState } = useTheme();
 
   useEffect(() => {
     if (token) {
-      localStorage.setItem("token", token);
-      console.log("Token guardado en localStorage:", token); // Agrega esto
-    } else {
-      localStorage.removeItem("token");
-      console.log("Token no guardado en localStorage:", token);
+      console.log("Token actualizado:", token);
+      // Aquí puedes hacer cualquier acción adicional cuando cambie el token
     }
   }, [token]);
+
   if (token) {
     // Prioriza el dashboard si el usuario está autenticado
     return (
@@ -51,20 +47,9 @@ function App() {
     );
   }
 
-  // Renderiza las pantallas de autenticación si el usuario no está autenticado
   return (
     <div className="App">
-      {currentPage === "login" ? (
-        <LoginPage
-          setToken={setToken}
-          onRegister={() => setCurrentPage("register")}
-        />
-      ) : (
-        <RegisterPage
-          onBackToLogin={() => setCurrentPage("login")}
-          onSuccesfullyRegister={() => setCurrentPage("login")}
-        />
-      )}
+      <LoginPage setToken={setToken} />
     </div>
   );
 }

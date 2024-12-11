@@ -25,7 +25,6 @@ const Login = ({ setToken, onRegister }) => {
         const data = await response.json();
         setToken(data.jwt);
         console.log("Respuesta del servidor", data);
-        navigate("/home");
       } else {
         // Maneja errores de autenticación
         if (response.status === 401) {

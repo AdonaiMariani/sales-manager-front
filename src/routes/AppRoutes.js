@@ -34,6 +34,7 @@ const AppRoutes = ({ customers, products, handleCreate }) => {
       <Route path="/users" element={<UserList />} />
       <Route path="/invoices/:id" element={<EditInvoice />} />
       <Route path="/invoices/print/:id" element={<InvoicePrint />} />
+      <Route path="/*" element={<Home />} />
     </Routes>
   );
 };

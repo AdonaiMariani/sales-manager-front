@@ -7,8 +7,8 @@ const Home = () => {
   const { state: themeState } = useTheme();
 
   return (
-    <div className={themeState.darkMode ? "dark-mode" : ""}>
-      <h1 className={`title ${themeState.darkMode ? "dark-title" : ""}`}>
+    <div className={themeState.darkMode ? "dark-mode-title" : ""}>
+      <h1 className={`title ${themeState.darkMode ? "dark-mode-title" : ""}`}>
         Your Sales Manager App
       </h1>
       <h2 className={themeState.darkMode ? "dark-subtitle" : ""}>
