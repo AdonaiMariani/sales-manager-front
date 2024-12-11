@@ -110,3 +110,24 @@
 .login_secondary_button:hover {
   background-color: #e2e8f0; /* hover:bg-gray-300 */
 }
+.login_input_wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.login_input {
+  flex: 1; /* El input toma todo el ancho disponible */
+  padding-right: 40px; /* Evitar que el botón se sobreponga al texto */
+}
+
+.login_toggle_password {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 10px;
+  font-size: 1.2em;
+  position: absolute;
+  right: 10px; /* Ajusta según el padding del input */
+  color: #555;
+}
