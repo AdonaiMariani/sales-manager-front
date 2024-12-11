@@ -68,7 +68,7 @@ export function UsersProvider({ children }) {
             Password: "",
             Role: "",
           });
-          navigate("/login");
+          navigate("/users");
         })
         .catch((error) => {
           console.error(error);

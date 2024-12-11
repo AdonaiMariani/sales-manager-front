@@ -93,7 +93,6 @@ const NewUser = () => {
           </div>
         </form>
       </div>
-      <div className="card-footer text-muted">Footer</div>
     </div>
   );
 };

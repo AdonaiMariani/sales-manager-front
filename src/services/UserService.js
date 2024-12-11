@@ -79,7 +79,7 @@ export class AuthService {
     try {
       console.log("Registering user with data:", userData);
       const response = await axios.post(
-        "http://localhost:8080/register",
+        "http://localhost:8080/auth/register",
         userData
       );
       console.log(response);
