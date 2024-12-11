@@ -1,20 +1,22 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-
-import "./NewProduct.css";
 import { ProductsContext } from "../../context/ProductContext";
+import { useTheme } from "../../context/ThemeContext";
 
 const NewProduct = () => {
   const { formData, errors, validateAndSubmit, handleInputChange } =
     useContext(ProductsContext);
+  const { state: themeState } = useTheme();
 
   return (
-    <div className="card">
-      <div className="card-header">New Product</div>
-      <div className="card-body">
+    <div className={`card ${themeState.darkMode ? "" : ""}`}>
+      <div className="card-header text-black">New Product</div>
+      <div className={`card-body ${themeState.darkMode ? "" : ""}`}>
         <form onSubmit={validateAndSubmit}>
           <div className="form-group">
-            <label htmlFor="Name">Name</label>
+            <label htmlFor="Name" className={themeState.darkMode ? "" : ""}>
+              Name
+            </label>
             <input
               type="text"
               name="Name"
@@ -30,7 +32,12 @@ const NewProduct = () => {
             )}
           </div>
           <div className="form-group">
-            <label htmlFor="Brand">Brand</label>
+            <label
+              htmlFor="Brand"
+              className={themeState.darkMode ? "dark-mode-label" : ""}
+            >
+              Brand
+            </label>
             <input
               type="text"
               name="Brand"
@@ -46,7 +53,12 @@ const NewProduct = () => {
             )}
           </div>
           <div className="form-group">
-            <label htmlFor="Category">Category</label>
+            <label
+              htmlFor="Category"
+              className={themeState.darkMode ? "dark-mode-label" : ""}
+            >
+              Category
+            </label>
             <input
               type="text"
               name="Category"
@@ -62,7 +74,12 @@ const NewProduct = () => {
             )}
           </div>
           <div className="form-group">
-            <label htmlFor="Price">Price</label>
+            <label
+              htmlFor="Price"
+              className={themeState.darkMode ? "dark-mode-label" : ""}
+            >
+              Price
+            </label>
             <input
               type="text"
               name="Price"
@@ -77,7 +94,6 @@ const NewProduct = () => {
               <div className="invalid-feedback">{errors.Price}</div>
             )}
           </div>
-
           <div className="btn-group" role="group" aria-label="">
             <button type="submit" className="btn btn-success">
               Add New Product
@@ -88,7 +104,6 @@ const NewProduct = () => {
           </div>
         </form>
       </div>
-      <div className="card-footer text-muted">Footer</div>
     </div>
   );
 };

@@ -1,162 +1,112 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useContext, useState } from "react";
+import { UserContext } from "../../../context/UserContext";
 
-const RegisterPage = () => {
-  const navigate = useNavigate();
-  const [error, setError] = useState(''); // Estado para manejar errores
+function RegisterPage({ onBackToLogin, onSuccesfullyRegister }) {
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const userData = {
-      email: formData.get('email'),
-      password: formData.get('password'),
-      role: formData.get('role') || 'USER', // Manteniendo el campo 'role' con un valor por defecto de 'USER'
-    };
-
-    try {
-      const response = await fetch('http://localhost:8080/users', { 
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-      });
-      if (!response.ok) throw new Error('Error en el registro');
-      
-      navigate('/'); // Navega a la página de inicio después de un registro exitoso
-    } catch (error) {
-      setError(error.message); // Manejo de errores
-    }
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
+  const { formDataRegister, errors, validateAndSubmit, handleInputChange } =
+    useContext(UserContext);
 
   return (
-    <div className="container">
-      <h2>Register</h2>
-      {error && <div className="alert alert-danger" role="alert">{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Email</label>
-          <input type="email" className="form-control" name="email" required />
-        </div>
-        <div className="form-group">
-          <label>Password</label>
-          <input type="password" className="form-control" name="password" required />
-        </div>
-        
-        <button type="submit" className="btn btn-primary">Register</button>
-      </form>
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
+      <div className="bg-white shadow-md rounded-lg w-full max-w-md p-8 space-y-6">
+        <h1 className="text-3xl font-bold text-center text-gray-800">
+          Registrarse
+        </h1>
+        <form className="space-y-4" onSubmit={validateAndSubmit}>
+          <div className="form-group">
+            <label
+              htmlFor="username"
+              className="block text-gray-700 font-medium mb-2"
+            >
+              Usuario
+            </label>
+            <input
+              type="text"
+              name="Name"
+              id="Name"
+              className={`form-control ${errors.Name ? "is-invalid" : ""}`}
+              placeholder="Username"
+              aria-describedby="helpId"
+              value={formDataRegister.Name}
+              onChange={handleInputChange}
+            />
+            {errors.Name && (
+              <div className="invalid-feedback">{errors.Name}</div>
+            )}
+          </div>
+          <div className="form-group">
+            <label
+              htmlFor="email"
+              className="block text-gray-700 font-medium mb-2"
+            >
+              Email
+            </label>
+            <input
+              id="email"
+              type="email"
+              name="Email"
+              required
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+              placeholder="Email"
+              aria-describedby="helpId"
+              value={formDataRegister.Email}
+              onChange={handleInputChange}
+            />
+            {errors.Email && (
+              <div className="invalid-feedback">{errors.Email}</div>
+            )}
+          </div>
+          <div className="form-group">
+            <label
+              htmlFor="password"
+              className="block text-gray-700 font-medium mb-2"
+            >
+              Contraseña
+            </label>
+            <div className="relative">
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                name="Password"
+                required
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                placeholder="Password"
+                aria-describedby="helpId"
+                value={formDataRegister.Password}
+                onChange={handleInputChange}
+              />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="absolute inset-y-0 px-2 py-1 text-gray-600 bg-white rounded-md hover:bg-gray-300 transition duration-200 focus:outline-none"
+              >
+                {showPassword ? (
+                  <span role="img" aria-label="Ocultar contraseña">
+                    👁️‍🗨️
+                  </span>
+                ) : (
+                  <span role="img" aria-label="Mostrar contraseña">
+                    👁️
+                  </span>
+                )}
+              </button>
+            </div>
+          </div>
+          <button
+            type="submit"
+            onClick={onSuccesfullyRegister}
+            className="w-full bg-gray-700 text-white py-2 rounded-md hover:bg-gray-600 transition duration-300"
+          >
+            Registrarse
+          </button>
+        </form>
+      </div>
     </div>
   );
-};
+}
 
 export default RegisterPage;
-// import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-
-// const RegisterPage = () => {
-//   const navigate = useNavigate();
-//   const [error, setError] = useState(''); // Estado para manejar errores
-
-//   const handleSubmit = async (event) => {
-//     event.preventDefault();
-//     const formData = new FormData(event.target);
-//     const userData = {
-//       email: formData.get('email'),
-//       password: formData.get('password'),
-//       // Se ha eliminado el campo 'name' y 'role' para simplificar el registro
-//     };
-
-//     try {
-//       const response = await fetch('http://localhost:8080/users', { 
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(userData),
-//       });
-//       if (!response.ok) throw new Error('Error en el registro');
-      
-//       navigate('/'); // Navega a la página de inicio después de un registro exitoso
-//     } catch (error) {
-//       setError(error.message); // Manejo de errores
-//     }
-//   };
-
-//   return (
-//     <div className="container">
-//       <h2>Register</h2>
-//       {error && <div className="alert alert-danger" role="alert">{error}</div>}
-//       <form onSubmit={handleSubmit}>
-//         <div className="form-group">
-//           <label>Email</label>
-//           <input type="email" className="form-control" name="email" required />
-//         </div>
-//         <div className="form-group">
-//           <label>Password</label>
-//           <input type="password" className="form-control" name="password" required />
-//         </div>
-//         <button type="submit" className="btn btn-primary">Register</button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default RegisterPage;
-// import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-
-// const RegisterPage = () => {
-//   const navigate = useNavigate();
-//   const [error, setError] = useState(''); // Estado para manejar errores
-
-//   const handleSubmit = async (event) => {
-//     event.preventDefault();
-//     const formData = new FormData(event.target);
-//     const userData = {
-//       name: formData.get('username'), // Cambiado de 'username' a 'name' para coincidir con el modelo de backend
-//       email: formData.get('email'),
-//       password: formData.get('password'),
-//       role: formData.get('role') || 'USER',// Asumiendo un rol por defecto, ajusta según sea necesario
-//     };
-
-//     try {
-//       const response = await fetch('http://localhost:8080/users', { 
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(userData),
-//       });
-//       if (!response.ok) throw new Error('Error en el registro');
-      
-//       navigate('/'); 
-//     } catch (error) {
-//       setError(error.message); // Manejo de errores
-//     }
-//   };
-
-//   return (
-//     <div className="container">
-//       <h2>Register</h2>
-//       {error && <div className="alert alert-danger" role="alert">{error}</div>}
-//       <form onSubmit={handleSubmit}>
-//         <div className="form-group">
-//           <label>Username</label>
-//           <input type="text" className="form-control" name="username" required />
-//         </div>
-//         <div className="form-group">
-//           <label>Email</label>
-//           <input type="email" className="form-control" name="email" required />
-//         </div>
-//         <div className="form-group">
-//           <label>Password</label>
-//           <input type="password" className="form-control" name="password" required />
-//         </div>
-//         <button type="submit" className="btn btn-primary">Register</button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default RegisterPage;

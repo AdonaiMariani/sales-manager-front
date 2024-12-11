@@ -20,6 +20,9 @@ body {
   font-size: 20px;
   padding: 10px 15px;
 }
+.dark-mode .card-header {
+  color: white;
+}
 
 .card-body {
   padding: 15px;
@@ -87,4 +90,19 @@ body {
   padding: 20px;
   color: #000000; /* Cambia el color según tu preferencia */
   font-weight: bold;
+}
+
+/* DarkMoode */
+.card.dark-mode {
+  background-color: #333;
+  color: #fff;
+}
+.card-body.dark-mode {
+  padding: 15px;
+  background-color: #333;
+}
+.filter-container.dark-mode {
+  display: flex;
+  align-items: center;
+  background-color: #333;
 }

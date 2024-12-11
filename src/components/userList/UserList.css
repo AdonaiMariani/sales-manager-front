@@ -1,5 +1,3 @@
-/* CustomerList.css */
-
 .card {
   width: 100%;
   border: none;
@@ -86,27 +84,28 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color: black;
 }
 
 /* Dark Mode */
 .card.dark-mode {
-  background-color: #333;
-  color: white;
+  background-color: white;
+  color: black;
   box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
 }
 
 .card-header.dark-mode {
-  background-color: #333;
+  background-color: white;
   color: white;
 }
 
 .card-body.dark-mode {
-  background-color: #333;
+  background-color: white;
 }
 
 .card-footer.dark-mode {
   background-color: #555;
-  color: white;
+  color: black;
 }
 
 .table.dark-mode th {

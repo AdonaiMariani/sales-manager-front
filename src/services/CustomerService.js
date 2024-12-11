@@ -4,35 +4,43 @@ const BASE_URL = "http://localhost:8080/customers";
 
 export class CustomerService {
   constructor() {
-    // Initialize any necessary properties here
-    this.baseUrl = "http://localhost:8080/customers";
+    this.baseUrl = BASE_URL;
   }
 
-  // Define methods for interacting with customers here
+  setAuthorizationHeader() {
+    const token = localStorage.getItem("token");
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  }
+
   async getAllCustomers() {
-    const response = await axios.get(BASE_URL);
+    this.setAuthorizationHeader();
+    const response = await axios.get(this.baseUrl);
+    console.log(response.data);
     return response.data;
   }
 
   async getCustomerById(id) {
-    const response = await axios.get(`${BASE_URL}/${id}`);
+    this.setAuthorizationHeader();
+    const response = await axios.get(`${this.baseUrl}/${id}`);
     return response.data;
   }
 
   async createCustomer(customerData) {
-    console.log('Creating customer with data:', customerData);
-    const response = await axios.post(BASE_URL, customerData);
+    this.setAuthorizationHeader();
+    console.log("Creating customer with data:", customerData);
+    const response = await axios.post(this.baseUrl, customerData);
     return response.data;
   }
 
   async updateCustomer(id, customerData) {
-    const response = await axios.put(`${BASE_URL}/${id}`, customerData);
+    this.setAuthorizationHeader();
+    const response = await axios.put(`${this.baseUrl}/${id}`, customerData);
     return response.data;
   }
 
   async deleteCustomer(id) {
-    const response = await axios.delete(`${BASE_URL}/${id}`);
+    this.setAuthorizationHeader();
+    const response = await axios.delete(`${this.baseUrl}/${id}`);
     return response.data;
   }
 }
-

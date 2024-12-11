@@ -1,123 +1,129 @@
 .invoice-print-container {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    background-color: white;
-    color: black;
-    max-width: 800px;
-    margin: auto;
-  }
-  
-  .invoice-header, .invoice-customer, .invoice-details, .invoice-total {
-    margin-bottom: 20px;
-  }
-  
-  .invoice-header img {
-    max-width: 100px;
-    margin-bottom: 20px;
-  }
-  
-  .invoice-header div, .invoice-customer h2, .invoice-customer p {
-    margin: 0;
-    padding: 0;
-  }
-  
-  .invoice-details {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .invoice-details th, .invoice-details td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  .invoice-details th {
-    background-color: #f2f2f2;
-  }
-  
-  .invoice-total {
-    font-size: 20px;
-    font-weight: bold;
-    text-align: right;
-  }
-  
-  button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: white;
+  color: black;
+  max-width: 800px;
+  margin: auto;
+}
 
-  .invoice-print-container {
-    width: 800px; /* Ancho deseado para la factura */
-    margin: auto; /* Centrar en la página */
-    padding: 20px;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background: #fff;
+.invoice-header,
+.invoice-customer,
+.invoice-details,
+.invoice-total {
+  margin-bottom: 20px;
+}
+
+.invoice-header img {
+  max-width: 100px;
+  margin-bottom: 20px;
+}
+
+.invoice-header div,
+.invoice-customer h2,
+.invoice-customer p {
+  margin: 0;
+  padding: 0;
+}
+
+.invoice-details {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.invoice-details th,
+.invoice-details td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.invoice-details th {
+  background-color: #f2f2f2;
+}
+
+.invoice-total {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: right;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.invoice-print-container {
+  width: 800px; /* Ancho deseado para la factura */
+  margin: auto; /* Centrar en la página */
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: #fff;
 }
 
 .invoice-print-container header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .invoice-print-container header img {
-    max-width: 100px; /* Ajustar el tamaño del logo si es necesario */
+  max-width: 100px; /* Ajustar el tamaño del logo si es necesario */
 }
 
 .invoice-print-container .invoice-details {
-    width: 100%;
-    margin-bottom: 20px;
-    border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+  border-collapse: collapse;
 }
 
 .invoice-print-container .invoice-details th,
 .invoice-print-container .invoice-details td {
-    padding: 10px;
-    border: 1px solid #ccc;
-    text-align: left;
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
 }
 
 .invoice-print-container .invoice-total {
-    margin-top: 20px;
-    text-align: right;
-    font-weight: bold;
+  margin-top: 20px;
+  text-align: right;
+  font-weight: bold;
 }
 
 .invoice-print-container button {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
 }
 
 @media print {
-    body * {
-        visibility: hidden;
-    }
+  body * {
+    visibility: hidden;
+  }
 
-    .invoice-print-container,
-    .invoice-print-container * {
-        visibility: visible;
-    }
+  .invoice-print-container,
+  .invoice-print-container * {
+    visibility: visible;
+  }
 
-    .invoice-print-container {
-        position: absolute;
-        left: 0;
-        top: 0;
-    }
+  .invoice-print-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
 }

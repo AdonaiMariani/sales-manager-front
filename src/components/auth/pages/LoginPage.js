@@ -1,167 +1,99 @@
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-const LoginPage = () => {
-  const navigate = useNavigate();
+import "./Login.css";
 
-  const onSubmit = async (event) => {
-    event.preventDefault(); // Previene el comportamiento por defecto del formulario
-    const formData = new FormData(event.target);
-    const email = formData.get('email'); // Cambiado de 'username' a 'email'
-    const password = formData.get('password');
+const Login = ({ setToken, onRegister }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-    // Simulación de envío de datos al servidor
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     try {
-      const response = await fetch('http://localhost:8080/login', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8080/auth/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json", // Indica al servidor que el cuerpo está en JSON
         },
-        body: JSON.stringify({ email, password }), // Cambiado de { username, password } a { email, password }
+        body: JSON.stringify({ email, password }),
       });
 
-      // Verifica si el tipo de contenido de la respuesta es JSON
-      const contentType = response.headers.get('content-type');
-      if (!contentType || !contentType.includes('application/json')) {
-        throw new Error('El servidor no respondió con JSON');
+      if (response.ok) {
+        // Maneja la respuesta exitosa
+        const data = await response.json();
+        setToken(data.jwt);
+        console.log("Respuesta del servidor", data);
+      } else {
+        // Maneja errores de autenticación
+        if (response.status === 401) {
+          throw new Error("Credenciales inválidas");
+        }
+        throw new Error(`Error en la solicitud: ${response.status}`);
       }
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.message || 'Failed to login');
-      
-      // Simulación de una respuesta exitosa
-      console.log("Login successful with", { email, password }); // Cambiado de { username, password } a { email, password }
-      
-      navigate("/home"); // Navega al home después del login exitoso
-    } catch (error) {
-      console.error("Login error:", error.message);
-      // Aquí podrías manejar el error, por ejemplo, mostrando un mensaje al usuario
+    } catch (err) {
+      setError(err.message);
     }
   };
+  const [showPassword, setShowPassword] = useState(false);
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   return (
-    <div className="modal" style={{ display: "block" }} tabIndex="-1">
-      <div className="modal-dialog">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">Login Page</h5>
+    <div class="login_container">
+      <div class="login_card">
+        <h1 class="login_title">Iniciar Sesión</h1>
+        {error && <p class="login_error">{error}</p>}
+        <form onSubmit={handleSubmit} class="login_form">
+          <div class="login_form_group">
+            <label for="email" class="login_label">
+              Email
+            </label>
+            <input
+              id="email"
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              class="login_input"
+            />
           </div>
-          <form onSubmit={onSubmit}>
-            <div className="modal-body">
-              <input
-                className="form-control my-3 w-75"
-                placeholder="Email" // Cambiado de "Username" a "Email"
-                name="email" // Cambiado de "username" a "email"
-              />
-              <input
-                className="form-control my-3 w-75"
-                placeholder="Password"
-                type="password"
-                name="password"
-              />
-            </div>
-            <div className="modal-footer">
-              <button
-                type="submit"
-                className="btn btn-primary"
-              >
-                Login
-              </button>
-              {/* Enlace para registrarse */}
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={() => navigate("/register")}
-              >
-                Register
-              </button>
-            </div>
-          </form>
-        </div>
+          <div class="login_form_group login_relative">
+            <label for="password" class="login_label">
+              Contraseña
+            </label>
+            <input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              class="login_input"
+            />
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              class="login_toggle_password"
+            >
+              {showPassword ? (
+                <span role="img" aria-label="Ocultar contraseña">
+                  👁️‍🗨️
+                </span>
+              ) : (
+                <span role="img" aria-label="Mostrar contraseña">
+                  👁️
+                </span>
+              )}
+            </button>
+          </div>
+          <div class="login_button_group">
+            <button class="login_primary_button">Ingresar</button>
+          </div>
+        </form>
       </div>
     </div>
   );
 };
 
-export default LoginPage;
-// import { useNavigate } from "react-router-dom";
-
-// const LoginPage = () => {
-//   const navigate = useNavigate();
-
-//   const onSubmit = async (event) => {
-//     event.preventDefault(); // Previene el comportamiento por defecto del formulario
-//     const formData = new FormData(event.target);
-//     const username = formData.get('username');
-//     const password = formData.get('password');
-
-//     // Simulación de envío de datos al servidor
-//     try {
-//       const response = await fetch('http://localhost:8080/login', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({ username, password }),
-//       });
-
-//        // Verifica si el tipo de contenido de la respuesta es JSON
-//   const contentType = response.headers.get('content-type');
-//   if (!contentType || !contentType.includes('application/json')) {
-//     throw new Error('El servidor no respondió con JSON');
-//   }
-//       const data = await response.json();
-//       if (!response.ok) throw new Error(data.message || 'Failed to login');
-      
-//       // Simulación de una respuesta exitosa
-//       console.log("Login successful with", { username, password });
-      
-//       navigate("/home"); // Navega al home después del login exitoso
-//     } catch (error) {
-//       console.error("Login error:", error.message);
-//       // Aquí podrías manejar el error, por ejemplo, mostrando un mensaje al usuario
-//     }
-//   };
-
-//   return (
-//     <div className="modal" style={{ display: "block" }} tabIndex="-1">
-//       <div className="modal-dialog">
-//         <div className="modal-content">
-//           <div className="modal-header">
-//             <h5 className="modal-title">Login Page</h5>
-//           </div>
-//           <form onSubmit={onSubmit}>
-//             <div className="modal-body">
-//               <input
-//                 className="form-control my-3 w-75"
-//                 placeholder="Username"
-//                 name="username"
-//               />
-//               <input
-//                 className="form-control my-3 w-75"
-//                 placeholder="Password"
-//                 type="password"
-//                 name="password"
-//               />
-//             </div>
-//             <div className="modal-footer">
-//               <button
-//                 type="submit"
-//                 className="btn btn-primary"
-//               >
-//                 Login
-//               </button>
-//               {/* Enlace para registrarse */}
-//               <button
-//                 type="button"
-//                 className="btn btn-secondary"
-//                 onClick={() => navigate("/register")}
-//               >
-//                 Register
-//               </button>
-//             </div>
-//           </form>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default LoginPage;
+export default Login;

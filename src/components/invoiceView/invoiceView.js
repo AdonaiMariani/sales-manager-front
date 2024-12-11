@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { InvoiceService } from '../../services/InvoiceService';
-import InvoicePrint from '../invoicePrint/InvoicePrint';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { InvoiceService } from "../../services/InvoiceService";
+import InvoicePrint from "../invoicePrint/InvoicePrint";
 
 const InvoiceView = ({ id }) => {
   const [invoice, setInvoice] = useState(null);
-  const [printMode, setPrintMode] = useState(false); // Initialize printMode with false 
+  const [printMode, setPrintMode] = useState(false); // Initialize printMode with false
 
   useEffect(() => {
     const invoiceService = new InvoiceService();
-    invoiceService.getInvoiceById(id)
-      .then(data => setInvoice(data))
-      .catch(error => console.error(error));
+    invoiceService
+      .getInvoiceById(id)
+      .then((data) => setInvoice(data))
+      .catch((error) => console.error(error));
   }, [id]);
 
   if (!invoice) {

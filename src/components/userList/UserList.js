@@ -1,39 +1,28 @@
 import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-
-import { ProductService } from "../../services/ProductService";
-import "./ProductList.css";
+import "./UserList.css";
 import { useTheme } from "../../context/ThemeContext";
-import { ProductsContext } from "../../context/ProductContext";
+import { UserContext } from "../../context/UserContext";
+import { UserService } from "../../services/UserService";
 
-const productService = new ProductService();
+const userService = new UserService();
 
-const ProductList = () => {
+const UserList = () => {
   const { state: themeState } = useTheme();
-  const {
-    products,
-    setProducts,
-    searchTerm,
-    setSearchTerm,
-    handleDeleteProduct,
-  } = useContext(ProductsContext);
+  const { user, setUser, searchTerm, setSearchTerm, handleDeleteUser } =
+    useContext(UserContext);
 
   useEffect(() => {
-    productService
-      .getAllProducts()
-      .then((data) => setProducts(data))
+    userService
+      .getAllUsers()
+      .then((data) => setUser(data))
       .catch((error) => console.error(error));
   }, []);
 
   return (
     <div className={`card ${themeState.darkMode ? "" : ""}`}>
       <div className={`card-header ${themeState.darkMode ? "" : ""}`}>
-        <h3 className="text-black">Products</h3>
-        <div>
-          <Link className="btn btn-success" to="/newProduct">
-            New Product
-          </Link>
-        </div>
+        <h3 className="text-black">Users</h3>
       </div>
       <div className={`card-body ${themeState.darkMode ? "" : ""}`}>
         <input
@@ -48,39 +37,37 @@ const ProductList = () => {
             <tr>
               <th className="id-column">ID</th>
               <th>Name</th>
-              <th>Brand</th>
-              <th>Category</th>
-              <th>Price</th>
+              <th>Email</th>
+              <th className="email-column">Role</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {products
-              .filter((product) =>
-                Object.values(product).some((value) =>
+            {user
+              .filter((user) =>
+                Object.values(user).some((value) =>
                   value
                     .toString()
                     .toLowerCase()
                     .includes(searchTerm.toLowerCase())
                 )
               )
-              .map((product) => (
-                <tr key={product.id}>
-                  <td className="id-column">{product.id}</td>
-                  <td className="name-column">{product.name}</td>
-                  <td>{product.brand}</td>
-                  <td>{product.category}</td>
-                  <td>{product.price}</td>
+              .map((user) => (
+                <tr key={user.id}>
+                  <td className="id-column">{user.id}</td>
+                  <td className="name-column">{user.name}</td>
+                  <td>{user.email}</td>
+                  <td className="email-column">{user.role}</td>
                   <td className="button-container">
                     <Link
                       className="btn btn-primary"
-                      to={`/products/${product.id}`}
+                      to={`/customers/${user.id}`}
                     >
                       Edit
                     </Link>
                     <button
                       className="btn btn-danger"
-                      onClick={() => handleDeleteProduct(product.id)}
+                      onClick={() => handleDeleteUser(user.id)}
                     >
                       Delete
                     </button>
@@ -95,4 +82,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default UserList;
