@@ -76,6 +76,53 @@ export function UsersProvider({ children }) {
         });
     }
   };
+
+  const loadProfile = async (userId) => {
+    try {
+      const response = await userService.getUserById(userId);
+      setUser(response); // Guarda los datos del usuario en el estado
+    } catch (error) {
+      console.error("Error loading user profile:", error);
+      setUser(null); // Manejo de error
+    }
+  };
+
+  const updateProfile = async (profileData) => {
+    try {
+      const { id, role, ...profileFields } = profileData; // Excluye el campo "role"
+      await userService.updateUser(id, profileFields); // Llama al servicio para actualizar el perfil
+      setUser((prev) => ({ ...prev, ...profileFields })); // Actualiza el contexto
+      alert("Profile updated successfully");
+      navigate("/profile");
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      alert("Error updating profile: " + error.message);
+    }
+  };
+
+  const validatePassword = async (currentPassword) => {
+    try {
+      if (!user || !user.id) {
+        throw new Error("User is not loaded");
+      }
+      const isValid = await authService.validatePassword(user.id, currentPassword);
+      return isValid;
+    } catch (error) {
+      console.error("Error validating password:", error);
+      return false;
+    }
+  };
+  // const validatePassword = async (currentPassword) => {
+  //   // Simula la validación de la contraseña actual.
+  //   try {
+  //     const response = await authService.validatePassword(user.id, currentPassword);
+  //     return response.isValid; // Retorna true si es válida.
+  //   } catch (error) {
+  //     console.error("Error validating password:", error);
+  //     return false;
+  //   }
+  // };
+
   return (
     <UserContext.Provider
       value={{
@@ -89,6 +136,9 @@ export function UsersProvider({ children }) {
         handleDeleteUser,
         handleInputChange,
         validateAndSubmit,
+        updateProfile,
+        loadProfile,
+        validatePassword,
       }}
     >
       {children}
