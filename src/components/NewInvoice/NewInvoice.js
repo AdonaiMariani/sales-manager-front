@@ -4,6 +4,7 @@ import { CustomerService } from "../../services/CustomerService";
 import CustomerContext from "../../context/CustomerContext";
 import { ProductsContext } from "../../context/ProductContext";
 import { ProductService } from "../../services/ProductService";
+import { useNavigate } from "react-router-dom";
 
 const customerService = new CustomerService();
 const productService = new ProductService();
@@ -14,6 +15,7 @@ const NewInvoice = () => {
   ).padStart(2, "0")}-${String(currentDate.getDate()).padStart(2, "0")}`;
   const { customers, setCustomers } = useContext(CustomerContext);
   const { products, setProducts } = useContext(ProductsContext);
+  const navigate = useNavigate();
 
   const [date, setDate] = useState(formattedDate);
 
@@ -23,8 +25,6 @@ const NewInvoice = () => {
   const [quantity, setQuantity] = useState(1);
   const [cart, setCart] = useState([]);
 
-  // Fetch customers and products on component load
-  //función handelCreate para crear facturas con múltiple productos
   const handleCreate = async (invoice) => {
     const productsToSend = invoice.invoiceProducts.map((product) => ({
       productId: product.productId,
@@ -130,6 +130,9 @@ const NewInvoice = () => {
     };
 
     handleCreate(invoiceData);
+    setTimeout(() => {
+      navigate("/invoices"); // Navega al home
+    }, 400);
   };
 
   const handleRemoveProduct = (index) => {

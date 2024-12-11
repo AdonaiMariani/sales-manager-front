@@ -14,6 +14,8 @@ import RegisterPage from "../components/auth/pages/RegisterPage";
 import LoginPage from "../components/auth/pages/LoginPage";
 
 import UserList from "../components/userList/UserList";
+import NewUser from "../newUser/NewUser";
+import EditProfile from "../components/editProfile/EditProfile";
 
 const AppRoutes = ({ customers, products, handleCreate }) => {
   return (
@@ -35,6 +37,8 @@ const AppRoutes = ({ customers, products, handleCreate }) => {
       <Route path="/invoices/:id" element={<EditInvoice />} />
       <Route path="/invoices/print/:id" element={<InvoicePrint />} />
       <Route path="/*" element={<Home />} />
+      <Route path="/newUser" element={<NewUser />} />
+      <Route path="/profile" element={<EditProfile />} />
     </Routes>
   );
 };

@@ -75,6 +75,7 @@ const InvoiceList = () => {
               />
             ))}
           </tbody>
+          {/* boton view print cambiar */}
         </table>
       </div>
     </div>
