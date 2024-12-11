@@ -103,12 +103,6 @@ function RegisterPage({ onBackToLogin, onSuccesfullyRegister }) {
           >
             Registrarse
           </button>
-          <button
-            onClick={onBackToLogin}
-            className="w-full bg-gray-200 text-gray-800 py-2 rounded-md hover:bg-gray-300 transition duration-300"
-          >
-            Volver al Login
-          </button>
         </form>
       </div>
     </div>
