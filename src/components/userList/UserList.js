@@ -23,6 +23,11 @@ const UserList = () => {
     <div className={`card ${themeState.darkMode ? "" : ""}`}>
       <div className={`card-header ${themeState.darkMode ? "" : ""}`}>
         <h3 className="text-black">Users</h3>
+        <div>
+          <Link className="btn btn-success" to="/newUser">
+            New Product
+          </Link>
+        </div>
       </div>
       <div className={`card-body ${themeState.darkMode ? "" : ""}`}>
         <input

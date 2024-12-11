@@ -70,13 +70,19 @@ export class UserService {
 }
 
 export class AuthService {
+  setAuthorizationHeader() {
+    const token = localStorage.getItem("token");
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  }
   async registerUser(userData) {
+    this.setAuthorizationHeader();
     try {
       console.log("Registering user with data:", userData);
       const response = await axios.post(
-        "http://localhost:8080/register",
+        "http://localhost:8080/auth/register",
         userData
       );
+      console.log(response);
       return response.data;
     } catch (error) {
       console.error("Error registering user", error);
