@@ -1,11 +1,19 @@
-/* VerticalMenu.css */
 .vertical-menu {
   width: 200px;
   height: 100vh;
   background-color: #343a40;
   padding: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Asegura que los botones inferiores estén abajo */
+  overflow-y: auto; /* Permite scroll si hay demasiados elementos */
+}
+
+.menu-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Espaciado uniforme entre los elementos del menú */
 }
 
 .menu-link {
@@ -22,11 +30,8 @@
   color: #ffffff;
 }
 
-.vertical-menu .dropdown {
-  position: relative;
-  display: block;
-  width: 100%;
-  margin-top: 10px;
+.dropdown {
+  margin: 0; /* Elimina márgenes adicionales */
 }
 
 .dropdown-content {
@@ -68,32 +73,49 @@
 .dropbtn:hover {
   background-color: #495057;
 }
+.vertical-menu {
+  position: relative;
+  height: 100vh; /* Para asegurar que ocupe toda la pantalla */
+  display: flex;
+  flex-direction: column; /* Para alinear los elementos verticalmente */
+  justify-content: space-between; /* Asegura que los botones inferiores estén abajo */
+}
 
-.vertical-menu.dark-mode {
-  background-color: #162230;
+.footer-buttons {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #f7f7f7;
+  border-top: 1px solid #ddd;
+}
+
+.vertical-menu.dark-mode .footer-buttons {
+  background-color: #333;
+  border-top-color: #555;
+}
+
+.footer-buttons button {
+  cursor: pointer;
+  font-size: 18px;
+  color: #333;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+}
+
+.footer-buttons button:hover {
+  color: #007bff;
+}
+
+.vertical-menu.dark-mode .footer-buttons button {
   color: #fff;
 }
-.dropdown-content.dark-mode {
-  display: none;
-  position: static;
-  min-width: 160px;
-  background-color: #343a40;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-.dropbtn.dark-mode {
-  width: 100%;
-  background-color: #343a40;
-  color: #ffffff;
-  padding: 16px;
-  font-size: 18px;
-  border: none;
-  cursor: pointer;
-  text-align: left;
-  transition: background-color 0.3s, color 0.3s;
-}
 
-.theme-toggle-button {
-  margin-top: 20px;
-  padding: 10px;
-  cursor: pointer;
+.footer-buttons button.logout-button {
+  color: red; /* Opcional para destacar el botón de logout */
 }

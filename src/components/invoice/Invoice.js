@@ -1,19 +1,31 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Invoice.css";
 import CustomerContext from "../../context/CustomerContext";
 import { FaRegEdit } from "react-icons/fa";
 import { AiFillPrinter } from "react-icons/ai";
 import { MdDeleteForever } from "react-icons/md";
+import { CustomerService } from "../../services/CustomerService";
 
+const customerService = new CustomerService();
 const Invoice = ({ invoice, handleDeleteInvoice }) => {
-  const { customers } = useContext(CustomerContext);
+  const { customers, setCustomers } = useContext(CustomerContext);
+  const [customerName, setCustomerName] = useState("N/A");
+  useEffect(() => {
+    customerService
+      .getAllCustomers()
+      .then((data) => setCustomers(data))
+      .catch((error) => console.error(error));
+  }, []);
+  useEffect(() => {
+    if (invoice) {
+      const foundCustomer = customers.find((c) => c.id === invoice.customerId);
+      setCustomerName(foundCustomer?.name || "N/A");
+    }
+  }, [invoice, customers]);
   if (!invoice) {
     return null;
   }
-  const customerName = customers.find((c) => c.id === invoice.customerId)?.name;
-  console.log(customers);
-  console.log(customerName);
 
   return (
     <tr>

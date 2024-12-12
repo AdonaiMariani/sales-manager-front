@@ -17,7 +17,7 @@ const UserList = () => {
   return (
     <div className={`card ${themeState.darkMode ? "" : ""}`}>
       <div className={`card-header ${themeState.darkMode ? "" : ""}`}>
-        <h3 className="text-black">Users</h3>
+        <h3 className="text-black">Usuarios</h3>
         <div>
           <Link className="btn btn-success" to="/newUser">
             Agregar Usuario

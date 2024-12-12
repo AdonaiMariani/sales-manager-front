@@ -6,6 +6,7 @@ import "./Home.css";
 const Home = () => {
   const { state: themeState } = useTheme();
   const [showInvoiceList, setShowInvoiceList] = useState(false);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowInvoiceList(true);
