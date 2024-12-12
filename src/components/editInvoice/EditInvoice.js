@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { InvoiceService } from "../../services/InvoiceService";
 import { CustomerService } from "../../services/CustomerService";
@@ -6,6 +6,7 @@ import "./EditInvoice.css";
 import CustomerContext from "../../context/CustomerContext";
 import { ProductsContext } from "../../context/ProductContext";
 import { ProductService } from "../../services/ProductService";
+import { IoReturnDownBack } from "react-icons/io5";
 
 const invoiceService = new InvoiceService();
 const customerService = new CustomerService();
@@ -13,6 +14,7 @@ const productService = new ProductService();
 
 const EditInvoice = () => {
   const { id } = useParams();
+  const [originalInvoice, setOriginalInvoice] = useState(null); // Guardar la factura original
   const [invoice, setInvoice] = useState(null);
   const { customers, setCustomers } = useContext(CustomerContext);
   const { products, setProducts } = useContext(ProductsContext);
@@ -29,6 +31,7 @@ const EditInvoice = () => {
           data.invoiceProducts = [];
         }
         setInvoice(data);
+        setOriginalInvoice(JSON.stringify(data)); // Almacenar la factura original como cadena
       })
       .catch((error) => console.error(error));
 
@@ -42,16 +45,17 @@ const EditInvoice = () => {
       .catch((error) => console.error(error));
   }, [id]);
 
-  const handleProductSearch = (e) => {
-    const searchTerm = e.target.value;
-    setProductSearch(searchTerm);
-    console.log(searchTerm);
-    const results = products.filter((product) =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    console.log(results);
-    setSearchResults(results);
-  };
+  const handleProductSearch = useCallback(
+    (e) => {
+      const searchTerm = e.target.value;
+      setProductSearch(searchTerm);
+      const results = products.filter((product) =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setSearchResults(results);
+    },
+    [products]
+  );
 
   const handleProductSelect = (product) => {
     setProductSearch(product.name);
@@ -59,7 +63,7 @@ const EditInvoice = () => {
     setSearchResults([]);
   };
 
-  const handleAddProduct = () => {
+  const handleAddProduct = useCallback(() => {
     const productToAdd = products.find(
       (product) => product.name.toLowerCase() === productSearch.toLowerCase()
     );
@@ -78,7 +82,17 @@ const EditInvoice = () => {
       setProductSearch("");
       setQuantity(1);
     }
-  };
+  }, [products, productSearch, quantity]);
+
+  const handleRemoveProduct = useCallback((productIndex) => {
+    setInvoice((prevInvoice) => ({
+      ...prevInvoice,
+      invoiceProducts: prevInvoice.invoiceProducts.filter(
+        (_, index) => index !== productIndex
+      ),
+    }));
+  }, []);
+
   const handleUpdate = (updatedInvoice) => {
     const invoiceToUpdate = {
       ...updatedInvoice,
@@ -89,38 +103,31 @@ const EditInvoice = () => {
       })),
     };
 
-    console.log("Datos enviados al backend:", invoiceToUpdate);
-
     invoiceService
       .updateInvoice(id, invoiceToUpdate)
-      .then((response) => {
-        console.log("Respuesta del backend:", response);
-        alert("Invoice updated successfully!");
+      .then(() => {
+        alert("Factura actualizada con éxito!");
+        navigate("/invoices");
       })
-      .catch((error) => console.error("Error updating invoice:", error));
-
-    setTimeout(() => {
-      navigate("/invoices"); // Navega al home
-    }, 400);
-  };
-
-  const handleRemoveProduct = (productIndex) => {
-    setInvoice({
-      ...invoice,
-      invoiceProducts: invoice.invoiceProducts.filter(
-        (_, index) => index !== productIndex
-      ),
-    });
+      .catch((error) => console.error("Error actualizando la factura:", error));
   };
 
   if (!invoice) {
     return <div>Loading...</div>;
   }
 
+  const hasChanges =
+    originalInvoice !== JSON.stringify(invoice) &&
+    invoice.invoiceProducts.length > 0;
+
   const total = invoice.invoiceProducts.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+
+  const onBack = () => {
+    navigate("/invoices");
+  };
 
   return (
     <form
@@ -131,18 +138,16 @@ const EditInvoice = () => {
       }}
     >
       <div className="form-group">
-        <label className="form-label">Fecha:</label>
+        <label>Fecha:</label>
         <input
-          className="form-input"
           type="date"
-          value={invoice.date.split("T")[0]} // Extrae solo la parte de la fecha
+          value={invoice.date.split("T")[0]}
           onChange={(e) => setInvoice({ ...invoice, date: e.target.value })}
         />
       </div>
       <div className="form-group">
-        <label className="form-label">Clientes:</label>
+        <label>Clientes:</label>
         <select
-          className="form-input"
           value={invoice.customerId}
           onChange={(e) =>
             setInvoice({ ...invoice, customerId: e.target.value })
@@ -156,9 +161,8 @@ const EditInvoice = () => {
         </select>
       </div>
       <div className="form-group">
-        <label className="form-label">Productos:</label>
+        <label>Productos:</label>
         <input
-          className="form-input"
           type="text"
           value={productSearch}
           onChange={handleProductSearch}
@@ -177,40 +181,56 @@ const EditInvoice = () => {
           </div>
         )}
         <input
-          className="form-input"
           type="number"
           min="1"
           value={quantity}
           onChange={(e) => setQuantity(e.target.value)}
         />
-        <button
-          className="form-button add-product-button"
-          type="button"
-          onClick={handleAddProduct}
-        >
+        <button type="button" onClick={handleAddProduct}>
           Añadir Producto
         </button>
       </div>
-      {invoice.invoiceProducts.map((item, index) => (
-        <div className="product-item" key={index}>
-          <span>ID del Producto: {item.productId}</span>
-          <span>Cantidad: {item.quantity}</span>
-          <span>Precio: {item.price}</span>
-          <span>Total: {item.price * item.quantity}</span>
-          <button
-            className="form-button remove-product-button"
-            onClick={() => handleRemoveProduct(index)}
-          >
-            Eliminar
-          </button>
-        </div>
-      ))}
-      <div className="form-total">Total: {total}</div>
-      <input
-        className="form-button submit-button"
-        type="submit"
-        value="Actualizar Factura"
-      />
+      <table className="invoice-products">
+        <thead>
+          <tr>
+            <th>ID del Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Total</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          {invoice.invoiceProducts.map((item, index) => (
+            <tr key={index}>
+              <td>{item.productId}</td>
+              <td>{item.quantity}</td>
+              <td>{item.price}</td>
+              <td>{item.price * item.quantity}</td>
+              <td>
+                <button
+                  type="button"
+                  onClick={(event) => {
+                    event.preventDefault(); // Evitar cualquier comportamiento por defecto
+                    handleRemoveProduct(index); // Llamar al manejador
+                  }}
+                >
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div>Total: {total}</div>
+      <div className="invoice-buttons">
+        <button type="submit" disabled={!hasChanges}>
+          Actualizar Factura
+        </button>
+        <button className="btn-back" onClick={onBack}>
+          <IoReturnDownBack />
+        </button>
+      </div>
     </form>
   );
 };

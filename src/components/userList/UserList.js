@@ -13,6 +13,15 @@ const UserList = () => {
   const { state: themeState } = useTheme();
   const { user, setUser, searchTerm, setSearchTerm, handleDeleteUser } =
     useContext(UserContext);
+  useEffect(() => {
+    userService
+      .getAllUsers()
+      .then((data) => {
+        setUser(data);
+        console.log(data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
   return (
     <div className={`card ${themeState.darkMode ? "" : ""}`}>
@@ -59,7 +68,7 @@ const UserList = () => {
                   <td>{user.email}</td>
                   <td className="email-column">{user.role}</td>
                   <td className="button-container">
-                    <Link className="btn btn-edit" to={`/user/${user.id}`}>
+                    <Link className="btn btn-edit" to={`/users/${user.id}`}>
                       <FaRegEdit />
                     </Link>
 
@@ -75,7 +84,6 @@ const UserList = () => {
           </tbody>
         </table>
       </div>
-      <div className="card-footer text-muted">Footer</div>
     </div>
   );
 };

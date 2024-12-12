@@ -15,7 +15,6 @@ export class CustomerService {
   async getAllCustomers() {
     this.setAuthorizationHeader();
     const response = await axios.get(this.baseUrl);
-    console.log(response.data);
     return response.data;
   }
 

@@ -18,7 +18,7 @@ const Home = () => {
   return (
     <div className={themeState.darkMode ? "dark-mode-title" : ""}>
       <h1 className={`title ${themeState.darkMode ? "dark-mode-title" : ""}`}>
-        Su aplicación de gerente de ventas
+        Aplicación de gestion de ventas
       </h1>
       <h2 className={themeState.darkMode ? "dark-subtitle" : ""}>
         Lista de facturas:

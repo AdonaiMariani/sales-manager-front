@@ -25,6 +25,7 @@ const Login = ({ setToken, onRegister }) => {
         const data = await response.json();
         console.log(data);
         localStorage.setItem("role", data.roles);
+        localStorage.setItem("email", email);
         setToken(data.jwt);
       } else {
         // Maneja errores de autenticación

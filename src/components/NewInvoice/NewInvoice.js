@@ -5,9 +5,12 @@ import CustomerContext from "../../context/CustomerContext";
 import { ProductsContext } from "../../context/ProductContext";
 import { ProductService } from "../../services/ProductService";
 import { useNavigate } from "react-router-dom";
+import { IoReturnDownBack } from "react-icons/io5";
+import { MdDeleteForever } from "react-icons/md";
 
 const customerService = new CustomerService();
 const productService = new ProductService();
+
 const NewInvoice = () => {
   const currentDate = new Date();
   const fechaFormateada = `${currentDate
@@ -43,6 +46,7 @@ const NewInvoice = () => {
       setCustomer(customers[0].id);
     }
   }, [customers]);
+
   const handleCreate = async (invoice) => {
     const productsToSend = invoice.invoiceProducts.map((product) => ({
       productId: product.productId,
@@ -89,7 +93,7 @@ const NewInvoice = () => {
     setProductSearch(searchTerm);
 
     if (searchTerm.trim() === "") {
-      setSearchResults([]); // Limpiar resultados si no hay texto en el campo
+      setSearchResults([]);
       return;
     }
 
@@ -116,7 +120,7 @@ const NewInvoice = () => {
           existingProduct.quantity += quantity / 2;
           return [...prevCart];
         } else {
-          return [...prevCart, { ...productToAdd, quantity }]; // Inicializa la cantidad con el valor ingresado
+          return [...prevCart, { ...productToAdd, quantity }];
         }
       });
       setProductSearch("");
@@ -126,6 +130,13 @@ const NewInvoice = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (cart.length === 0) {
+      alert(
+        "No se puede crear una factura sin productos. Por favor, agregue al menos un producto."
+      );
+      return;
+    }
 
     const invoiceData = {
       date,
@@ -139,7 +150,7 @@ const NewInvoice = () => {
 
     handleCreate(invoiceData);
     setTimeout(() => {
-      navigate("/invoices"); // Navega al home
+      navigate("/invoices");
     }, 400);
   };
 
@@ -152,6 +163,9 @@ const NewInvoice = () => {
     (sum, product) => sum + product.price * product.quantity,
     0
   );
+  const onBack = () => {
+    navigate("/invoices");
+  };
 
   return (
     <div className="form-container">
@@ -240,7 +254,7 @@ const NewInvoice = () => {
                       onClick={() => handleRemoveProduct(index)}
                       className="btn btn-danger"
                     >
-                      Eliminar
+                      <MdDeleteForever />
                     </button>
                   </td>
                 </tr>
@@ -249,9 +263,14 @@ const NewInvoice = () => {
           </table>
         )}
         <div>Total: ${total.toFixed(2)}</div>
-        <button type="submit" className="btn btn-success">
-          Crear Factura
-        </button>
+        <div className="invoice-buttons">
+          <button type="submit" className="btn btn-success">
+            Crear Factura
+          </button>
+          <button className="btn-back" onClick={onBack}>
+            <IoReturnDownBack />
+          </button>
+        </div>
       </form>
     </div>
   );
