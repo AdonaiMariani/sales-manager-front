@@ -1,12 +1,13 @@
 //CÓDIGO QUE SE CONECTA CON LA API
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { InvoiceService } from "../../services/InvoiceService";
 import "./InvoicePrint.css";
 import { CustomerService } from "../../services/CustomerService";
 import { ProductService } from "../../services/ProductService";
 import { ProductsContext } from "../../context/ProductContext";
 import CustomerContext from "../../context/CustomerContext";
+import { IoReturnDownBack } from "react-icons/io5";
 
 const customerService = new CustomerService();
 const productService = new ProductService();
@@ -16,6 +17,7 @@ const InvoicePrint = () => {
   const [invoice, setInvoice] = useState({ invoiceProducts: [] }); // Inicialización con estructura por defecto
   const { customers, setCustomers } = useContext(CustomerContext);
   const { products, setProducts } = useContext(ProductsContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     customerService
@@ -50,12 +52,15 @@ const InvoicePrint = () => {
     (sum, product) => sum + (product.price || 0) * (product.quantity || 0),
     0
   );
+  const onBack = () => {
+    navigate("/invoices");
+  };
 
   return (
     <div className="invoice-print-container">
       <header>
         <div className="invoice-header">
-          <h1>Sales Managment</h1>
+          <h1>Gestion de Ventas</h1>
           <div>Información del emisor</div>
         </div>
         <div className="invoice-customer">
@@ -92,7 +97,14 @@ const InvoicePrint = () => {
         <strong>Total: ${total}</strong>
       </div>
 
-      <button onClick={() => window.print()}>Imprimir Factura</button>
+      <div className="invoice-buttons">
+        <button className="btn-print" onClick={() => window.print()}>
+          Imprimir Factura
+        </button>
+        <button className="btn-back" onClick={onBack}>
+          <IoReturnDownBack />
+        </button>
+      </div>
     </div>
   );
 };

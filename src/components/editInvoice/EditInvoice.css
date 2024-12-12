@@ -73,3 +73,47 @@
 .search-result-item:hover {
   background-color: #e9ecef;
 }
+.invoice-products {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.invoice-products th,
+.invoice-products td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.invoice-products th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.invoice-products tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.invoice-products tr:hover {
+  background-color: #f1f1f1;
+}
+
+.invoice-products button {
+  padding: 5px 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.invoice-products button:hover {
+  background-color: darkred;
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #ccc;
+  color: #666;
+  border: none;
+}

@@ -5,6 +5,8 @@ import CustomerContext from "../../context/CustomerContext";
 import { ProductsContext } from "../../context/ProductContext";
 import { ProductService } from "../../services/ProductService";
 import { useNavigate } from "react-router-dom";
+import { IoReturnDownBack } from "react-icons/io5";
+import { MdDeleteForever } from "react-icons/md";
 
 const customerService = new CustomerService();
 const productService = new ProductService();
@@ -161,6 +163,9 @@ const NewInvoice = () => {
     (sum, product) => sum + product.price * product.quantity,
     0
   );
+  const onBack = () => {
+    navigate("/invoices");
+  };
 
   return (
     <div className="form-container">
@@ -249,7 +254,7 @@ const NewInvoice = () => {
                       onClick={() => handleRemoveProduct(index)}
                       className="btn btn-danger"
                     >
-                      Eliminar
+                      <MdDeleteForever />
                     </button>
                   </td>
                 </tr>
@@ -258,9 +263,14 @@ const NewInvoice = () => {
           </table>
         )}
         <div>Total: ${total.toFixed(2)}</div>
-        <button type="submit" className="btn btn-success">
-          Crear Factura
-        </button>
+        <div className="invoice-buttons">
+          <button type="submit" className="btn btn-success">
+            Crear Factura
+          </button>
+          <button className="btn-back" onClick={onBack}>
+            <IoReturnDownBack />
+          </button>
+        </div>
       </form>
     </div>
   );

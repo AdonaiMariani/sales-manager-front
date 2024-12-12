@@ -127,3 +127,40 @@ button:hover {
     top: 0;
   }
 }
+.invoice-buttons {
+  display: flex;
+  justify-content: center; /* Alinea el botón "Imprimir Factura" en el centro */
+  gap: 20px; /* Espacio entre los botones */
+  margin-top: 20px; /* Separación del contenido anterior */
+}
+
+.btn-print,
+.btn-back {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-print {
+  background-color: #4caf50; /* Verde */
+  color: white;
+}
+
+.btn-print:hover {
+  background-color: #45a049;
+}
+
+.btn-back {
+  background-color: #f44336; /* Rojo */
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Espacio entre el icono y el texto */
+}
+
+.btn-back:hover {
+  background-color: #e53935;
+}
