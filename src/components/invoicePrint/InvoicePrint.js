@@ -12,6 +12,8 @@ import { IoReturnDownBack } from "react-icons/io5";
 const customerService = new CustomerService();
 const productService = new ProductService();
 
+const invoiceService = new InvoiceService();
+
 const InvoicePrint = () => {
   const { id } = useParams();
   const [invoice, setInvoice] = useState({ invoiceProducts: [] }); // Inicialización con estructura por defecto
@@ -39,6 +41,22 @@ const InvoicePrint = () => {
       })
       .catch((error) => console.error("Error al obtener la factura:", error));
   }, [id]);
+  const handleDownloadPDF = async () => {
+    try {
+      const response = await invoiceService.getInvoiceInPDF(invoice.id);
+      // Crear un enlace temporal para descargar el archivo PDF
+      const blob = new Blob([response], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `Factura-${invoice.id}.pdf`;
+      link.click();
+      window.URL.revokeObjectURL(url); // Limpieza del URL
+    } catch (error) {
+      console.error("Error descargando el PDF", error);
+      alert("Ocurrió un error al intentar descargar el archivo.");
+    }
+  };
 
   const customerName = customers.find((c) => c.id === invoice.customerId)?.name;
 
@@ -98,8 +116,8 @@ const InvoicePrint = () => {
       </div>
 
       <div className="invoice-buttons">
-        <button className="btn-print" onClick={() => window.print()}>
-          Imprimir Factura
+        <button className="btn-download" onClick={handleDownloadPDF}>
+          Descargar PDF
         </button>
         <button className="btn-back" onClick={onBack}>
           <IoReturnDownBack />

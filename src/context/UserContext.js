@@ -37,7 +37,7 @@ export function UsersProvider({ children }) {
     Name: "",
     Email: "",
     Password: "",
-    Role: "USER",
+    Role: "ROLE_USER",
   });
 
   const handleInputChange = (event) => {

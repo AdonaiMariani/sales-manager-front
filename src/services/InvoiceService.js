@@ -56,6 +56,19 @@ export class InvoiceService {
     }
   }
 
+  async getInvoiceInPDF(id) {
+    this.setAuthorizationHeader();
+    try {
+      const response = await axios.get(`${this.baseUrl}/${id}/pdf`, {
+        responseType: "blob", // Esto asegura que obtienes un archivo binario (PDF)
+      });
+      return response.data;
+    } catch (error) {
+      console.error(`Error getting invoice with id ${id}`, error);
+      throw error;
+    }
+  }
+
   async deleteInvoice(id) {
     this.setAuthorizationHeader();
     try {
