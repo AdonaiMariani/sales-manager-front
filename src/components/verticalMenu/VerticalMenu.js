@@ -1,14 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./VerticalMenu.css";
 import { useTheme } from "../../context/ThemeContext";
 
 const VerticalMenu = () => {
   const { state, dispatch } = useTheme();
+  const navigate = useNavigate();
 
   const toggleDarkMode = () => {
     dispatch({ type: "TOGGLE_DARK_MODE" });
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Elimina el token del almacenamiento local
+    navigate("/login"); // Redirige al usuario a la página de login
   };
 
   return (
@@ -101,8 +107,16 @@ const VerticalMenu = () => {
       <button onClick={toggleDarkMode} className="theme-toggle-button">
         {state.darkMode ? "Light Mode" : "Dark Mode"}
       </button>
-    </div>
+    <button
+      onClick={handleLogout}
+      className={`logout-button ${state.darkMode ? "dark-mode" : ""}`}
+    >
+      Logout
+    </button>
+  </div>
+
   );
+
 };
 
 export default VerticalMenu;

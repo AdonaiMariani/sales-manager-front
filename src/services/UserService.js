@@ -67,26 +67,52 @@ export class UserService {
       throw error;
     }
   }
+
+  // async getUserByEmail(email) {
+  //   this.setAuthorizationHeader();
+  //   try {
+  //     const response = await axios.get(`${this.baseUrl}?email=${email}`);
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error(`Error getting user with email ${email}`, error);
+  //     throw error;
+  //   }
+  // }
 }
 
-export class AuthService {
-  setAuthorizationHeader() {
-    const token = localStorage.getItem("token");
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  }
-  async registerUser(userData) {
-    this.setAuthorizationHeader();
-    try {
-      console.log("Registering user with data:", userData);
-      const response = await axios.post(
-        "http://localhost:8080/auth/register",
-        userData
-      );
-      console.log(response);
-      return response.data;
-    } catch (error) {
-      console.error("Error registering user", error);
-      throw error;
-    }
-  }
-}
+// export class AuthService {
+//   setAuthorizationHeader() {
+//     const token = localStorage.getItem("token");
+//     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+//   }
+//   async registerUser(userData) {
+//     this.setAuthorizationHeader();
+//     try {
+//       console.log("Registering user with data:", userData);
+//       const response = await axios.post(
+//         "http://localhost:8080/auth/register",
+//         userData
+//       );
+//       console.log(response);
+//       return response.data;
+//     } catch (error) {
+//       console.error("Error registering user", error);
+//       throw error;
+//     }
+//   }
+
+//   async validatePassword(userId, currentPassword) {
+//     this.setAuthorizationHeader();
+//     try {
+//       const response = await axios.post(`${this.baseUrl}/validate-password`, {
+//         userId,
+//         currentPassword,
+//       });
+//       return response.data.isValid; // Supongamos que el backend devuelve `{ isValid: true/false }`
+//     } catch (error) {
+//       console.error("Error validating password", error);
+//       throw error;
+//     }
+//   }
+  
+// }

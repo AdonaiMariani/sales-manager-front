@@ -4,8 +4,9 @@ import { UserContext } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import "./EditProfile.css";
 
+
 const EditProfile = () => {
-  const { user, updateProfile, validatePassword, handleInputChange } =
+  const { user, updateProfile, validatePassword, handleInputChange, loadProfile, loadProfileByEmail } =
     useContext(UserContext);
   const { state: themeState } = useTheme();
   const navigate = useNavigate();
@@ -20,11 +21,49 @@ const EditProfile = () => {
     confirm: false,
   });
 
+  // useEffect(() => {
+  //   if (!user || !user.id) {
+  //     console.log("Loading user profile...");
+  //     const token = localStorage.getItem("token");
+  //     if (token) {
+  //       const email = authService.getEmailFromToken(token); // Asumiendo que tienes un método para obtener el email del token
+  //       loadProfileByEmail(email);
+  //     }
+  //   } else {
+  //     setOriginalUser({ ...user }); // Si el usuario está cargado, guarda su estado original
+  //   }
+  // }, [user, loadProfileByEmail]);
+
   useEffect(() => {
-    if (user) {
+    if (!user || !user.id) {
+      console.log("Loading user profile...");
+      loadProfile(); // Llama a loadProfile si no hay usuario cargado
+    } else {
+      setOriginalUser({ ...user }); // Si el usuario está cargado, guarda su estado original
+    }
+  }, [user, loadProfile]);
+  
+  useEffect(() => {
+    if (!user) {
+      loadProfile();
+    } else {
       setOriginalUser({ ...user });
     }
-  }, [user]);
+  }, [user, loadProfile]);
+  
+  // useEffect(() => {
+  //   const userId = 1; // Aquí puedes obtener dinámicamente el ID del usuario
+  //   if (!user || user.id !== userId) {
+  //     loadProfile(userId);
+  //     console.log("User loaded:", user);
+  //   }
+  // }, [user, loadProfile]);
+
+  // useEffect(() => {
+  //   if (user) {
+  //     setOriginalUser({ ...user });
+  //   }
+  // }, [user]);
 
   const togglePasswordVisibility = (field) => {
     setShowPassword((prev) => ({ ...prev, [field]: !prev[field] }));
@@ -46,6 +85,9 @@ const EditProfile = () => {
       return;
     }
 
+    // Preparar los datos actualizados
+    const updatedData = { ...user, password: newPassword };
+
     // Actualizar perfil usando el contexto
     const changes = Object.keys(user).filter(
       (key) => user[key] !== originalUser[key]
@@ -58,18 +100,18 @@ const EditProfile = () => {
         `Are you sure you want to make these changes?\n\n${confirmMessage}`
       )
     ) {
-      const updatedData = { ...user, password: newPassword };
+      // const updatedData = { ...user, password: newPassword };
       updateProfile(updatedData);
       navigate("/profile");
     }
   };
 
-  const hasChanges = () => {
-    return (
-      originalUser &&
-      Object.keys(user).some((key) => user[key] !== originalUser[key])
-    );
-  };
+  // const hasChanges = () => {
+  //   return (
+  //     originalUser &&
+  //     Object.keys(user).some((key) => user[key] !== originalUser[key])
+  //   );
+  // };
 
   if (!user) {
     return <div>Loading user profile...</div>;
