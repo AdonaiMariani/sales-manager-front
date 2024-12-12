@@ -17,21 +17,44 @@ const NewInvoice = () => {
   const { products, setProducts } = useContext(ProductsContext);
   const navigate = useNavigate();
   const [date, setDate] = useState(formattedDate);
+
   const [customer, setCustomer] = useState("");
   const [productSearch, setProductSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const [cart, setCart] = useState([]);
 
+  useEffect(() => {
+    customerService
+      .getAllCustomers()
+      .then((data) => setCustomers(data))
+      .catch((error) => console.error(error));
+    productService
+      .getAllProducts()
+      .then((data) => setProducts(data))
+      .catch((error) => console.error(error));
+  }, []);
+
+  useEffect(() => {
+    if (customers.length > 0) {
+      setCustomer(customers[0].id);
+    }
+  }, [customers]);
   const handleCreate = async (invoice) => {
     const productsToSend = invoice.invoiceProducts.map((product) => ({
       productId: product.productId,
       quantity: Number(product.quantity),
       price: product.price,
+      productName: products.find((p) => p.id === product.productId).name,
     }));
+
+    const customerName = customers.find(
+      (c) => c.id === invoice.customerId
+    ).name;
 
     const invoiceToSend = {
       customerId: invoice.customerId,
+      customerName,
       date: invoice.date,
       invoiceProducts: productsToSend,
     };
@@ -57,22 +80,6 @@ const NewInvoice = () => {
       return;
     }
   };
-  useEffect(() => {
-    customerService
-      .getAllCustomers()
-      .then((data) => setCustomers(data))
-      .catch((error) => console.error(error));
-    productService
-      .getAllProducts()
-      .then((data) => setProducts(data))
-      .catch((error) => console.error(error));
-  }, []);
-
-  useEffect(() => {
-    if (customers.length > 0) {
-      setCustomer(customers[0].id);
-    }
-  }, [customers]);
 
   const handleProductSearch = (e) => {
     const searchTerm = e.target.value;

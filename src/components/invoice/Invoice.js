@@ -13,7 +13,7 @@ const Invoice = ({ invoice, handleDeleteInvoice }) => {
         <Link to={`/invoices/${invoice.id}`}>{invoice.id}</Link>
       </td>
       <td>{invoice.date}</td>
-      <td>{invoice.customerId}</td>
+      <td>{invoice.customerName}</td>
       <td>${invoice.totalPrice}</td>
       <td className="button-container">
         <Link className="btn btn-sm btn-primary" to={`/invoices/${invoice.id}`}>
