@@ -10,12 +10,25 @@ import ProductList from "../components/productList/ProductsList";
 import Home from "../components/home/Home";
 import InvoiceList from "../components/invoiceList/InvoiceList";
 import NewInvoice from "../components/NewInvoice/NewInvoice";
-import RegisterPage from "../components/auth/pages/RegisterPage";
 import LoginPage from "../components/auth/pages/LoginPage";
-
 import UserList from "../components/userList/UserList";
 import NewUser from "../newUser/NewUser";
 import EditProfile from "../components/editProfile/EditProfile";
+import { Navigate, useLocation } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
+
+export const ProtectedRoute = ({ children }) => {
+  const { user } = useContext(UserContext);
+  const location = useLocation();
+
+  if (localStorage.getItem("role") !== "ROLE_ADMIN") {
+    console.log(user);
+    return <Navigate to="/unauthorized" state={{ from: location }} />;
+  }
+
+  return children;
+};
 
 const AppRoutes = ({ customers, products, handleCreate }) => {
   return (
@@ -28,16 +41,29 @@ const AppRoutes = ({ customers, products, handleCreate }) => {
       <Route path="/newCustomer" element={<NewCustomer />} />
       <Route path="/customers/:id" element={<EditCustomer />} />
       <Route path="/invoices" element={<InvoiceList />} />
-      <Route path="/register" element={<RegisterPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/newInvoice" element={<NewInvoice />} />
       <Route path="/invoices/:id" element={<EditInvoice />} />
       <Route path="/invoices/print/:id" element={<InvoicePrint />} />
-      <Route path="/users" element={<UserList />} />
+      <Route
+        path="/users"
+        element={
+          <ProtectedRoute>
+            <UserList />
+          </ProtectedRoute>
+        }
+      />
       <Route path="/invoices/:id" element={<EditInvoice />} />
       <Route path="/invoices/print/:id" element={<InvoicePrint />} />
       <Route path="/*" element={<Home />} />
-      <Route path="/newUser" element={<NewUser />} />
+      <Route
+        path="/newUser"
+        element={
+          <ProtectedRoute>
+            <NewUser />
+          </ProtectedRoute>
+        }
+      />
       <Route path="/profile" element={<EditProfile />} />
     </Routes>
   );

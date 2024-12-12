@@ -73,12 +73,12 @@ const EditCustomer = () => {
           themeState.darkMode ? "dark-mode" : ""
         } d-flex justify-content-between`}
       >
-        <h3>Edit Customer</h3>
+        <h3>Editar Cliente</h3>
         <button
           className="btn btn-secondary"
           onClick={() => navigate("/customers")}
         >
-          Cancel
+          Cancelar
         </button>
       </div>
       <div className={`card-body ${themeState.darkMode ? "dark-mode" : ""}`}>
@@ -95,7 +95,7 @@ const EditCustomer = () => {
           </div>
           <div className="form-group">
             <label className={themeState.darkMode ? "dark-mode" : ""}>
-              Name
+              Nombre
             </label>
             <input
               type="text"
@@ -107,7 +107,7 @@ const EditCustomer = () => {
           </div>
           <div className="form-group">
             <label className={themeState.darkMode ? "dark-mode" : ""}>
-              Address
+              Dirección
             </label>
             <input
               type="text"
@@ -119,7 +119,7 @@ const EditCustomer = () => {
           </div>
           <div className="form-group">
             <label className={themeState.darkMode ? "dark-mode" : ""}>
-              Phone
+              Telefono
             </label>
             <input
               type="text"
@@ -146,7 +146,7 @@ const EditCustomer = () => {
             className="btn btn-primary"
             disabled={!hasChanges()}
           >
-            Save
+            Guardar
           </button>
         </form>
       </div>

@@ -27,22 +27,20 @@ const InvoiceView = ({ id }) => {
   return (
     <div>
       {printMode ? (
-        // Paso 3: Utiliza InvoicePrint para la vista de impresión
         <InvoicePrint invoice={invoice} />
       ) : (
-        // Vista normal
         <>
           <h2>Invoice #{invoice.id}</h2>
-          <p>Date: {invoice.date}</p>
-          <p>Customer: {invoice.customer}</p>
+          <p>Fecha: {invoice.date}</p>
+          <p>Cliente: {invoice.customer}</p>
           <p>Total: {invoice.total}</p>
           <h3>Items</h3>
           <ul>
             {invoice.items.map((item, index) => (
               <li key={index}>
-                <p>Product: {item.product}</p>
-                <p>Quantity: {item.quantity}</p>
-                <p>Price: {item.price}</p>
+                <p>Producto: {item.product}</p>
+                <p>Cantidad: {item.quantity}</p>
+                <p>Precio: {item.price}</p>
               </li>
             ))}
           </ul>

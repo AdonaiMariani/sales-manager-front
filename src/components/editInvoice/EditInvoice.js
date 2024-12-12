@@ -1,19 +1,25 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { InvoiceService } from "../../services/InvoiceService";
 import { CustomerService } from "../../services/CustomerService";
 import "./EditInvoice.css";
+import CustomerContext from "../../context/CustomerContext";
+import { ProductsContext } from "../../context/ProductContext";
+import { ProductService } from "../../services/ProductService";
 
 const invoiceService = new InvoiceService();
 const customerService = new CustomerService();
+const productService = new ProductService();
 
-const EditInvoice = ({ customers: customersProp, products }) => {
+const EditInvoice = () => {
   const { id } = useParams();
   const [invoice, setInvoice] = useState(null);
-  const [customers, setCustomers] = useState([]);
+  const { customers, setCustomers } = useContext(CustomerContext);
+  const { products, setProducts } = useContext(ProductsContext);
   const [productSearch, setProductSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [quantity, setQuantity] = useState(1);
+  const navigate = useNavigate();
 
   useEffect(() => {
     invoiceService
@@ -30,15 +36,20 @@ const EditInvoice = ({ customers: customersProp, products }) => {
       .getAllCustomers()
       .then((data) => setCustomers(data))
       .catch((error) => console.error(error));
+    productService
+      .getAllProducts()
+      .then((data) => setProducts(data))
+      .catch((error) => console.error(error));
   }, [id]);
 
   const handleProductSearch = (e) => {
     const searchTerm = e.target.value;
     setProductSearch(searchTerm);
-
+    console.log(searchTerm);
     const results = products.filter((product) =>
       product.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
+    console.log(results);
     setSearchResults(results);
   };
 
@@ -87,6 +98,10 @@ const EditInvoice = ({ customers: customersProp, products }) => {
         alert("Invoice updated successfully!");
       })
       .catch((error) => console.error("Error updating invoice:", error));
+
+    setTimeout(() => {
+      navigate("/invoices"); // Navega al home
+    }, 400);
   };
 
   const handleRemoveProduct = (productIndex) => {
@@ -116,7 +131,7 @@ const EditInvoice = ({ customers: customersProp, products }) => {
       }}
     >
       <div className="form-group">
-        <label className="form-label">Date:</label>
+        <label className="form-label">Fecha:</label>
         <input
           className="form-input"
           type="date"
@@ -125,7 +140,7 @@ const EditInvoice = ({ customers: customersProp, products }) => {
         />
       </div>
       <div className="form-group">
-        <label className="form-label">Customer:</label>
+        <label className="form-label">Clientes:</label>
         <select
           className="form-input"
           value={invoice.customerId}
@@ -141,7 +156,7 @@ const EditInvoice = ({ customers: customersProp, products }) => {
         </select>
       </div>
       <div className="form-group">
-        <label className="form-label">Product:</label>
+        <label className="form-label">Productos:</label>
         <input
           className="form-input"
           type="text"
@@ -173,20 +188,20 @@ const EditInvoice = ({ customers: customersProp, products }) => {
           type="button"
           onClick={handleAddProduct}
         >
-          Add Product
+          Añadir Producto
         </button>
       </div>
       {invoice.invoiceProducts.map((item, index) => (
         <div className="product-item" key={index}>
-          <span>Product ID: {item.productId}</span>
-          <span>Quantity: {item.quantity}</span>
-          <span>Price: {item.price}</span>
+          <span>ID del Producto: {item.productId}</span>
+          <span>Cantidad: {item.quantity}</span>
+          <span>Precio: {item.price}</span>
           <span>Total: {item.price * item.quantity}</span>
           <button
             className="form-button remove-product-button"
             onClick={() => handleRemoveProduct(index)}
           >
-            Remove
+            Eliminar
           </button>
         </div>
       ))}
@@ -194,7 +209,7 @@ const EditInvoice = ({ customers: customersProp, products }) => {
       <input
         className="form-button submit-button"
         type="submit"
-        value="Update Invoice"
+        value="Actualizar Factura"
       />
     </form>
   );

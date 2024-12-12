@@ -10,7 +10,7 @@ const NewCustomer = () => {
 
   return (
     <div className={`card ${themeState.darkMode ? "" : ""}`}>
-      <div className="card-header text-black">New Customer</div>
+      <div className="card-header text-black">Nuevo Cliente</div>
       <div className={`card-body ${themeState.darkMode ? "" : ""}`}>
         <form onSubmit={validateAndSubmit} className="border">
           <div className="form-group">
@@ -18,7 +18,7 @@ const NewCustomer = () => {
               className={themeState.darkMode ? "dark-mode-label" : ""}
               htmlFor="Name"
             >
-              Name
+              Nombre
             </label>
             <input
               type="text"
@@ -27,7 +27,7 @@ const NewCustomer = () => {
               className={`form-control ${themeState.darkMode ? "" : ""} ${
                 errors.Name ? "is-invalid" : ""
               }`}
-              placeholder="Insert Name"
+              placeholder="Agregar Nombre"
               aria-describedby="helpId"
               value={formData.Name}
               onChange={handleInputChangeForm}
@@ -41,7 +41,7 @@ const NewCustomer = () => {
               className={themeState.darkMode ? "dark-mode-label" : ""}
               htmlFor="Address"
             >
-              Address
+              Direccion
             </label>
             <input
               type="text"
@@ -50,7 +50,7 @@ const NewCustomer = () => {
               className={`form-control ${themeState.darkMode ? "" : ""} ${
                 errors.Name ? "is-invalid" : ""
               }`}
-              placeholder="Insert Address"
+              placeholder="Agregar Direccion"
               aria-describedby="helpId"
               value={formData.Address}
               onChange={handleInputChangeForm}
@@ -73,7 +73,7 @@ const NewCustomer = () => {
               className={`form-control ${themeState.darkMode ? "" : ""} ${
                 errors.Name ? "is-invalid" : ""
               }`}
-              placeholder="Insert Email"
+              placeholder="Agregar Email"
               aria-describedby="helpId"
               value={formData.Email}
               onChange={handleInputChangeForm}
@@ -87,7 +87,7 @@ const NewCustomer = () => {
               className={themeState.darkMode ? "dark-mode-label" : ""}
               htmlFor="Phone"
             >
-              Phone
+              Telefono
             </label>
             <input
               type="text"
@@ -96,7 +96,7 @@ const NewCustomer = () => {
               cclassName={`form-control ${themeState.darkMode ? "" : ""} ${
                 errors.Name ? "is-invalid" : ""
               }`}
-              placeholder="Insert Phone"
+              placeholder="Agregar Telefono"
               aria-describedby="helpId"
               value={formData.Phone}
               onChange={handleInputChangeForm}
@@ -108,15 +108,14 @@ const NewCustomer = () => {
 
           <div className="btn-group" role="group" aria-label="">
             <button type="submit" className="btn btn-success">
-              Add New Customer
+              Agregar Cliente
             </button>
             <Link to={"/customers"} className="btn btn-primary">
-              Cancel
+              Cancelar
             </Link>
           </div>
         </form>
       </div>
-      <div className="card-footer text-muted">Footer</div>
     </div>
   );
 };

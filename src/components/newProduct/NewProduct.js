@@ -10,19 +10,19 @@ const NewProduct = () => {
 
   return (
     <div className={`card ${themeState.darkMode ? "" : ""}`}>
-      <div className="card-header text-black">New Product</div>
+      <div className="card-header text-black">Nuevo Producto</div>
       <div className={`card-body ${themeState.darkMode ? "" : ""}`}>
         <form onSubmit={validateAndSubmit}>
           <div className="form-group">
             <label htmlFor="Name" className={themeState.darkMode ? "" : ""}>
-              Name
+              Nombre
             </label>
             <input
               type="text"
               name="Name"
               id="Name"
               className={`form-control ${errors.Name ? "is-invalid" : ""}`}
-              placeholder="Insert Name"
+              placeholder="Nombre"
               aria-describedby="helpId"
               value={formData.Name}
               onChange={handleInputChange}
@@ -36,14 +36,14 @@ const NewProduct = () => {
               htmlFor="Brand"
               className={themeState.darkMode ? "dark-mode-label" : ""}
             >
-              Brand
+              Marca
             </label>
             <input
               type="text"
               name="Brand"
               id="Brand"
               className={`form-control ${errors.Brand ? "is-invalid" : ""}`}
-              placeholder="Insert Brand"
+              placeholder="Marca"
               aria-describedby="helpId"
               value={formData.Brand}
               onChange={handleInputChange}
@@ -57,14 +57,14 @@ const NewProduct = () => {
               htmlFor="Category"
               className={themeState.darkMode ? "dark-mode-label" : ""}
             >
-              Category
+              Categoria
             </label>
             <input
               type="text"
               name="Category"
               id="Category"
               className={`form-control ${errors.Category ? "is-invalid" : ""}`}
-              placeholder="Insert Category"
+              placeholder="Categoria"
               aria-describedby="helpId"
               value={formData.Category}
               onChange={handleInputChange}
@@ -78,14 +78,14 @@ const NewProduct = () => {
               htmlFor="Price"
               className={themeState.darkMode ? "dark-mode-label" : ""}
             >
-              Price
+              Precio
             </label>
             <input
               type="text"
               name="Price"
               id="Price"
               className={`form-control ${errors.Price ? "is-invalid" : ""}`}
-              placeholder="Insert Price"
+              placeholder="Precio"
               aria-describedby="helpId"
               value={formData.Price}
               onChange={handleInputChange}
@@ -96,10 +96,10 @@ const NewProduct = () => {
           </div>
           <div className="btn-group" role="group" aria-label="">
             <button type="submit" className="btn btn-success">
-              Add New Product
+              Agregar Producto
             </button>
             <Link to={"/products"} className="btn btn-primary">
-              Cancel
+              Cancelar
             </Link>
           </div>
         </form>

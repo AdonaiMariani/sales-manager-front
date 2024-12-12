@@ -30,7 +30,7 @@ function App() {
           <h1
             className={`main-title ${themeState.darkMode ? "dark-mode" : ""}`}
           >
-            Sales Management
+            Gestión de Ventas
           </h1>
           <div
             style={{

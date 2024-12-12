@@ -5,6 +5,8 @@ import CustomerContext from "../../context/CustomerContext";
 import { CustomerService } from "../../services/CustomerService";
 import "./CustomerList.css";
 import { useTheme } from "../../context/ThemeContext";
+import { FaRegEdit } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
 
 const customerService = new CustomerService();
 
@@ -27,10 +29,10 @@ const CustomerList = () => {
   return (
     <div className={`card ${themeState.darkMode ? "" : ""}`}>
       <div className={`card-header ${themeState.darkMode ? "" : ""}`}>
-        <h3 className="text-black">Customers</h3>
+        <h3 className="text-black">Clientes</h3>
         <div>
           <Link className="btn btn-success" to="/newCustomer">
-            New Customer
+            Agregar Cliente
           </Link>
         </div>
       </div>
@@ -39,18 +41,18 @@ const CustomerList = () => {
           type="text"
           value={searchTerm}
           onChange={(event) => setSearchTerm(event.target.value)}
-          placeholder="Search..."
+          placeholder="Buscar..."
           className={`form-control ${themeState.darkMode ? "" : ""}`}
         />
         <table className="table">
           <thead>
             <tr>
               <th className="id-column">ID</th>
-              <th>Name</th>
-              <th>Address</th>
-              <th>Phone</th>
+              <th>Nombre</th>
+              <th>Dirección</th>
+              <th>Telefono</th>
               <th className="email-column">Email</th>
-              <th>Actions</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -70,18 +72,20 @@ const CustomerList = () => {
                   <td>{customer.address}</td>
                   <td>{customer.phone}</td>
                   <td className="email-column">{customer.email}</td>
+
                   <td className="button-container">
                     <Link
-                      className="btn btn-primary"
+                      className="btn btn-edit"
                       to={`/customers/${customer.id}`}
                     >
-                      Edit
+                      <FaRegEdit />
                     </Link>
+
                     <button
-                      className="btn btn-danger"
+                      className="btn btn-delete"
                       onClick={() => handleDeleteCustomer(customer.id)}
                     >
-                      Delete
+                      <MdDeleteForever />
                     </button>
                   </td>
                 </tr>
@@ -89,7 +93,6 @@ const CustomerList = () => {
           </tbody>
         </table>
       </div>
-      <div className="card-footer text-muted">Footer</div>
     </div>
   );
 };

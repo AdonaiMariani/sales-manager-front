@@ -10,14 +10,16 @@ const customerService = new CustomerService();
 const productService = new ProductService();
 const NewInvoice = () => {
   const currentDate = new Date();
-  const formattedDate = `${currentDate.getFullYear()}-${String(
-    currentDate.getMonth() + 1
-  ).padStart(2, "0")}-${String(currentDate.getDate()).padStart(2, "0")}`;
+  const fechaFormateada = `${currentDate
+    .getDate()
+    .toString()
+    .padStart(2, "0")}/${(currentDate.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}/${currentDate.getFullYear()}`;
   const { customers, setCustomers } = useContext(CustomerContext);
   const { products, setProducts } = useContext(ProductsContext);
   const navigate = useNavigate();
-
-  const [date, setDate] = useState(formattedDate);
+  const [date, setDate] = useState(fechaFormateada);
 
   const [customer, setCustomer] = useState("");
   const [productSearch, setProductSearch] = useState("");
@@ -25,16 +27,38 @@ const NewInvoice = () => {
   const [quantity, setQuantity] = useState(1);
   const [cart, setCart] = useState([]);
 
+  useEffect(() => {
+    customerService
+      .getAllCustomers()
+      .then((data) => setCustomers(data))
+      .catch((error) => console.error(error));
+    productService
+      .getAllProducts()
+      .then((data) => setProducts(data))
+      .catch((error) => console.error(error));
+  }, []);
+
+  useEffect(() => {
+    if (customers.length > 0) {
+      setCustomer(customers[0].id);
+    }
+  }, [customers]);
   const handleCreate = async (invoice) => {
     const productsToSend = invoice.invoiceProducts.map((product) => ({
       productId: product.productId,
       quantity: Number(product.quantity),
       price: product.price,
+      productName: products.find((p) => p.id === product.productId).name,
     }));
+
+    const customerName = customers.find(
+      (c) => c.id === invoice.customerId
+    ).name;
 
     const invoiceToSend = {
       customerId: invoice.customerId,
-      date: invoice.date,
+      customerName,
+      date,
       invoiceProducts: productsToSend,
     };
 
@@ -59,22 +83,6 @@ const NewInvoice = () => {
       return;
     }
   };
-  useEffect(() => {
-    customerService
-      .getAllCustomers()
-      .then((data) => setCustomers(data))
-      .catch((error) => console.error(error));
-    productService
-      .getAllProducts()
-      .then((data) => setProducts(data))
-      .catch((error) => console.error(error));
-  }, []);
-
-  useEffect(() => {
-    if (customers.length > 0) {
-      setCustomer(customers[0].id);
-    }
-  }, [customers]);
 
   const handleProductSearch = (e) => {
     const searchTerm = e.target.value;
