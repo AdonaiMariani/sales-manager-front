@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./Invoice.css";
+import CustomerContext from "../../context/CustomerContext";
 
 const Invoice = ({ invoice, handleDeleteInvoice }) => {
+  const { customers } = useContext(CustomerContext);
   if (!invoice) {
     return null;
   }
+  const customerName = customers.find((c) => c.id === invoice.customerId)?.name;
 
   return (
     <tr>
@@ -13,7 +16,7 @@ const Invoice = ({ invoice, handleDeleteInvoice }) => {
         <Link to={`/invoices/${invoice.id}`}>{invoice.id}</Link>
       </td>
       <td>{invoice.date}</td>
-      <td>{invoice.customerName}</td>
+      <td>{customerName}</td>
       <td>${invoice.totalPrice}</td>
       <td className="button-container">
         <Link className="btn btn-sm btn-primary" to={`/invoices/${invoice.id}`}>

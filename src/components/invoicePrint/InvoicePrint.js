@@ -37,9 +37,7 @@ const InvoicePrint = () => {
       })
       .catch((error) => console.error("Error al obtener la factura:", error));
   }, [id]);
-  const productName = products.find(
-    (p) => p.id === invoice.invoiceProducts.productId
-  )?.name;
+
   const customerName = customers.find((c) => c.id === invoice.customerId)?.name;
 
   // Mostrar un mensaje de carga si los datos no están disponibles
@@ -57,19 +55,19 @@ const InvoicePrint = () => {
     <div className="invoice-print-container">
       <header>
         <div className="invoice-header">
-          <img src="/path/to/logo.png" alt="Logo" />
+          <h1>Sales Managment</h1>
           <div>Información del emisor</div>
         </div>
         <div className="invoice-customer">
           <h2>Factura para:</h2>
-          <p>Cliente ID: {customerName}</p>
+          <p>Cliente: {customerName}</p>
         </div>
       </header>
 
       <table className="invoice-details">
         <thead>
           <tr>
-            <th>Producto ID</th>
+            <th>Producto</th>
             <th>Cantidad</th>
             <th>Precio Unitario</th>
             <th>Total</th>
