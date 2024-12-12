@@ -153,21 +153,21 @@ export function UsersProvider({ children }) {
     }
   };
 
-  const validatePassword = async (currentPassword) => {
-    try {
-      if (!user || !user.id) {
-        throw new Error("User is not loaded");
-      }
-      const isValid = await authService.validatePassword(
-        user.id,
-        currentPassword
-      );
-      return isValid;
-    } catch (error) {
-      console.error("Error validating password:", error);
-      return false;
-    }
-  };
+  // const validatePassword = async (currentPassword) => {
+  //   try {
+  //     if (!user || !user.id) {
+  //       throw new Error("User is not loaded");
+  //     }
+  //     const isValid = await authService.validatePassword(
+  //       user.id,
+  //       currentPassword
+  //     );
+  //     return isValid;
+  //   } catch (error) {
+  //     console.error("Error validating password:", error);
+  //     return false;
+  //   }
+  // };
 
   // const loadProfileByEmail = async (email) => {
   //   try {
@@ -210,7 +210,7 @@ export function UsersProvider({ children }) {
         validateAndSubmit,
         loadProfile,
         updateProfile,
-        validatePassword,
+        // validatePassword,
       }}
     >
       {children}

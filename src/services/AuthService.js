@@ -37,17 +37,37 @@ export class AuthService {
   getUserIdFromToken() {
     const token = localStorage.getItem("token");
     if (!token) {
-        console.error("No token found in localStorage");
-        return null;
+      console.error("No token found in localStorage");
+      return null;
     }
-    
+  
     try {
-      const payload = JSON.parse(atob(token.split(".")[1]));
-      console.log("Decoded token payload:", payload);
-      return payload.userId; // Cambia 'userId' según el payload de tu token
+      const payload = JSON.parse(atob(token.split(".")[1])); // Decodificar el payload del token
+      if (!payload.userId) {
+        console.error("userId not found in token payload");
+        return null;
+      }
+      return payload.userId; // Asegúrate de que el token contiene "userId"
     } catch (error) {
       console.error("Error decoding token", error);
       return null;
     }
   }
-}
+  
+//   getUserIdFromToken() {
+//     const token = localStorage.getItem("token");
+//     if (!token) {
+//         console.error("No token found in localStorage");
+//         return null;
+//     }
+    
+//     try {
+//       const payload = JSON.parse(atob(token.split(".")[1]));
+//       console.log("Decoded token payload:", payload);
+//       return payload.userId; // Cambia 'userId' según el payload de tu token
+//     } catch (error) {
+//       console.error("Error decoding token", error);
+//       return null;
+//     }
+//   }
+ }
