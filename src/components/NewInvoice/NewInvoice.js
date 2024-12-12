@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const customerService = new CustomerService();
 const productService = new ProductService();
+
 const NewInvoice = () => {
   const currentDate = new Date();
   const fechaFormateada = `${currentDate
@@ -43,6 +44,7 @@ const NewInvoice = () => {
       setCustomer(customers[0].id);
     }
   }, [customers]);
+
   const handleCreate = async (invoice) => {
     const productsToSend = invoice.invoiceProducts.map((product) => ({
       productId: product.productId,
@@ -89,7 +91,7 @@ const NewInvoice = () => {
     setProductSearch(searchTerm);
 
     if (searchTerm.trim() === "") {
-      setSearchResults([]); // Limpiar resultados si no hay texto en el campo
+      setSearchResults([]);
       return;
     }
 
@@ -116,7 +118,7 @@ const NewInvoice = () => {
           existingProduct.quantity += quantity / 2;
           return [...prevCart];
         } else {
-          return [...prevCart, { ...productToAdd, quantity }]; // Inicializa la cantidad con el valor ingresado
+          return [...prevCart, { ...productToAdd, quantity }];
         }
       });
       setProductSearch("");
@@ -126,6 +128,13 @@ const NewInvoice = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (cart.length === 0) {
+      alert(
+        "No se puede crear una factura sin productos. Por favor, agregue al menos un producto."
+      );
+      return;
+    }
 
     const invoiceData = {
       date,
@@ -139,7 +148,7 @@ const NewInvoice = () => {
 
     handleCreate(invoiceData);
     setTimeout(() => {
-      navigate("/invoices"); // Navega al home
+      navigate("/invoices");
     }, 400);
   };
 

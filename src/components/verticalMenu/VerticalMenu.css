@@ -117,5 +117,17 @@
 }
 
 .footer-buttons button.logout-button {
-  color: red; /* Opcional para destacar el botón de logout */
+  color: red; /* Color inicial del texto */
+  border: 2px solid red; /* Opcional, para resaltar el botón */
+  background-color: transparent; /* Fondo transparente por defecto */
+  padding: 10px 20px; /* Espaciado interno para diseño */
+  border-radius: 5px; /* Esquinas redondeadas */
+  cursor: pointer; /* Cambia el cursor a "mano" al pasar por encima */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Animación suave */
+}
+
+.footer-buttons button.logout-button:hover {
+  background-color: rgba(255, 0, 0, 0.1); /* Fondo semitransparente rojo */
+  color: white; /* Cambia el texto a blanco */
+  border-color: darkred; /* Borde más oscuro */
 }

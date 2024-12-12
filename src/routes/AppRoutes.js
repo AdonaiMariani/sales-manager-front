@@ -17,6 +17,7 @@ import EditProfile from "../components/editProfile/EditProfile";
 import { Navigate, useLocation } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import EditUser from "../components/editUser/EditUser";
 
 export const ProtectedRoute = ({ children }) => {
   const { user } = useContext(UserContext);
@@ -30,7 +31,7 @@ export const ProtectedRoute = ({ children }) => {
   return children;
 };
 
-const AppRoutes = ({ customers, products, handleCreate }) => {
+const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/home" element={<Home />} />
@@ -61,6 +62,14 @@ const AppRoutes = ({ customers, products, handleCreate }) => {
         element={
           <ProtectedRoute>
             <NewUser />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/users/:id"
+        element={
+          <ProtectedRoute>
+            <EditUser />
           </ProtectedRoute>
         }
       />
