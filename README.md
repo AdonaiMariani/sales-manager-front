@@ -1,70 +1,61 @@
-# Getting Started with Create React App
+# React Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este template proporciona una configuración mínima para comenzar a trabajar con React con Hot Module Replacement (HMR) y algunas reglas de ESLint.
 
-## Available Scripts
+## Configuración del Entorno de Desarrollo con Prettier
 
-In the project directory, you can run:
+Si te unes a nuestro proyecto, usamos Prettier para asegurar un formato de código consistente en todo el código base. Sigue los pasos a continuación para configurar tu entorno de desarrollo con la configuración existente de Prettier.
 
-### `npm start`
+### Prerrequisitos
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Asegúrate de tener instalados Node.js y npm.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Pasos para Configurar Prettier
 
-### `npm test`
+1. **Clona el Proyecto**:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   ```bash
+   git clone https://github.com/AdonaiMariani/sales-manager-front.git
+   ```
 
-### `npm run build`
+2. **Instala las Dependencias**:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   Navega al directorio raíz del proyecto y ejecuta el siguiente comando:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   ```bash
+   cd sales-manager-front
+   npm install
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. **Integra con tu Editor**:
 
-### `npm run eject`
+   Para aprovechar al máximo Prettier, recomendamos integrarlo con tu editor de código:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   #### VSCode:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   - Instala la extensión **Prettier - Code formatter**.
+   - Configura VSCode para formatear automáticamente tu código al guardar agregando lo siguiente a tu archivo `settings.json`:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+     ```json
+     {
+       "editor.formatOnSave": true,
+       "editor.codeActionsOnSave": {
+         "source.fixAll": true
+       }
+     }
+     ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+     La opción `"editor.codeActionsOnSave": { "source.fixAll": true }` aplicará automáticamente todas las correcciones disponibles.
 
-## Learn More
+   #### IntelliJ IDEA (y otros IDEs de JetBrains):
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   - Abre tu proyecto en IntelliJ IDEA.
+   - Navega a **File > Settings** (o **IntelliJ IDEA > Preferences** en macOS).
+   - En el cuadro de búsqueda, escribe **Prettier** y selecciónalo en los resultados.
+   - Asegúrate de que el paquete de Prettier apunte al archivo local del proyecto en `node_modules`. Si no es así, especifica la ruta (usualmente es `[project_root]/node_modules/prettier`).
+   - Activa la opción **Run on save for files** y especifica los patrones de archivo que Prettier debe formatear al guardar (por ejemplo, `{**/*.{js,jsx,ts,tsx}}`).
+   - Aplica los cambios y cierra el cuadro de diálogo de configuración.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+¡Con estos pasos estarás listo para colaborar en nuestro proyecto de React! 🎉
