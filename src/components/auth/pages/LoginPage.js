@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./Login.css";
+import { FaRegEyeSlash } from "react-icons/fa";
+import { IoEyeOutline } from "react-icons/io5";
 
 const Login = ({ setToken, onRegister }) => {
   const [email, setEmail] = useState("");
@@ -21,6 +23,8 @@ const Login = ({ setToken, onRegister }) => {
       if (response.ok) {
         // Maneja la respuesta exitosa
         const data = await response.json();
+        console.log(data);
+        localStorage.setItem("role", data.roles);
         setToken(data.jwt);
       } else {
         // Maneja errores de autenticación
@@ -77,11 +81,11 @@ const Login = ({ setToken, onRegister }) => {
               >
                 {showPassword ? (
                   <span role="img" aria-label="Ocultar contraseña">
-                    👁️‍🗨️
+                    <FaRegEyeSlash />
                   </span>
                 ) : (
                   <span role="img" aria-label="Mostrar contraseña">
-                    👁️
+                    <IoEyeOutline />
                   </span>
                 )}
               </button>

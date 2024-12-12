@@ -17,10 +17,10 @@ const Home = () => {
   return (
     <div className={themeState.darkMode ? "dark-mode-title" : ""}>
       <h1 className={`title ${themeState.darkMode ? "dark-mode-title" : ""}`}>
-        Your Sales Manager App
+        Su aplicación de gerente de ventas
       </h1>
       <h2 className={themeState.darkMode ? "dark-subtitle" : ""}>
-        Invoice List:
+        Lista de facturas:
       </h2>
 
       {showInvoiceList ? <InvoiceList /> : null}

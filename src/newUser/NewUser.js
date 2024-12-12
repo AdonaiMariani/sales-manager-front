@@ -10,7 +10,7 @@ const NewUser = () => {
 
   return (
     <div className={`card ${themeState.darkMode ? "" : ""}`}>
-      <div className="card-header text-black">New User</div>
+      <div className="card-header text-black">Usuario Nuevo</div>
       <div className={`card-body ${themeState.darkMode ? "" : ""}`}>
         <form onSubmit={validateAndSubmit} className="border">
           <div className="form-group">
@@ -18,7 +18,7 @@ const NewUser = () => {
               className={themeState.darkMode ? "dark-mode-label" : ""}
               htmlFor="Name"
             >
-              Name
+              Nombre
             </label>
             <input
               type="text"
@@ -27,7 +27,7 @@ const NewUser = () => {
               className={`form-control ${themeState.darkMode ? "" : ""} ${
                 errors.Name ? "is-invalid" : ""
               }`}
-              placeholder="Insert Name"
+              placeholder="Agregar Nombre"
               aria-describedby="helpId"
               value={formDataRegister.Name}
               onChange={handleInputChange}
@@ -50,7 +50,7 @@ const NewUser = () => {
               className={`form-control ${themeState.darkMode ? "" : ""} ${
                 errors.Name ? "is-invalid" : ""
               }`}
-              placeholder="Insert Email"
+              placeholder="Agregar Email"
               aria-describedby="helpId"
               value={formDataRegister.Email}
               onChange={handleInputChange}
@@ -64,7 +64,7 @@ const NewUser = () => {
               className={themeState.darkMode ? "dark-mode-label" : ""}
               htmlFor="password"
             >
-              Password
+              Contraseña
             </label>
             <input
               type="text"
@@ -73,7 +73,7 @@ const NewUser = () => {
               className={`form-control ${themeState.darkMode ? "" : ""} ${
                 errors.Password ? "is-invalid" : ""
               }`}
-              placeholder="Insert Password"
+              placeholder="Agregar Password"
               aria-describedby="helpId"
               value={formDataRegister.Password}
               onChange={handleInputChange}
@@ -85,10 +85,10 @@ const NewUser = () => {
 
           <div className="btn-group" role="group" aria-label="">
             <button type="submit" className="btn btn-success">
-              Add New User
+              Agregar Usuario
             </button>
             <Link to={"/users"} className="btn btn-primary">
-              Cancel
+              Cancelar
             </Link>
           </div>
         </form>

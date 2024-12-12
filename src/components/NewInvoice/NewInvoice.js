@@ -10,13 +10,16 @@ const customerService = new CustomerService();
 const productService = new ProductService();
 const NewInvoice = () => {
   const currentDate = new Date();
-  const formattedDate = `${currentDate.getFullYear()}-${String(
-    currentDate.getMonth() + 1
-  ).padStart(2, "0")}-${String(currentDate.getDate()).padStart(2, "0")}`;
+  const fechaFormateada = `${currentDate
+    .getDate()
+    .toString()
+    .padStart(2, "0")}/${(currentDate.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}/${currentDate.getFullYear()}`;
   const { customers, setCustomers } = useContext(CustomerContext);
   const { products, setProducts } = useContext(ProductsContext);
   const navigate = useNavigate();
-  const [date, setDate] = useState(formattedDate);
+  const [date, setDate] = useState(fechaFormateada);
 
   const [customer, setCustomer] = useState("");
   const [productSearch, setProductSearch] = useState("");
@@ -55,7 +58,7 @@ const NewInvoice = () => {
     const invoiceToSend = {
       customerId: invoice.customerId,
       customerName,
-      date: invoice.date,
+      date,
       invoiceProducts: productsToSend,
     };
 

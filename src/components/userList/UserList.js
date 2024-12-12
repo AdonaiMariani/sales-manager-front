@@ -4,6 +4,8 @@ import "./UserList.css";
 import { useTheme } from "../../context/ThemeContext";
 import { UserContext } from "../../context/UserContext";
 import { UserService } from "../../services/UserService";
+import { FaRegEdit } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
 
 const userService = new UserService();
 
@@ -12,20 +14,13 @@ const UserList = () => {
   const { user, setUser, searchTerm, setSearchTerm, handleDeleteUser } =
     useContext(UserContext);
 
-  useEffect(() => {
-    userService
-      .getAllUsers()
-      .then((data) => setUser(data))
-      .catch((error) => console.error(error));
-  }, []);
-
   return (
     <div className={`card ${themeState.darkMode ? "" : ""}`}>
       <div className={`card-header ${themeState.darkMode ? "" : ""}`}>
         <h3 className="text-black">Users</h3>
         <div>
           <Link className="btn btn-success" to="/newUser">
-            New Product
+            Agregar Usuario
           </Link>
         </div>
       </div>
@@ -41,10 +36,10 @@ const UserList = () => {
           <thead>
             <tr>
               <th className="id-column">ID</th>
-              <th>Name</th>
+              <th>Nombre</th>
               <th>Email</th>
-              <th className="email-column">Role</th>
-              <th>Actions</th>
+              <th className="email-column">Rol</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -64,17 +59,15 @@ const UserList = () => {
                   <td>{user.email}</td>
                   <td className="email-column">{user.role}</td>
                   <td className="button-container">
-                    <Link
-                      className="btn btn-primary"
-                      to={`/customers/${user.id}`}
-                    >
-                      Edit
+                    <Link className="btn btn-edit" to={`/user/${user.id}`}>
+                      <FaRegEdit />
                     </Link>
+
                     <button
-                      className="btn btn-danger"
+                      className="btn btn-delete"
                       onClick={() => handleDeleteUser(user.id)}
                     >
-                      Delete
+                      <MdDeleteForever />
                     </button>
                   </td>
                 </tr>

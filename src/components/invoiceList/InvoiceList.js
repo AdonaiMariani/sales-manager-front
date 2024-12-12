@@ -44,9 +44,9 @@ const InvoiceList = () => {
   return (
     <div className="card">
       <div className="card-header d-flex justify-content-between">
-        <h3>Invoices</h3>
+        <h3>Facturas</h3>
         <Link className="btn btn-success" to="/newInvoice">
-          New Invoice
+          Agregar Factura
         </Link>
       </div>
       <div className="card-body">
@@ -54,16 +54,16 @@ const InvoiceList = () => {
           type="text"
           value={searchTerm}
           onChange={(event) => setSearchTerm(event.target.value)}
-          placeholder="Search..."
+          placeholder="Buscar..."
         />
         <table className="table">
           <thead>
             <tr>
               <th>ID</th>
-              <th>Date</th>
-              <th>Customer</th>
+              <th>Fecha</th>
+              <th>Cliente</th>
               <th>Total</th>
-              <th>Actions</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>

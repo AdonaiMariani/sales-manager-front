@@ -2,6 +2,9 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./Invoice.css";
 import CustomerContext from "../../context/CustomerContext";
+import { FaRegEdit } from "react-icons/fa";
+import { AiFillPrinter } from "react-icons/ai";
+import { MdDeleteForever } from "react-icons/md";
 
 const Invoice = ({ invoice, handleDeleteInvoice }) => {
   const { customers } = useContext(CustomerContext);
@@ -9,6 +12,8 @@ const Invoice = ({ invoice, handleDeleteInvoice }) => {
     return null;
   }
   const customerName = customers.find((c) => c.id === invoice.customerId)?.name;
+  console.log(customers);
+  console.log(customerName);
 
   return (
     <tr>
@@ -19,20 +24,17 @@ const Invoice = ({ invoice, handleDeleteInvoice }) => {
       <td>{customerName}</td>
       <td>${invoice.totalPrice}</td>
       <td className="button-container">
-        <Link className="btn btn-sm btn-primary" to={`/invoices/${invoice.id}`}>
-          Edit Invoice
+        <Link className="btn btn-edit" to={`/invoices/${invoice.id}`}>
+          <FaRegEdit />
         </Link>
-        <Link
-          className="btn btn-sm btn-secondary"
-          to={`/invoices/print/${invoice.id}`}
-        >
-          Print View
+        <Link className="btn btn-print" to={`/invoices/print/${invoice.id}`}>
+          <AiFillPrinter />
         </Link>
         <button
-          className="btn btn-sm btn-danger"
+          className="btn btn-delete"
           onClick={() => handleDeleteInvoice(invoice.id)}
         >
-          Delete Invoice
+          <MdDeleteForever />
         </button>
       </td>
     </tr>

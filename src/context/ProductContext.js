@@ -15,7 +15,7 @@ export function ProductsProvider({ children }) {
   });
   const [searchTerm, setSearchTerm] = useState("");
   const handleDeleteProduct = (productId) => {
-    if (window.confirm("Are you sure you want to delete this product?")) {
+    if (window.confirm("Estas seguro que quieres eliminar este producto?")) {
       productService
         .deleteProduct(productId)
         .then(() => {
@@ -44,10 +44,10 @@ export function ProductsProvider({ children }) {
     event.preventDefault();
 
     let tempErrors = {};
-    tempErrors.Name = formData.Name ? "" : "Name is required.";
-    tempErrors.Brand = formData.Brand ? "" : "Brand is required.";
-    tempErrors.Category = formData.Category ? "" : "Category is required.";
-    tempErrors.Price = formData.Price ? "" : "Price is required.";
+    tempErrors.Name = formData.Name ? "" : "Ingrese el Nombre.";
+    tempErrors.Brand = formData.Brand ? "" : "Ingrese la Marca";
+    tempErrors.Category = formData.Category ? "" : "Ingrese la Categoria";
+    tempErrors.Price = formData.Price ? "" : "Ingrese el precio";
     setErrors(tempErrors);
 
     if (Object.values(tempErrors).every((x) => x === "")) {
@@ -60,7 +60,7 @@ export function ProductsProvider({ children }) {
           price: formData.Price,
         })
         .then(() => {
-          alert("Product created successfully");
+          alert("Producto creado exitosamente");
           navigate("/products");
           setFormData({
             Id: "",

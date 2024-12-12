@@ -49,8 +49,8 @@ const EditProduct = () => {
       productService
         .updateProduct(id, product)
         .then(() => {
-          alert('Product updated successfully');
-          navigate('/products');
+          alert("Product updated successfully");
+          navigate("/products");
         })
         .catch((error) => console.error(error));
     }
@@ -70,12 +70,12 @@ const EditProduct = () => {
           themeState.darkMode ? "dark-mode" : ""
         } d-flex justify-content-between`}
       >
-        <h3>Edit Product</h3>
+        <h3>Editar Producto</h3>
         <button
           className="btn btn-secondary"
           onClick={() => navigate("/products")}
         >
-          Cancel
+          Cancelar
         </button>
       </div>
       <div className={`card-body ${themeState.darkMode ? "dark-mode" : ""}`}>
@@ -94,7 +94,7 @@ const EditProduct = () => {
           </div>
           <div className="form-group">
             <label className={themeState.darkMode ? "dark-mode" : ""}>
-              Name
+              Nombre
             </label>
             <input
               type="text"
@@ -108,7 +108,7 @@ const EditProduct = () => {
           </div>
           <div className="form-group">
             <label className={themeState.darkMode ? "dark-mode" : ""}>
-              Brand
+              Marca
             </label>
             <input
               type="text"
@@ -122,7 +122,7 @@ const EditProduct = () => {
           </div>
           <div className="form-group">
             <label className={themeState.darkMode ? "dark-mode" : ""}>
-              Category
+              Categoria
             </label>
             <input
               type="text"
@@ -136,7 +136,7 @@ const EditProduct = () => {
           </div>
           <div className="form-group">
             <label className={themeState.darkMode ? "dark-mode" : ""}>
-              Price
+              Precio
             </label>
             <input
               type="number"
@@ -153,7 +153,7 @@ const EditProduct = () => {
             className="btn btn-primary"
             disabled={!hasChanges()}
           >
-            Save
+            Guardar
           </button>
         </form>
       </div>

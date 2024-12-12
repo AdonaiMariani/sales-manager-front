@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { AuthService, UserService } from "../services/UserService";
 
 const userService = new UserService();
@@ -12,6 +12,16 @@ export function UsersProvider({ children }) {
   const [user, setUser] = useState([]);
 
   const [searchTerm, setSearchTerm] = useState("");
+  useEffect(() => {
+    userService
+      .getAllUsers()
+      .then((data) => {
+        setUser(data);
+        console.log(data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
   const handleDeleteUser = (userId) => {
     if (window.confirm("Estas seguro que quieres eliminar este usuario?")) {
       userService

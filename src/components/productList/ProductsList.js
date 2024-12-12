@@ -5,6 +5,8 @@ import { ProductService } from "../../services/ProductService";
 import "./ProductList.css";
 import { useTheme } from "../../context/ThemeContext";
 import { ProductsContext } from "../../context/ProductContext";
+import { FaRegEdit } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
 
 const productService = new ProductService();
 
@@ -28,10 +30,10 @@ const ProductList = () => {
   return (
     <div className={`card ${themeState.darkMode ? "" : ""}`}>
       <div className={`card-header ${themeState.darkMode ? "" : ""}`}>
-        <h3 className="text-black">Products</h3>
+        <h3 className="text-black">Productos</h3>
         <div>
           <Link className="btn btn-success" to="/newProduct">
-            New Product
+            Agregar Producto
           </Link>
         </div>
       </div>
@@ -40,18 +42,18 @@ const ProductList = () => {
           type="text"
           value={searchTerm}
           onChange={(event) => setSearchTerm(event.target.value)}
-          placeholder="Search..."
+          placeholder="Buscar..."
           className={`form-control ${themeState.darkMode ? "" : ""}`}
         />
         <table className="table">
           <thead>
             <tr>
               <th className="id-column">ID</th>
-              <th>Name</th>
-              <th>Brand</th>
-              <th>Category</th>
-              <th>Price</th>
-              <th>Actions</th>
+              <th>Nombre</th>
+              <th>Marca</th>
+              <th>Categoria</th>
+              <th>Precio</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -73,16 +75,17 @@ const ProductList = () => {
                   <td>{product.price}</td>
                   <td className="button-container">
                     <Link
-                      className="btn btn-primary"
+                      className="btn btn-edit"
                       to={`/products/${product.id}`}
                     >
-                      Edit
+                      <FaRegEdit />
                     </Link>
+
                     <button
-                      className="btn btn-danger"
+                      className="btn btn-delete"
                       onClick={() => handleDeleteProduct(product.id)}
                     >
-                      Delete
+                      <MdDeleteForever />
                     </button>
                   </td>
                 </tr>
@@ -90,7 +93,6 @@ const ProductList = () => {
           </tbody>
         </table>
       </div>
-      <div className="card-footer text-muted">Footer</div>
     </div>
   );
 };
